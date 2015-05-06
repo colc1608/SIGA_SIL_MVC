@@ -5,7 +5,7 @@
     <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="maximizable" type="boolean" value="true"/>
     <Property name="resizable" type="boolean" value="true"/>
-    <Property name="title" type="java.lang.String" value="Gestionar Especialidad - SIL"/>
+    <Property name="title" type="java.lang.String" value="Gestionar Especialidad - IEP San Ignacio de Loyola"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

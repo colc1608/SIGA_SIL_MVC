@@ -56,7 +56,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
-        setTitle("Gestionar Docente - SIL");
+        setTitle("Gestionar Docente - IEP San Ignacio de Loyola");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Docente");

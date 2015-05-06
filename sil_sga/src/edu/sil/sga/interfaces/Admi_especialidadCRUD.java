@@ -45,7 +45,7 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Gestionar Especialidad - SIL");
+        setTitle("Gestionar Especialidad - IEP San Ignacio de Loyola");
 
         panelEspecialidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Crear Especialidad"));
 
