@@ -9,12 +9,12 @@ package edu.sil.sga.interfaces;
  *
  * @author Cesar Lopez
  */
-public class ConsultarNota extends javax.swing.JInternalFrame {
+public class Alumno_consultarNota extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form ConsultarNota
      */
-    public ConsultarNota() {
+    public Alumno_consultarNota() {
         initComponents();
     }
 

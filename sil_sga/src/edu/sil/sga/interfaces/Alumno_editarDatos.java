@@ -9,12 +9,12 @@ package edu.sil.sga.interfaces;
  *
  * @author Cesar Lopez
  */
-public class EditarDatosAlumno extends javax.swing.JInternalFrame {
+public class Alumno_editarDatos extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form EditarDatosAlumno
      */
-    public EditarDatosAlumno() {
+    public Alumno_editarDatos() {
         initComponents();
     }
 

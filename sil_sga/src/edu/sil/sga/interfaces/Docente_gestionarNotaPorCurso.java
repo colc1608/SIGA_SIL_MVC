@@ -9,12 +9,12 @@ package edu.sil.sga.interfaces;
  *
  * @author Cesar Lopez
  */
-public class GestionarNotaPorCurso extends javax.swing.JInternalFrame {
+public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form GestionarNotaPorCurso
      */
-    public GestionarNotaPorCurso() {
+    public Docente_gestionarNotaPorCurso() {
         initComponents();
     }
 
