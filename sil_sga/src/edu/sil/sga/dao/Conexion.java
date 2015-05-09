@@ -7,6 +7,7 @@ package edu.sil.sga.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * SGA por las siglas de
@@ -24,7 +25,7 @@ public class Conexion {
     private static String port = "1521";
     private static String dbname = "DBSILSGA";
     
-    public static Connection getConnection()throws Exception{
+    public static Connection getConnection()throws SQLException{
         Connection con = null;
         
         try {

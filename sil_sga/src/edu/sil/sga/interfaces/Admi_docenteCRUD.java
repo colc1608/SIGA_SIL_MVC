@@ -5,6 +5,18 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.Conexion;
+import edu.sil.sga.dao.DocenteDAO;
+import edu.sil.sga.entidades.Docente;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cesar Lopez
@@ -14,9 +26,68 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_docenteCRUD
      */
+    
+    public List<Docente> listaDocente;
+    DefaultComboBoxModel Modelo2 = new DefaultComboBoxModel();
+    
     public Admi_docenteCRUD() {
         initComponents();
+        ListarDocente();
+        CargarEspecialidad();
     }
+    void CargarEspecialidad(){
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM Especialidad order by id asc");
+            ResultSet rst = pstm.executeQuery();
+            
+            cmbEspecialidad.setModel(Modelo2);
+            //cmbEspecialidad.addItem("[Seleccione]");//puede comentarse , OPCIONAL
+            while (rst.next()){
+                Modelo2.addElement(rst.getString(2));
+            }
+            /*
+            this.cmbEspecialidad.removeAllItems();
+            this.cmbEspecialidad.addItem("[Seleccione]");
+            while (rst.next()) {                
+                this.cmbEspecialidad.addItem(rst.getString(2));
+                System.out.println("se cargaron las caterogias correctamente al combo");
+            }*/
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
+            System.out.println("Error: Carga Categoria");
+        }
+   
+    }
+    
+    void ListarDocente(){
+        DocenteDAO dao = new DocenteDAO();
+        listaDocente = dao.ListarDocente();
+        
+        DefaultTableModel modelo1 = new DefaultTableModel();
+        modelo1.addColumn("Nombre");
+        modelo1.addColumn("Apellido Paterno");
+        modelo1.addColumn("Apellido Materno");
+        modelo1.addColumn("DNI");
+        modelo1.addColumn("Telefono");
+        modelo1.addColumn("Movil");
+        modelo1.addColumn("Email");
+        modelo1.addColumn("Especialidad");
+        for (Docente objDocente : listaDocente) {
+            modelo1.addRow(new String[]{
+            objDocente.getNombre()+"",
+            objDocente.getApellidopaterno()+"",
+            objDocente.getApellidomaterno()+"",
+            objDocente.getDni()+"",
+            objDocente.getTelefono()+"",
+            objDocente.getMovil()+"",
+            objDocente.getEmail()+"",
+            String.valueOf(objDocente.getEspecialidad().getDescripcion())
+            });
+        }
+        tablaListaDocente.setModel(modelo1);
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,11 +121,13 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jTextField9 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbEspecialidad = new javax.swing.JComboBox();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaListaDocente = new javax.swing.JTable();
 
         setTitle("Gestionar Docente - IEP San Ignacio de Loyola");
 
@@ -77,29 +150,47 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Telefono :");
 
-        jButton1.setText("Guardar");
+        jButton1.setText("Buscar");
         jButton1.setEnabled(false);
 
-        jButton2.setText("Buscar");
+        jButton2.setText("Eliminar");
 
         jButton3.setText("Nuevo");
 
-        jButton4.setText("Actualizar");
+        jButton4.setText("Guardar");
 
         jLabel11.setText("Email");
 
         jLabel12.setText("Movil: ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jTextField9.setEnabled(false);
+
+        cmbEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton5.setText("Actualizar");
+
+        jButton6.setText("Cancelar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton4)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton5)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton6))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
@@ -125,17 +216,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                             .addComponent(jTextField9)
                             .addComponent(jTextField8)
                             .addComponent(jTextField7)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(157, 157, 157)
-                        .addComponent(jButton3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +227,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel8)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,7 +255,9 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     .addComponent(jButton3)
                     .addComponent(jButton1)
                     .addComponent(jButton2)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(jButton5)
+                    .addComponent(jButton6))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -181,7 +265,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listar.png"))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaListaDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -192,28 +276,26 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaListaDocente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
-                .addContainerGap(20, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(311, 311, 311)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,9 +311,9 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         pack();
@@ -239,11 +321,13 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbEspecialidad;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -258,7 +342,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
@@ -267,5 +350,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tablaListaDocente;
     // End of variables declaration//GEN-END:variables
 }
