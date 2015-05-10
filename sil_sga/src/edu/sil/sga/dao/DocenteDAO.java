@@ -46,15 +46,16 @@ public class DocenteDAO {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,telefono=?,movil=?,email=?,idespecialidad=?" + "WHERE nombre=?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,telefono=?,movil=?,email=?,idespecialidad=?,nombre=?" + "WHERE id=?");
             pstm.setString(1, objDocente.getApellidopaterno());
             pstm.setString(2, objDocente.getApellidomaterno());
             pstm.setString(3, objDocente.getDni());
             pstm.setString(4, objDocente.getTelefono());
             pstm.setString(5, objDocente.getMovil());
             pstm.setString(6, objDocente.getEmail());
-            pstm.setInt(7, objDocente.getEspecialidad().getId());
+            pstm.setInt(7, objDocente.getEspecialidad().getId());//todo bien
             pstm.setString(8, objDocente.getNombre());
+            pstm.setInt(9, objDocente.getId());
             pstm.execute();
             pstm.close();
             con.close();
@@ -86,10 +87,11 @@ public class DocenteDAO {
         List<Docente> listarDocente = new ArrayList<>();
         try {
             Connection con  = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT d.nombre,d.apellidopaterno,d.apellidomaterno,d.dni,d.telefono,d.movil,d.email,e.descripcion FROM docente d INNER JOIN Especialidad e ON (d.IDESPECIALIDAD = e.ID)");
+            PreparedStatement pstm = con.prepareStatement("SELECT d.id, d.nombre,d.apellidopaterno,d.apellidomaterno,d.dni,d.telefono,d.movil,d.email,e.descripcion FROM docente d INNER JOIN Especialidad e ON (d.IDESPECIALIDAD = e.ID)");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {                
                 Docente d = new Docente();
+                d.setId(rst.getInt("id"));
                 d.setNombre(rst.getString("nombre"));
                 d.setApellidopaterno(rst.getString("apellidopaterno"));
                 d.setApellidomaterno(rst.getString("apellidomaterno"));

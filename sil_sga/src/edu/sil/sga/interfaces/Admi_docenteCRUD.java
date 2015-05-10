@@ -67,6 +67,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         listaDocente = dao.ListarDocente();
         
         DefaultTableModel modelo1 = new DefaultTableModel();
+        modelo1.addColumn("id");
         modelo1.addColumn("Nombre");
         modelo1.addColumn("Apellido Paterno");
         modelo1.addColumn("Apellido Materno");
@@ -77,6 +78,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         modelo1.addColumn("Especialidad");
         for (Docente objDocente : listaDocente) {
             modelo1.addRow(new String[]{
+            objDocente.getId()+"",
             objDocente.getNombre()+"",
             objDocente.getApellidopaterno()+"",
             objDocente.getApellidomaterno()+"",
@@ -126,6 +128,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         cboEspecialidad = new javax.swing.JComboBox();
         btnActualizar = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -155,8 +159,18 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         jButton1.setText("Buscar");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Nuevo");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -174,8 +188,17 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         cboEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         jButton6.setText("Cancelar");
+
+        jLabel13.setText("codigo");
+
+        txtCodigo.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,33 +225,39 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel13))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtapellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtnombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField9)
-                            .addComponent(txtEmail)
-                            .addComponent(txtMovil)
-                            .addComponent(cboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtapellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(txtDNI, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(txtTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                    .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE))
+                                .addGap(42, 42, 42)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField9)
+                                    .addComponent(txtEmail)
+                                    .addComponent(txtMovil)
+                                    .addComponent(cboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel13))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -282,6 +311,11 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaListaDocente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaListaDocenteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaListaDocente);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -289,7 +323,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(311, 311, 311)
+                .addGap(399, 399, 399)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -313,13 +347,13 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                         .addGap(70, 70, 70)
                         .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(29, 29, 29)
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(36, 36, 36)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
@@ -328,7 +362,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-        String categoria = (String) cboEspecialidad.getSelectedItem();
+        String espec = (String) cboEspecialidad.getSelectedItem();
         
         String nombre = txtnombre.getText();
         String apellidoPa = txtapellidoPaterno.getText();
@@ -340,7 +374,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         
         try{
             EspecialidadDAO dao = new EspecialidadDAO();
-            rst1 = dao.ObtenerCodigoEspecialidad(categoria);
+            rst1 = dao.ObtenerCodigoEspecialidad(espec);
             if(rst1.next()){
                 System.out.println("el valor del rst1 en JIF docente CRUD es : "+rst1);
                 Docente objDocente = new Docente();
@@ -372,6 +406,109 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        String espec = (String) cboEspecialidad.getSelectedItem();
+        
+        String id = txtCodigo.getText();
+        String nombre = txtnombre.getText();
+        String apellidoPa = txtapellidoPaterno.getText();
+        String apellidoMa = txtApellidoMaterno.getText();
+        String dni = txtDNI.getText();
+        String telefono = txtTelefono.getText();
+        String movil = txtMovil.getText();
+        String email = txtEmail.getText();
+        
+        try{
+            EspecialidadDAO dao = new EspecialidadDAO();
+            rst1 = dao.ObtenerCodigoEspecialidad(espec);
+            if(rst1.next()){
+                System.out.println("el valor del rst1 en JIF docente CRUD es : "+rst1);
+                Docente objDocente = new Docente();
+                //
+                Especialidad objespecialidad = new Especialidad();
+                objespecialidad.setId(rst1.getInt(1));
+                objDocente.setEspecialidad(objespecialidad);
+                //
+                objDocente.setId(Integer.parseInt(id));
+                objDocente.setNombre(nombre);
+                objDocente.setNombre(nombre);
+                objDocente.setApellidopaterno(apellidoPa);
+                objDocente.setApellidomaterno(apellidoMa);
+                objDocente.setDni(dni);
+                objDocente.setTelefono(telefono);
+                objDocente.setMovil(movil);
+                objDocente.setEmail(email);
+                DocenteDAO dao2 = new DocenteDAO();
+                
+                if (dao2.ActualizarDocente(objDocente)) {
+                    JOptionPane.showMessageDialog(this, "Se Actualizo correctamente");
+                    ListarDocente();
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se puede registrar");
+                }
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
+            System.out.println("Error: Obtener codigo ESPECIALIDAD ");
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tablaListaDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaDocenteMouseClicked
+        // TODO add your handling code here:
+        int fila = tablaListaDocente.getSelectedRow();
+        String id = tablaListaDocente.getValueAt(fila, 0).toString();
+        String nomb = tablaListaDocente.getValueAt(fila, 1).toString();
+        String apePater = tablaListaDocente.getValueAt(fila, 2).toString();
+        String apeMater = tablaListaDocente.getValueAt(fila, 3).toString();
+        String dni = tablaListaDocente.getValueAt(fila, 4).toString();
+        String telef = tablaListaDocente.getValueAt(fila, 5).toString();
+        String movil = tablaListaDocente.getValueAt(fila, 6).toString();
+        String email = tablaListaDocente.getValueAt(fila, 7).toString();
+        String espec = tablaListaDocente.getValueAt(fila, 8).toString();
+        
+        txtCodigo.setText(id);
+        txtnombre.setText(nomb);
+        txtapellidoPaterno.setText(apePater);
+        txtApellidoMaterno.setText(apeMater);
+        txtDNI.setText(dni);
+        txtTelefono.setText(telef);
+        txtMovil.setText(movil);
+        txtEmail.setText(email);
+        cboEspecialidad.setSelectedItem(espec);
+    }//GEN-LAST:event_tablaListaDocenteMouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        txtCodigo.setText("");
+        txtnombre.setText("");
+        txtapellidoPaterno.setText("");
+        txtApellidoMaterno.setText("");
+        txtDNI.setText("");
+        txtTelefono.setText("");
+        txtMovil.setText("");
+        txtEmail.setText("");
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        String codigo = txtCodigo.getText();
+        if(codigo.equals("")){
+            JOptionPane.showMessageDialog(this, "No ha seleccionado un registro para eliminar.");
+        }else{
+            Docente objDocente = new Docente();
+            objDocente.setId(Integer.parseInt(codigo));
+            DocenteDAO dao = new DocenteDAO();
+            if (dao.EliminarDocente(objDocente)) {
+                JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+            ListarDocente();
+            }else{
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+            }
+        }
+        
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -385,6 +522,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -398,6 +536,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTable tablaListaDocente;
     private javax.swing.JTextField txtApellidoMaterno;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMovil;

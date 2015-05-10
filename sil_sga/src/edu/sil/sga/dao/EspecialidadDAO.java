@@ -76,7 +76,7 @@ public class EspecialidadDAO {
             Connection con = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement("SELECT * FROM Especialidad");
             ResultSet rst = pstm.executeQuery();
-            while (rst.next()) {                
+            while (rst.next()) {
                 listarEspecialidad.add(new Especialidad(rst.getInt("id"),rst.getString("descripcion")));
             }
             pstm.close();

@@ -288,10 +288,10 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         if(descripcion.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "debe ingresar una descripcion");
         }else{
-            Especialidad especialidad = new Especialidad();
-            especialidad.setDescripcion(descripcion);
+            Especialidad objEspecialidad = new Especialidad();
+            objEspecialidad.setDescripcion(descripcion);
             EspecialidadDAO dao = new EspecialidadDAO();
-            if (dao.RegistrarEspecialidad(especialidad)) {
+            if (dao.RegistrarEspecialidad(objEspecialidad)) {
                 JOptionPane.showMessageDialog(this, "Se registro correctamente");
             ListarEspecialidad();
             }else{
@@ -308,11 +308,11 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         if(codigo.equalsIgnoreCase("") && descripcion.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "debe seleccionar un registro");
         }else{
-            Especialidad especialidad = new Especialidad();
-            especialidad.setId(Integer.parseInt(txtcodigo.getText()));
-            especialidad.setDescripcion(txtdescripcion.getText());
+            Especialidad objEspecialidad = new Especialidad();
+            objEspecialidad.setId(Integer.parseInt(txtcodigo.getText()));
+            objEspecialidad.setDescripcion(txtdescripcion.getText());
             EspecialidadDAO dao = new EspecialidadDAO();
-            if (dao.ActualizarEspecialidad(especialidad)) {
+            if (dao.ActualizarEspecialidad(objEspecialidad)) {
                 JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
             ListarEspecialidad();
             }else{
