@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import edu.sil.sga.entidades.Especialidad;
+import java.sql.SQLException;
 /**
  *
  * @author Cesar Lopez
@@ -85,6 +86,19 @@ public class EspecialidadDAO {
             e.printStackTrace();
         }
         return listarEspecialidad;
+    }
+    
+    public ResultSet ObtenerCodigoEspecialidad( String desc)throws Exception{
+        ResultSet rst = null;
+        try{
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("select id from Especialidad  where descripcion = '"+desc+"'");
+            rst = pstm.executeQuery();
+        }catch(Exception e){
+            System.out.println("error en OBTENER codigo ID de especialidad");
+            e.printStackTrace();
+        }
+        return rst;
     }
     
     public Especialidad BuscarEspecialidad(int id){
