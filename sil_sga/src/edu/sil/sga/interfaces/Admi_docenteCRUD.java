@@ -35,10 +35,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     public Admi_docenteCRUD() {
         initComponents();
         
-        setLocation(300,200);
+        setLocation(300,100);
         setSize(760, 480); // X , Y
-        
-        ListarDocente();
         CargarEspecialidad();
     }
     void CargarEspecialidad(){
@@ -67,6 +65,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     }
     
     void ListarDocente(){
+        this.setSize(760, 800);
         DocenteDAO dao = new DocenteDAO();
         listaDocente = dao.ListarDocente();
         
@@ -305,8 +304,18 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         );
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Upload.png"))); // NOI18N
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listar.png"))); // NOI18N
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         tablaListaDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -516,6 +525,16 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        ListarDocente();
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        setSize(760, 480);
+    }//GEN-LAST:event_jLabel9MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
