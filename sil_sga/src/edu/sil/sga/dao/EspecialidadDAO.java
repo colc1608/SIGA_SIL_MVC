@@ -18,7 +18,7 @@ import java.sql.SQLException;
  */
 public class EspecialidadDAO {
     
-    public boolean RegistrarEspecialidad(Especialidad objEspecialidad){
+    public boolean RegistrarEspecialidad(Especialidad objEspecialidad)throws SQLException{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -29,13 +29,13 @@ public class EspecialidadDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error en registrar especialidad");
+            System.out.println("error --> DAO registrar especialidad");
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public boolean ActualizarEspecialidad(Especialidad objEspecialidad){
+    public boolean ActualizarEspecialidad(Especialidad objEspecialidad)throws SQLException{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -47,13 +47,13 @@ public class EspecialidadDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error en actualizar especialidad");
+            System.out.println("error --> DAO actualizar especialidad");
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public boolean EliminarEspecialidad(Especialidad objEspecialidad){
+    public boolean EliminarEspecialidad(Especialidad objEspecialidad)throws SQLException{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -64,7 +64,7 @@ public class EspecialidadDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error en eliminar especialidad");
+            System.out.println("error --> DAO eliminar especialidad ");
             e.printStackTrace();
         }
         return retornar;
@@ -74,7 +74,7 @@ public class EspecialidadDAO {
         List<Especialidad> listarEspecialidad = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM Especialidad");
+            PreparedStatement pstm = con.prepareStatement("SELECT * FROM Especialidad order by descripcion asc");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 listarEspecialidad.add(new Especialidad(rst.getInt("id"),rst.getString("descripcion")));
@@ -82,13 +82,14 @@ public class EspecialidadDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
-            System.out.println("error en listar especialidad");
+            System.out.println("error --> DAO listar especialidad ");
             e.printStackTrace();
         }
         return listarEspecialidad;
     }
     
-    public ResultSet ObtenerCodigoEspecialidad( String desc)throws Exception{
+    
+    public ResultSet ObtenerCodigoEspecialidad(String desc)throws SQLException{
         ResultSet rst = null;
         try{
             Connection con = Conexion.getConnection();
@@ -101,7 +102,8 @@ public class EspecialidadDAO {
         return rst;
     }
     
-    public Especialidad BuscarEspecialidad(int id){
+    
+    public Especialidad BuscarEspecialidad(int id)throws SQLException{
         Especialidad objEspecialidad = null;
         try {
             Connection con = Conexion.getConnection();

@@ -28,36 +28,37 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_docenteCRUD
      */
-    static ResultSet rst1 = null;
     public List<Docente> listaDocente;
-    DefaultComboBoxModel Modelo2 = new DefaultComboBoxModel();
+    public List<Especialidad> listaEspecialidad;
     
     public Admi_docenteCRUD() {
         initComponents();
         
         setLocation(300,100);
-        setSize(760, 480); // X , Y
+        setSize(820, 500); // X , Y
         CargarEspecialidad();
+        activaBotones(true, true, false, false, false);
     }
+    
+    
+    void activaBotones(boolean a, boolean b, boolean c, boolean d, boolean e){
+        btnBuscar.setEnabled(a);
+        btnNuevo.setEnabled(b);
+        btnGuardar.setEnabled(c);
+        btnActualizar.setEnabled(d);
+        btnEliminar.setEnabled(e);
+        
+    }
+    
     void CargarEspecialidad(){
         try {
-            Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM Especialidad order by id asc");
-            ResultSet rst = pstm.executeQuery();
-            
-            cboEspecialidad.setModel(Modelo2);
-            //cmbEspecialidad.addItem("[Seleccione]");//puede comentarse , OPCIONAL
-            while (rst.next() ){
-                Modelo2.addElement(rst.getString(2));
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            listaEspecialidad = new EspecialidadDAO().ListarEspecialidad();
+            for (Especialidad objEspecialidad : listaEspecialidad) {
+                model.addElement(objEspecialidad.getDescripcion());
             }
-            /*
-            this.cmbEspecialidad.removeAllItems();
-            this.cmbEspecialidad.addItem("[Seleccione]");
-            while (rst.next()) {                
-                this.cmbEspecialidad.addItem(rst.getString(2));
-                System.out.println("se cargaron las caterogias correctamente al combo");
-            }*/
-        } catch (SQLException e) {
+            cboEspecialidad.setModel(model);
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
             System.out.println("Error: Carga Categoria");
         }
@@ -65,7 +66,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     }
     
     void ListarDocente(){
-        this.setSize(760, 800);
+        this.setSize(820, 800);
         DocenteDAO dao = new DocenteDAO();
         listaDocente = dao.ListarDocente();
         
@@ -104,6 +105,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtTelefono.setText("");
         txtMovil.setText("");
         txtEmail.setText("");
+        txtFechaNacimiento.setText("");
     }
     
 
@@ -131,20 +133,20 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         txtEmail = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
+        txtFechaNacimiento = new javax.swing.JTextField();
         cboEspecialidad = new javax.swing.JComboBox();
         btnActualizar = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblSubir = new javax.swing.JLabel();
+        lblListarDocente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaListaDocente = new javax.swing.JTable();
 
@@ -153,9 +155,11 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Gestionar Docente - IEP San Ignacio de Loyola");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Docente");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
 
@@ -173,7 +177,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Telefono :");
 
-        jButton1.setText("Buscar");
+        btnBuscar.setText("Buscar");
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -182,10 +186,10 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton3.setText("Nuevo");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnNuevoActionPerformed(evt);
             }
         });
 
@@ -200,7 +204,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
         jLabel12.setText("Movil: ");
 
-        jTextField9.setEnabled(false);
+        txtFechaNacimiento.setEnabled(false);
 
         cboEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -245,18 +249,18 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                             .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField9)
+                            .addComponent(txtFechaNacimiento)
                             .addComponent(txtEmail)
                             .addComponent(txtMovil)
                             .addComponent(cboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(62, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addComponent(btnBuscar)
+                .addGap(35, 35, 35)
+                .addComponent(btnNuevo)
+                .addGap(36, 36, 36)
                 .addComponent(btnGuardar)
                 .addGap(18, 18, 18)
                 .addComponent(btnActualizar)
@@ -279,7 +283,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtapellidoPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
@@ -300,27 +304,31 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6))
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1)
+                    .addComponent(btnNuevo)
+                    .addComponent(btnBuscar)
                     .addComponent(btnEliminar)
                     .addComponent(btnGuardar)
                     .addComponent(btnActualizar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Upload.png"))); // NOI18N
-        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel9MouseClicked(evt);
-            }
-        });
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, -1, -1));
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listar.png"))); // NOI18N
-        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblSubir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Upload.png"))); // NOI18N
+        lblSubir.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel10MouseClicked(evt);
+                lblSubirMouseClicked(evt);
             }
         });
+        getContentPane().add(lblSubir, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 100, -1, 70));
+
+        lblListarDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listar.png"))); // NOI18N
+        lblListarDocente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblListarDocenteMouseClicked(evt);
+            }
+        });
+        getContentPane().add(lblListarDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 260, -1, 70));
 
         tablaListaDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -340,50 +348,14 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tablaListaDocente);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel9))
-                .addContainerGap(12, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(295, 295, 295)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(103, 103, 103)
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
-        );
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 490, 637, 158));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String espec = (String) cboEspecialidad.getSelectedItem();
+        
         String nombre = txtnombre.getText();
         String apellidoPa = txtapellidoPaterno.getText();
         String apellidoMa = txtApellidoMaterno.getText();
@@ -393,41 +365,34 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         String email = txtEmail.getText();
         
         if(nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("") 
-           && apellidoMa.equalsIgnoreCase("")|| dni.equalsIgnoreCase("")){
-            
+           && apellidoMa.equalsIgnoreCase("")|| dni.equalsIgnoreCase(""))
             JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*)");
-            
-        }else{
+        else{
             try{
-                EspecialidadDAO dao = new EspecialidadDAO();
-                rst1 = dao.ObtenerCodigoEspecialidad(espec);
-                if(rst1.next()){
-                    System.out.println("JIF, Guardar() -> rst1 -> idEspecialidad -> "+rst1.getString(1));
-                    Docente objDocente = new Docente();
-                    //
-                    Especialidad objespecialidad = new Especialidad();
-                    objespecialidad.setId(rst1.getInt(1));
-                    objDocente.setEspecialidad(objespecialidad);
-                    //
-                    objDocente.setNombre(nombre);
-                    objDocente.setApellidopaterno(apellidoPa);
-                    objDocente.setApellidomaterno(apellidoMa);
-                    objDocente.setDni(dni);
-                    objDocente.setTelefono(telefono);
-                    objDocente.setMovil(movil);
-                    objDocente.setEmail(email);
-                    DocenteDAO dao2 = new DocenteDAO();
-
-                    if (dao2.RegistrarDocente(objDocente)) {
-                        JOptionPane.showMessageDialog(this, "Se registro correctamente");
-                        ListarDocente();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "No se puede registrar");
-                    }
+                Docente objDocente = new Docente();
+                int posicionComboSeleccionado = cboEspecialidad.getSelectedIndex();
+                Especialidad objEspecialidadSeleccionada = listaEspecialidad.get(posicionComboSeleccionado);
+                objDocente.setEspecialidad(objEspecialidadSeleccionada);
+                objDocente.setNombre(nombre);
+                objDocente.setApellidopaterno(apellidoPa);
+                objDocente.setApellidomaterno(apellidoMa);
+                objDocente.setDni(dni);
+                objDocente.setTelefono(telefono);
+                objDocente.setMovil(movil);
+                objDocente.setEmail(email);
+                
+                DocenteDAO dao = new DocenteDAO();
+                if (dao.RegistrarDocente(objDocente)) {
+                    JOptionPane.showMessageDialog(this, "Se registro correctamente al docente :) ");
+                    ListarDocente();
+                    limpiarCajas();
+                    activaBotones(true, true, false, false, false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
             }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
-                System.out.println("Error: Obtener codigo ESPECIALIDAD ");
+                JOptionPane.showMessageDialog(null, "No pudimos agregar al nuevo docente :( " + e.getMessage());
+                
             }
         }
         
@@ -436,7 +401,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        String espec = (String) cboEspecialidad.getSelectedItem();
         
         String id = txtCodigo.getText();
         String nombre = txtnombre.getText();
@@ -446,6 +410,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         String movil = txtMovil.getText();
         String email = txtEmail.getText();
+        
         if(nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("") 
            && apellidoMa.equalsIgnoreCase("")|| dni.equalsIgnoreCase("")|| id.equalsIgnoreCase("") ){
             
@@ -453,38 +418,29 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             
         }else{
             try{
-                EspecialidadDAO dao = new EspecialidadDAO();
-                rst1 = dao.ObtenerCodigoEspecialidad(espec);
-                if(rst1.next()){
-                    System.out.println("el valor del rst1 en JIF docente CRUD es : "+rst1);
-                    Docente objDocente = new Docente();
-                    //
-                    Especialidad objespecialidad = new Especialidad();
-                    objespecialidad.setId(rst1.getInt(1));
-                    objDocente.setEspecialidad(objespecialidad);
-                    //
-                    objDocente.setId(Integer.parseInt(id));
-                    objDocente.setNombre(nombre);
-                    objDocente.setNombre(nombre);
-                    objDocente.setApellidopaterno(apellidoPa);
-                    objDocente.setApellidomaterno(apellidoMa);
-                    objDocente.setDni(dni);
-                    objDocente.setTelefono(telefono);
-                    objDocente.setMovil(movil);
-                    objDocente.setEmail(email);
-                    DocenteDAO dao2 = new DocenteDAO();
-
-                    if (dao2.ActualizarDocente(objDocente)) {
-                        JOptionPane.showMessageDialog(this, "Se Actualizo correctamente");
-                        ListarDocente();
-                        limpiarCajas();
-                    }else{
-                        JOptionPane.showMessageDialog(this, "No se puede Actualizar");
-                    }
+                Docente objDocente = new Docente();
+                objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
+                objDocente.setId(Integer.parseInt(id));
+                objDocente.setNombre(nombre);
+                objDocente.setNombre(nombre);
+                objDocente.setApellidopaterno(apellidoPa);
+                objDocente.setApellidomaterno(apellidoMa);
+                objDocente.setDni(dni);
+                objDocente.setTelefono(telefono);
+                objDocente.setMovil(movil);
+                objDocente.setEmail(email);
+                
+                DocenteDAO dao = new DocenteDAO();
+                if (dao.ActualizarDocente(objDocente)) {
+                    JOptionPane.showMessageDialog(this, "Se Actualizo correctamente los datos del Docente ");
+                    ListarDocente();
+                    limpiarCajas();
+                    activaBotones(true, true, false, false, false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
             }catch (Exception e){
-                JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
-                System.out.println("Error: Obtener codigo ESPECIALIDAD ");
+                JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del docente :(" + e.getMessage());
             }
         }
         
@@ -512,26 +468,39 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtMovil.setText(movil);
         txtEmail.setText(email);
         cboEspecialidad.setSelectedItem(espec);
+        
+        btnNuevo.setText("Nuevo");
+        activaBotones(true, true , false, true, true);
     }//GEN-LAST:event_tablaListaDocenteMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        
         limpiarCajas();
-    }//GEN-LAST:event_jButton3ActionPerformed
+        if(btnNuevo.getText().equals("Nuevo")){
+            limpiarCajas();
+            activaBotones(false, true, true, false, false);
+            btnNuevo.setText("Cancelar");
+        }else{
+            activaBotones(true, true, false, false, false);
+            btnNuevo.setText("Nuevo");
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        String codigo = txtCodigo.getText();
-        if(codigo.equals("")){
+        
+        if(txtCodigo.getText().equals("")){
             JOptionPane.showMessageDialog(this, "No ha seleccionado un registro para eliminar.");
         }else{
             Docente objDocente = new Docente();
-            objDocente.setId(Integer.parseInt(codigo));
+            objDocente.setId(Integer.parseInt(txtCodigo.getText()));
             DocenteDAO dao = new DocenteDAO();
             if (dao.EliminarDocente(objDocente)) {
                 JOptionPane.showMessageDialog(this, "Se elimino correctamente");
                 ListarDocente();
                 limpiarCajas();
+                activaBotones(true, true, false, false, false);
             }else{
                 JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
             }
@@ -539,26 +508,25 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+    private void lblListarDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListarDocenteMouseClicked
         // TODO add your handling code here:
         ListarDocente();
-    }//GEN-LAST:event_jLabel10MouseClicked
+    }//GEN-LAST:event_lblListarDocenteMouseClicked
 
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+    private void lblSubirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSubirMouseClicked
         // TODO add your handling code here:
-        setSize(760, 480);
-    }//GEN-LAST:event_jLabel9MouseClicked
+        setSize(820, 500);
+    }//GEN-LAST:event_lblSubirMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox cboEspecialidad;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -569,15 +537,16 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lblListarDocente;
+    private javax.swing.JLabel lblSubir;
     private javax.swing.JTable tablaListaDocente;
     private javax.swing.JTextField txtApellidoMaterno;
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtMovil;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtapellidoPaterno;

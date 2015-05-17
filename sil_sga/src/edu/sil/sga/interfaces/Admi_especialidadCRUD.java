@@ -263,7 +263,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
     private void tablaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaMouseClicked
         // TODO add your handling code here:
         
-        
         int fila = tablaLista.getSelectedRow();
         String codigo = tablaLista.getValueAt(fila, 0).toString();
         String descripcion = tablaLista.getValueAt(fila, 1).toString();
@@ -271,7 +270,9 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             descripcion = "";
         txtdescripcion.setText(descripcion);
         txtcodigo.setText(codigo);
+        
         btnNuevo.setText("Nuevo");
+        
         activaBotones(true, false, true, true);
     }//GEN-LAST:event_tablaListaMouseClicked
 
@@ -297,19 +298,24 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         if(descripcion.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR", JOptionPane.ERROR_MESSAGE);
         }else{
-            Especialidad objEspecialidad = new Especialidad();
-            objEspecialidad.setDescripcion(descripcion);
-            EspecialidadDAO dao = new EspecialidadDAO();
-            if (dao.RegistrarEspecialidad(objEspecialidad)) {
-                JOptionPane.showMessageDialog(null, "Se registro correctamente", "CORRECTO", JOptionPane.INFORMATION_MESSAGE);
-                JOptionPane.showMessageDialog(this, "Se registro correctamente");
-                activaBotones(true, false, false, false);
-                btnNuevo.setText("Nuevo");
-                limpiarCajas();
-            ListarEspecialidad();
-            }else{
-                JOptionPane.showMessageDialog(this, "No se puede registrar");
+            try{
+                Especialidad objEspecialidad = new Especialidad();
+                objEspecialidad.setDescripcion(descripcion);
+                EspecialidadDAO dao = new EspecialidadDAO();
+                if (dao.RegistrarEspecialidad(objEspecialidad)) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente", "CORRECTO", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Se registro correctamente");
+                    activaBotones(true, false, false, false);
+                    btnNuevo.setText("Nuevo");
+                    limpiarCajas();
+                ListarEspecialidad();
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se puede registrar");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
+            
         }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -321,19 +327,22 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         if(codigo.equalsIgnoreCase("") && descripcion.equalsIgnoreCase("")){
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
         }else{
-            Especialidad objEspecialidad = new Especialidad();
-            objEspecialidad.setId(Integer.parseInt(txtcodigo.getText()));
-            objEspecialidad.setDescripcion(txtdescripcion.getText());
-            EspecialidadDAO dao = new EspecialidadDAO();
-            if (dao.ActualizarEspecialidad(objEspecialidad)) {
-                JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
-                txtcodigo.setText("");
-                limpiarCajas();
-                activaBotones(true, false, false, false);
-            ListarEspecialidad();
-            }else{
-                //JOptionPane.showMessageDialog(this, "No se puede registrar");
-                JOptionPane.showMessageDialog(null, "No se puedo registrar su especialidad :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+            try{
+                Especialidad objEspecialidad = new Especialidad();
+                objEspecialidad.setId(Integer.parseInt(txtcodigo.getText()));
+                objEspecialidad.setDescripcion(txtdescripcion.getText());
+                EspecialidadDAO dao = new EspecialidadDAO();
+                if (dao.ActualizarEspecialidad(objEspecialidad)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
+                    txtcodigo.setText("");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                ListarEspecialidad();
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se puedo registrar su especialidad :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
         
@@ -347,17 +356,21 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         if(txtcodigo.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
         }else{
-            Especialidad especialidad = new Especialidad();
-            especialidad.setId(Integer.parseInt(txtcodigo.getText()));
-            especialidad.setDescripcion(txtdescripcion.getText());
-            EspecialidadDAO dao = new EspecialidadDAO();
-            if (dao.EliminarEspecialidad(especialidad)) {
-                JOptionPane.showMessageDialog(this, "Se elimino correctamente");
-                limpiarCajas();
-                activaBotones(true, false, false, false);
-            ListarEspecialidad();
-            }else{
-                JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+            try{
+                Especialidad especialidad = new Especialidad();
+                especialidad.setId(Integer.parseInt(txtcodigo.getText()));
+                especialidad.setDescripcion(txtdescripcion.getText());
+                EspecialidadDAO dao = new EspecialidadDAO();
+                if (dao.EliminarEspecialidad(especialidad)) {
+                    JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                ListarEspecialidad();
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
