@@ -25,18 +25,29 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
     public  Especialidad objEspecialidad;
     
     public Admi_especialidadCRUD() {
-        initComponents();
         
-        setSize(570, 380); // X , Y
-        setLocation(350,220);
-        //btnGuardar.enable(false);
-        //btnActualizar.enable(false);
-        //btnCancelar.enable(false);
+        initComponents();
+        setSize(600, 350); // X , Y
+        setLocation(350,200);
+        activaBotones(true,false,false,false);
+        //txtcodigo.setVisible(false);
 
     }
     
+    void limpiarCajas(){
+        txtcodigo.setText("");
+        txtdescripcion.setText("");
+    }
+    
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d){
+        btnNuevo.setEnabled(a);
+        btnGuardar.setEnabled(b);
+        btnActualizar.setEnabled(c);
+        btnEliminar.setEnabled(d);
+    };
+    
     public void ListarEspecialidad(){
-        this.setSize(570, 600);
+        this.setSize(600, 600);
         EspecialidadDAO dao = new EspecialidadDAO();
         listaEspecialidad = dao.ListarEspecialidad();
         
@@ -243,7 +254,7 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(62, 62, 62)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -251,6 +262,8 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
 
     private void tablaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaMouseClicked
         // TODO add your handling code here:
+        
+        
         int fila = tablaLista.getSelectedRow();
         String codigo = tablaLista.getValueAt(fila, 0).toString();
         String descripcion = tablaLista.getValueAt(fila, 1).toString();
@@ -258,12 +271,23 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             descripcion = "";
         txtdescripcion.setText(descripcion);
         txtcodigo.setText(codigo);
+        btnNuevo.setText("Nuevo");
+        activaBotones(true, false, true, true);
     }//GEN-LAST:event_tablaListaMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         txtcodigo.setText("");
         txtdescripcion.setText("");
+        if(btnNuevo.getText().equals("Nuevo")){
+            txtcodigo.setText("");
+            txtdescripcion.setText("");
+            activaBotones(true, true, false, false);
+            btnNuevo.setText("Cancelar");
+        }else{
+            activaBotones(true, false, false, false);
+            btnNuevo.setText("Nuevo");
+        }
         
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -271,13 +295,17 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         String descripcion = txtdescripcion.getText();
         if(descripcion.equalsIgnoreCase("")){
-            JOptionPane.showMessageDialog(this, "debe ingresar una descripcion");
+            JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR", JOptionPane.ERROR_MESSAGE);
         }else{
             Especialidad objEspecialidad = new Especialidad();
             objEspecialidad.setDescripcion(descripcion);
             EspecialidadDAO dao = new EspecialidadDAO();
             if (dao.RegistrarEspecialidad(objEspecialidad)) {
+                JOptionPane.showMessageDialog(null, "Se registro correctamente", "CORRECTO", JOptionPane.INFORMATION_MESSAGE);
                 JOptionPane.showMessageDialog(this, "Se registro correctamente");
+                activaBotones(true, false, false, false);
+                btnNuevo.setText("Nuevo");
+                limpiarCajas();
             ListarEspecialidad();
             }else{
                 JOptionPane.showMessageDialog(this, "No se puede registrar");
@@ -291,7 +319,7 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         String codigo = txtcodigo.getText();
         String descripcion = txtdescripcion.getText();
         if(codigo.equalsIgnoreCase("") && descripcion.equalsIgnoreCase("")){
-            JOptionPane.showMessageDialog(this, "debe seleccionar un registro");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
         }else{
             Especialidad objEspecialidad = new Especialidad();
             objEspecialidad.setId(Integer.parseInt(txtcodigo.getText()));
@@ -299,9 +327,13 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             EspecialidadDAO dao = new EspecialidadDAO();
             if (dao.ActualizarEspecialidad(objEspecialidad)) {
                 JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
+                txtcodigo.setText("");
+                limpiarCajas();
+                activaBotones(true, false, false, false);
             ListarEspecialidad();
             }else{
-                JOptionPane.showMessageDialog(this, "No se puede registrar");
+                //JOptionPane.showMessageDialog(this, "No se puede registrar");
+                JOptionPane.showMessageDialog(null, "No se puedo registrar su especialidad :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
         
@@ -311,16 +343,18 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        String codigo = txtcodigo.getText();
-        if(codigo.equals("")){
-            JOptionPane.showMessageDialog(this, "No ha seleccionado registro para eliminar.");
+        
+        if(txtcodigo.getText().equals("")){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
         }else{
             Especialidad especialidad = new Especialidad();
-            especialidad.setId(Integer.parseInt(codigo));
+            especialidad.setId(Integer.parseInt(txtcodigo.getText()));
             especialidad.setDescripcion(txtdescripcion.getText());
             EspecialidadDAO dao = new EspecialidadDAO();
             if (dao.EliminarEspecialidad(especialidad)) {
                 JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                limpiarCajas();
+                activaBotones(true, false, false, false);
             ListarEspecialidad();
             }else{
                 JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
@@ -336,7 +370,7 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         // TODO add your handling code here:
-        setSize(570, 340);
+        setSize(600, 350); // X , Y
     }//GEN-LAST:event_jLabel4MouseClicked
 
 
