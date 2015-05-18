@@ -73,23 +73,24 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         
         DefaultTableModel modelo1 = new DefaultTableModel();
         
+        modelo1.addColumn("id");
         
-        modelo1.addColumn("DNI");
         modelo1.addColumn("Nombre");
         
-        modelo1.addColumn("id");
         modelo1.addColumn("Apellido Paterno");
         modelo1.addColumn("Apellido Materno");
+        modelo1.addColumn("DNI");
         modelo1.addColumn("Telefono");
         modelo1.addColumn("Movil");
         modelo1.addColumn("Email");
         modelo1.addColumn("Especialidad");
         
+        
+        
         for (Docente objDocente : listaDocente) {
             modelo1.addRow(new String[]{
             
             objDocente.getId()+"",
-            
             objDocente.getNombre()+"",
             objDocente.getApellidopaterno()+"",
             objDocente.getApellidomaterno()+"",
@@ -101,6 +102,44 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             });
         }
         tablaListaDocente.setModel(modelo1);
+    }
+    
+    void actualizarBusqueda(){
+        
+        //System.out.println("el valor del combo es: "+String.valueOf(cboSeleccion.getSelectedItem()));
+        //System.out.println(txtCampoBusqueda.getText());
+        
+        listaDocente = new DocenteDAO().buscarDocente(String.valueOf(cboSeleccion.getSelectedItem()), txtCampoBusqueda.getText());
+
+        DefaultTableModel modelo1 = new DefaultTableModel();
+
+        modelo1.addColumn("id");
+        modelo1.addColumn("Nombre");
+        modelo1.addColumn("Apellido Paterno");
+        modelo1.addColumn("Apellido Materno");
+        modelo1.addColumn("DNI");
+        modelo1.addColumn("Telefono");
+        modelo1.addColumn("Movil");
+        modelo1.addColumn("Email");
+        modelo1.addColumn("Especialidad");
+
+        for (Docente objDocente : listaDocente) {
+            modelo1.addRow(new String[]{
+
+            objDocente.getId()+"",
+            objDocente.getNombre()+"",
+            objDocente.getApellidopaterno()+"",
+            objDocente.getApellidomaterno()+"",
+            objDocente.getDni()+"",
+            objDocente.getTelefono()+"",
+            objDocente.getMovil()+"",
+            objDocente.getEmail()+"",
+            String.valueOf(objDocente.getEspecialidad().getDescripcion())
+            });
+        }
+        tablaListaDocente.setModel(modelo1);
+
+        
     }
     
     void limpiarCajas(){
@@ -290,6 +329,12 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tablaListaDocente);
+
+        txtCampoBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCampoBusquedaKeyReleased(evt);
+            }
+        });
 
         cboSeleccion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nombre", "DNI" }));
 
@@ -561,6 +606,14 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtCampoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCampoBusquedaKeyReleased
+        // TODO add your handling code here:
+        if(String.valueOf(cboSeleccion.getSelectedIndex())=="")
+            ListarDocente();
+        else
+            actualizarBusqueda();
+    }//GEN-LAST:event_txtCampoBusquedaKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

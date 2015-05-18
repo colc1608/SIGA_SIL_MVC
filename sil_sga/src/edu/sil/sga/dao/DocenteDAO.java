@@ -87,7 +87,10 @@ public class DocenteDAO {
         List<Docente> listarDocente = new ArrayList<>();
         try {
             Connection con  = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT d.id, d.nombre,d.apellidopaterno,d.apellidomaterno,d.dni,d.telefono,d.movil,d.email,e.descripcion FROM docente d INNER JOIN Especialidad e ON (d.IDESPECIALIDAD = e.ID)");
+            PreparedStatement pstm = con.prepareStatement(
+            " SELECT d.id, d.nombre,d.apellidopaterno,d.apellidomaterno,d.dni,d.telefono,d.movil,d.email,e.descripcion "
+            + " FROM docente d INNER JOIN Especialidad e "
+            + " ON (d.IDESPECIALIDAD = e.ID)");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {                
                 Docente d = new Docente();
@@ -112,27 +115,42 @@ public class DocenteDAO {
         return listarDocente;
     }
     
-    public Docente buscarDocente(String nombre){
-        Docente objDocente = null;
+    public List<Docente>buscarDocente(String tipo, String cadena){
+        List<Docente> listarDocente = new ArrayList<>();
+        System.out.println("en el DAO Buscar Docente llega tipo: "+tipo);
+        System.out.println("en el DAO Buscar Docente llega cadena : "+cadena);
         try {
-            Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM docente WHERE nombre=?");
-            pstm.setString(1, nombre);
+            Connection con  = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement(
+            " select d.ID, d.NOMBRE, d.APELLIDOPATERNO, d.APELLIDOMATERNO, d.DNI, d.TELEFONO, d.MOVIL, d.EMAIL, e.DESCRIPCION \n" +
+            " from docente d, especialidad e \n" +
+            " WHERE d.IDESPECIALIDAD = e.ID AND d."+tipo+" like '%" + cadena+"%' \n" +
+            " ORDER BY d.NOMBRE ASC"
+            
+            );
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {                
-                objDocente = new Docente();
-                objDocente.setNombre(rst.getString("nombre"));
-                objDocente.setApellidopaterno(rst.getString("apellidopaterno"));
-                objDocente.setApellidomaterno(rst.getString("apellidomaterno"));
-                objDocente.setDni(rst.getString("dnio"));
-                objDocente.setTelefono(rst.getString("telefono"));
-                objDocente.setMovil(rst.getString("movil"));
-                objDocente.setEmail(rst.getString("email"));                
+                Docente d = new Docente();
+                d.setId(rst.getInt("id"));
+                d.setNombre(rst.getString("nombre"));
+                d.setApellidopaterno(rst.getString("apellidopaterno"));
+                d.setApellidomaterno(rst.getString("apellidomaterno"));
+                d.setDni(rst.getString("dni"));
+                d.setTelefono(rst.getString("telefono"));
+                d.setMovil(rst.getString("movil"));
+                d.setEmail(rst.getString("email"));
+                Especialidad e = new Especialidad();
+                e.setDescripcion(rst.getString("descripcion"));
+                d.setEspecialidad(e);
+                listarDocente.add(d);
             }
+            pstm.close();
+            con.close();
         } catch (Exception e) {
+            System.out.println("ERROR --> DAO Docente --> Buscar");
             e.printStackTrace();
         }
-        return objDocente;
+        return listarDocente;
     }
     
 }
