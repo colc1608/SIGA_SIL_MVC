@@ -88,7 +88,7 @@ public class EspecialidadDAO {
         return listarEspecialidad;
     }
     
-    
+    /*
     public ResultSet ObtenerCodigoEspecialidad(String desc)throws SQLException{
         ResultSet rst = null;
         try{
@@ -121,5 +121,5 @@ public class EspecialidadDAO {
         }
         return objEspecialidad;
     }
-    
+    */
 }

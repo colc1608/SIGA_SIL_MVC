@@ -124,7 +124,7 @@ public class DocenteDAO {
             + " FROM docente d INNER JOIN Especialidad e "
             + " ON (d.IDESPECIALIDAD = e.ID)");
             ResultSet rst = pstm.executeQuery();
-            while (rst.next()) {                
+            while (rst.next()) {
                 Docente d = new Docente();
                 d.setId(rst.getInt("id"));
                 d.setNombre(rst.getString("nombre"));
