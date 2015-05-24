@@ -39,7 +39,7 @@ public class EspecialidadDAO {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("UPDATE Especialidad SET descripcion = ?" + "WHERE id=?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE Especialidad SET descripcion = ? " + "WHERE id=?");
             pstm.setString(1, objEspecialidad.getDescripcion());
             pstm.setInt(2, objEspecialidad.getId());
             pstm.execute();

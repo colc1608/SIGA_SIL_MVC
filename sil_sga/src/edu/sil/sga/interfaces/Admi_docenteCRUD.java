@@ -18,6 +18,8 @@ import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -39,6 +41,22 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         CargarEspecialidad();
         activaBotones( true, false, false, false);
         ListarDocente();
+        activaCajas(false);
+        txtCodigo.setVisible(false);
+    }
+    
+    //metodos a utulizar 
+    
+    void activaCajas(boolean a){
+        
+        cboEspecialidad.setEnabled(a);
+        txtnombre.setEnabled(a);
+        txtapellidoPaterno.setEnabled(a);
+        txtApellidoMaterno.setEnabled(a);
+        txtDNI.setEnabled(a);
+        txtTelefono.setEnabled(a);
+        txtEmail.setEnabled(a);
+        txtMovil.setEnabled(a);
     }
     
     
@@ -50,6 +68,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         btnEliminar.setEnabled(d);
         
     }
+    
     
     void CargarEspecialidad(){
         try {
@@ -63,8 +82,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
             System.out.println("Error: Carga Categoria");
         }
-   
     }
+    
     
     void ListarDocente(){
         
@@ -122,6 +141,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         modelo1.addColumn("Movil");
         modelo1.addColumn("Email");
         modelo1.addColumn("Especialidad");
+        
+        
 
         for (Docente objDocente : listaDocente) {
             modelo1.addRow(new String[]{
@@ -137,9 +158,29 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             String.valueOf(objDocente.getEspecialidad().getDescripcion())
             });
         }
-        tablaListaDocente.setModel(modelo1);
-
         
+        tablaListaDocente.setModel(modelo1);
+        /*
+        TableColumn columna = tablaListaDocente.getColumn("id");
+        columna.setMinWidth(0);
+        */
+        
+        
+        tablaListaDocente.getColumnModel().getColumn(0).setPreferredWidth(0);
+        tablaListaDocente.getColumnModel().getColumn(1).setPreferredWidth(1500);
+        tablaListaDocente.getColumnModel().getColumn(2).setPreferredWidth(1500);
+        tablaListaDocente.getColumnModel().getColumn(3).setPreferredWidth(1500);
+        tablaListaDocente.getColumnModel().getColumn(4).setPreferredWidth(1500);
+        
+        /*
+        TableColumnModel columnModel = tablaListaDocente.getColumnModel();
+        
+        columnModel.getColumn(0).setPreferredWidth(0);
+        columnModel.getColumn(1).setPreferredWidth(400);
+        columnModel.getColumn(2).setPreferredWidth(400);
+        columnModel.getColumn(3).setPreferredWidth(400);
+        columnModel.getColumn(4).setPreferredWidth(400);
+        */
     }
     
     void limpiarCajas(){
@@ -194,7 +235,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtCodigo = new javax.swing.JTextField();
-        jLabel13 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -360,8 +400,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     .addComponent(txtCampoBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         btnNuevo.setText("Nuevo");
@@ -394,8 +434,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
         txtCodigo.setEnabled(false);
 
-        jLabel13.setText("codigo");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -406,9 +444,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                         .addGap(320, 320, 320)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(530, 530, 530)
-                        .addComponent(jLabel13)
-                        .addGap(9, 9, 9)
+                        .addGap(570, 570, 570)
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -432,9 +468,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
                 .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -446,7 +480,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
@@ -486,6 +520,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     ListarDocente();
                     limpiarCajas();
                     activaBotones( true, false, false, false);
+                    activaCajas(false);
+                    btnNuevo.setText("Nuevo");
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
@@ -535,6 +571,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     ListarDocente();
                     limpiarCajas();
                     activaBotones( true, false, false, false);
+                    activaCajas(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
@@ -570,6 +607,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         
         btnNuevo.setText("Nuevo");
         activaBotones( true , false, true, true);
+        activaCajas(true);
     }//GEN-LAST:event_tablaListaDocenteMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -580,9 +618,12 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             limpiarCajas();
             activaBotones( true, true, false, false);
             btnNuevo.setText("Cancelar");
+            activaCajas(true);
+            activaCajas(true);
         }else{
             activaBotones( true, false, false, false);
             btnNuevo.setText("Nuevo");
+            activaCajas(false);
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -600,6 +641,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 ListarDocente();
                 limpiarCajas();
                 activaBotones( true, false, false, false);
+                activaCajas(false);
             }else{
                 JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
             }
@@ -626,7 +668,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

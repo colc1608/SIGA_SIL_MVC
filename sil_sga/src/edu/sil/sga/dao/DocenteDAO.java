@@ -117,8 +117,7 @@ public class DocenteDAO {
     
     public List<Docente>buscarDocente(String tipo, String cadena){
         List<Docente> listarDocente = new ArrayList<>();
-        System.out.println("en el DAO Buscar Docente llega tipo: "+tipo);
-        System.out.println("en el DAO Buscar Docente llega cadena : "+cadena);
+        
         try {
             Connection con  = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement(

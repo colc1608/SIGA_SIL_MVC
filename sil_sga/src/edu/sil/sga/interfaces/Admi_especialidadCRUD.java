@@ -31,7 +31,17 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         setLocation(350,200);
         activaBotones(true,false,false,false);
         ListarEspecialidad();
+        activaCajas(false);
+        txtcodigo.setVisible(false);
 
+    }
+    
+    
+    //metodos a utilizar en el formulario =D
+    
+    
+    void activaCajas(boolean a){
+        txtdescripcion.setEnabled(a);
     }
     
     void limpiarCajas(){
@@ -80,7 +90,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         txtcodigo = new javax.swing.JTextField();
 
         setClosable(true);
@@ -182,53 +191,47 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel5.setText("Codigo");
-
-        txtcodigo.setEnabled(false);
+        txtcodigo.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(329, 329, 329)
-                        .addComponent(jLabel2)
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel5)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnActualizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addComponent(btnActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel2)
+                        .addGap(35, 35, 35))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -239,7 +242,7 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -253,10 +256,10 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         String descripcion = tablaLista.getValueAt(fila, 1).toString();
         if(descripcion.equals(""))
             descripcion = "";
-        txtdescripcion.setText(descripcion);
-        txtcodigo.setText(codigo);
-        
-        btnNuevo.setText("Nuevo");
+            txtdescripcion.setText(descripcion);
+            txtcodigo.setText(codigo);
+            activaCajas(true);
+            btnNuevo.setText("Nuevo");
         
         activaBotones(true, false, true, true);
     }//GEN-LAST:event_tablaListaMouseClicked
@@ -270,9 +273,11 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             txtdescripcion.setText("");
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
+            activaCajas(true);
         }else{
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
+            activaCajas(false);
         }
         
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -293,7 +298,8 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                     activaBotones(true, false, false, false);
                     btnNuevo.setText("Nuevo");
                     limpiarCajas();
-                ListarEspecialidad();
+                    ListarEspecialidad();
+                    activaCajas(false);
                 }else{
                     JOptionPane.showMessageDialog(this, "No se puede registrar");
                 }
@@ -322,7 +328,8 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                     txtcodigo.setText("");
                     limpiarCajas();
                     activaBotones(true, false, false, false);
-                ListarEspecialidad();
+                    activaCajas(false);
+                    ListarEspecialidad();
                 }else{
                     JOptionPane.showMessageDialog(null, "No se puedo registrar su especialidad :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
@@ -350,7 +357,8 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Se elimino correctamente");
                     limpiarCajas();
                     activaBotones(true, false, false, false);
-                ListarEspecialidad();
+                    ListarEspecialidad();
+                    activaCajas(false);
                 }else{
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
                 }
@@ -368,7 +376,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelEspecialidad;
