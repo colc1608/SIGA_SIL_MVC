@@ -56,9 +56,10 @@ public class DocenteDAO {
             cstm=con.prepareCall(sql);
             cstm.setInt(1,objDocente.getEspecialidad().getId());
             cstm.setString(2,objDocente.getNombre());
-            cstm.setString(3,objDocente.getNombre());
-            cstm.setString(4,objDocente.getApellidopaterno());
-            cstm.setString(5, objDocente.getApellidomaterno());
+            cstm.setString(3,objDocente.getApellidopaterno());
+            cstm.setString(4,objDocente.getApellidomaterno());
+            cstm.setString(5, objDocente.getDni());
+            
             
             cstm.execute();
             
