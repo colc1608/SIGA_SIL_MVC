@@ -7,6 +7,7 @@ package edu.sil.sga.dao;
 
 import edu.sil.sga.entidades.Docente;
 import edu.sil.sga.entidades.Especialidad;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,8 @@ import java.util.List;
  */
 public class DocenteDAO {
     
-    public boolean RegistrarDocente(Docente objDocente){
+    public boolean RegistrarDocente(Docente objDocente)throws  Exception{
+        /*
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -40,6 +42,35 @@ public class DocenteDAO {
             e.printStackTrace();
         }
         return retornar;
+        */
+        
+        
+        //----------------------------------------------------------------------
+        //METODO CON UN PROCEDIMIENTO ALMACENADO
+        Connection con=null;
+        CallableStatement cstm=null;
+        try {
+            
+            con=Conexion.getConnection();
+            String sql="CALL sp_addDocente(?,?,?,?,?)";
+            cstm=con.prepareCall(sql);
+            cstm.setInt(1,objDocente.getEspecialidad().getId());
+            cstm.setString(2,objDocente.getNombre());
+            cstm.setString(3,objDocente.getNombre());
+            cstm.setString(4,objDocente.getApellidopaterno());
+            cstm.setString(5, objDocente.getApellidomaterno());
+            
+            cstm.execute();
+            
+            return true;
+        } catch (Exception e) {
+            System.out.println(" error dao -------> ingresoProductoDAO "+e.getMessage());
+            e.printStackTrace();
+            return false;
+        }finally{
+            cstm.close();
+            con.close();
+        }
     }
     
     public boolean ActualizarDocente(Docente objDocente){
