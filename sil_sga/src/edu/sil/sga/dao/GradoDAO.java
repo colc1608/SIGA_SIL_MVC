@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
  * @author Cesar Lopez
  */
 public class GradoDAO {
-
+/*hola mundo..!!*/
     public boolean RegistrarGrado(Grado grado) throws Exception {
         boolean retornar = false;
 

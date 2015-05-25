@@ -23,7 +23,7 @@ public class Conexion {
     private static String pass = "123456";
     private static String server = "127.0.0.1";
     private static String port = "1521";
-    private static String dbname = "DBSILSGA";
+    private static String dbname = "dbsilsiga";
     
     public static Connection getConnection()throws SQLException{
         Connection con = null;
