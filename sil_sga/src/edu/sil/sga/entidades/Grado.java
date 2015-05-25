@@ -15,17 +15,21 @@ public class Grado {
     Nivel nivel;
     Seccion seccion;
     String descripcion;
+    String estado;
 
     public Grado(){
-       this(0,new Nivel(),new Seccion(),"");
+       this(0,new Nivel(),new Seccion(),"","");
     }
-    
-    public Grado(int id, Nivel nivel, Seccion seccion, String descripcion) {
+
+    public Grado(int id, Nivel nivel, Seccion seccion, String descripcion, String estado) {
         this.id = id;
         this.nivel = nivel;
         this.seccion = seccion;
         this.descripcion = descripcion;
+        this.estado = estado;
     }
+    
+    
     
     
     
@@ -59,6 +63,14 @@ public class Grado {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
     
     
