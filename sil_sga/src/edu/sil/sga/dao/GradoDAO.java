@@ -107,7 +107,7 @@ public class GradoDAO {
                     + " where g.IDNIVELEDUCACION = n.ID and "
                     + " g.IDSECCION = s.ID and "
                     + " g.ESTADO = 1  "
-                    + " order by nivel asc ");
+                    + " order by nivel, grado asc  ");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 Grado grado = new Grado();
