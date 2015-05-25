@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package edu.sil.sga.dao;
 
 import edu.sil.sga.entidades.Nivel;
@@ -15,32 +14,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @author Cesar Lopez
  */
 public class NivelDAO {
-    
-    public boolean RegistrarNivel(Nivel nivel)throws SQLException{
-            boolean retornar = false;
-            try {
-                Connection con = Conexion.getConnection();
-                PreparedStatement pstm = con.prepareStatement("INSERT INTO nivelEducacion (id,nombreCorto,nombreLargo)"
-                        + " values (sq_especialidad.NEXTVAL, ?, ? ) ");
-                pstm.setString(1, nivel.getNombreCorto());
-                pstm.setString(2, nivel.getNombreLargo());
-                pstm.execute();
-                pstm.close();
-                con.close();
-                retornar = true;
-            } catch (Exception e) {
-                System.out.println(" error --> DAO --> Nivel --> registrar ");
-                e.printStackTrace();
-            }
-            return retornar;
+
+    public boolean RegistrarNivel(Nivel nivel) throws SQLException {
+        boolean retornar = false;
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("INSERT INTO nivelEducacion (id,nombreCorto,nombreLargo)"
+                    + " values (sq_especialidad.NEXTVAL, ?, ? ) ");
+            pstm.setString(1, nivel.getNombreCorto());
+            pstm.setString(2, nivel.getNombreLargo());
+            pstm.execute();
+            pstm.close();
+            con.close();
+            retornar = true;
+        } catch (Exception e) {
+            System.out.println(" error --> DAO --> Nivel --> registrar ");
+            e.printStackTrace();
         }
-    
-    
-    public boolean ActualizarNivel(Nivel nivel)throws SQLException{
+        return retornar;
+    }
+
+    public boolean ActualizarNivel(Nivel nivel) throws SQLException {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -59,8 +57,8 @@ public class NivelDAO {
         }
         return retornar;
     }
-    
-    public boolean EliminarNivel(Nivel nivel)throws SQLException{
+
+    public boolean EliminarNivel(Nivel nivel) throws SQLException {
         boolean retornar = false;
         try {
             // update usuario set usuario='3001', clave='rojo2' where id=3;
@@ -81,20 +79,20 @@ public class NivelDAO {
         }
         return retornar;
     }
-    
-    public List<Nivel>ListarNivel(){
+
+    public List<Nivel> ListarNivel() {
         List<Nivel> listarNivel = new ArrayList<>();
         try {
-            Connection con  = Conexion.getConnection();
+            Connection con = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement(
-            " select id, nombreCorto, nombreLargo from nivelEducacion where estado = 1 ");
+                    " select id, nombreCorto, nombreLargo from nivelEducacion where estado = 1 ");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 Nivel nivel = new Nivel();
                 nivel.setId(rst.getInt("id"));
                 nivel.setNombreCorto(rst.getString("nombreCorto"));
                 nivel.setNombreLargo(rst.getString("nombreLargo"));
-                
+
                 listarNivel.add(nivel);
             }
             pstm.close();
@@ -104,7 +102,5 @@ public class NivelDAO {
         }
         return listarNivel;
     }
-    
-    
-    
+
 }
