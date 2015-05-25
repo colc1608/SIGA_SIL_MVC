@@ -99,12 +99,20 @@ public class DocenteDAO {
     }
     
     public boolean EliminarDocente(Docente objDocente){
-        boolean retornar=false;
+        boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("DELETE FROM Docente WHERE nombre=?");
-            /*se pone dependiendo el primer elemento de la tabla que vas a llenar*/
-            pstm.setString(1, objDocente.getNombre());
+            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,telefono=?,movil=?,email=?,idespecialidad=?,nombre=?, estado = ?" + "WHERE id=?");
+            pstm.setString(1, objDocente.getApellidopaterno());
+            pstm.setString(2, objDocente.getApellidomaterno());
+            pstm.setString(3, objDocente.getDni());
+            pstm.setString(4, objDocente.getTelefono());
+            pstm.setString(5, objDocente.getMovil());
+            pstm.setString(6, objDocente.getEmail());
+            pstm.setInt(7, objDocente.getEspecialidad().getId());//todo bien
+            pstm.setString(8, objDocente.getNombre());
+            pstm.setString(9, "0");
+            pstm.setInt(10, objDocente.getId());
             pstm.execute();
             pstm.close();
             con.close();
@@ -119,10 +127,9 @@ public class DocenteDAO {
         List<Docente> listarDocente = new ArrayList<>();
         try {
             Connection con  = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement(
-            " SELECT d.id, d.nombre,d.apellidopaterno,d.apellidomaterno,d.dni,d.telefono,d.movil,d.email,e.descripcion "
-            + " FROM docente d INNER JOIN Especialidad e "
-            + " ON (d.IDESPECIALIDAD = e.ID)");
+            PreparedStatement pstm = con.prepareStatement(" SELECT d.id, d.nombre,d.apellidopaterno,d.apellidomaterno, d.dni, d.telefono, d.movil, d.email, e.descripcion"
+                    + " FROM docente d, Especialidad e "
+                    + " where d.IDESPECIALIDAD = e.ID and d.estado = 1 ");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 Docente d = new Docente();

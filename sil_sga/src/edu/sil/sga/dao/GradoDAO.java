@@ -36,4 +36,31 @@ public class GradoDAO {
         }
         return retornar;
     }
+    
+    
+    public boolean ActualizarGrado(Grado grado){
+        boolean retornar = false;
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("UPDATE grado SET idNivelEducacion = ? ,"
+                    + "idSeccion = ?, descripcion = ?  WHERE id = ? ");
+            
+            pstm.setInt(1, grado.getNivel().getId());
+            pstm.setInt(2, grado.getSeccion().getId());
+            pstm.setString(3, grado.getDescripcion());
+            pstm.setInt(4, grado.getId());
+            
+            
+            pstm.execute();
+            pstm.close();
+            con.close();
+            retornar = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return retornar;
+    }
+    
+    
+    
 }
