@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class DocenteDAO {
     
-    public boolean RegistrarDocente(Docente objDocente)throws  Exception{
+    public boolean RegistrarDocente(Docente objDocente)throws  SQLException{
         /*
         boolean retornar = false;
         try {
@@ -74,7 +75,7 @@ public class DocenteDAO {
         }
     }
     
-    public boolean ActualizarDocente(Docente objDocente)throws  Exception{
+    public boolean ActualizarDocente(Docente objDocente)throws  SQLException{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -99,7 +100,10 @@ public class DocenteDAO {
         return retornar;
     }
     
-    public boolean EliminarDocente(Docente objDocente)throws  Exception{
+    
+    
+    
+    public boolean EliminarDocente(Docente objDocente)throws  SQLException{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -126,7 +130,11 @@ public class DocenteDAO {
         return retornar;
     }
     
-    public List<Docente>ListarDocente()throws  Exception{
+    
+    
+    
+    
+    public List<Docente>ListarDocente()throws  SQLException{
         List<Docente> listarDocente = new ArrayList<>();
         try {
             Connection con  = Conexion.getConnection();
@@ -158,7 +166,11 @@ public class DocenteDAO {
         return listarDocente;
     }
     
-    public List<Docente>buscarDocente(String tipo, String cadena)throws  Exception{
+    
+    
+    
+    
+    public List<Docente>buscarDocente(String tipo, String cadena)throws  SQLException{
         List<Docente> listarDocente = new ArrayList<>();
         
         try {

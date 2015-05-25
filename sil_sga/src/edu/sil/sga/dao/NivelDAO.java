@@ -32,7 +32,7 @@ public class NivelDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Nivel --> registrar ");
+            System.out.println(" error --> DAO --> Nivel --> registrar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -52,7 +52,7 @@ public class NivelDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Nivel --> actualizar ");
+            System.out.println(" error --> DAO --> Nivel --> actualizar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -74,13 +74,13 @@ public class NivelDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Nivel --> eliminar  ");
+            System.out.println(" error --> DAO --> Nivel --> eliminar  "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
 
-    public List<Nivel> ListarNivel() {
+    public List<Nivel> ListarNivel() throws SQLException{
         List<Nivel> listarNivel = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
@@ -98,6 +98,7 @@ public class NivelDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
+            System.out.println(" error --> DAO --> Nivel --> listar  "+e.getMessage());
             e.printStackTrace();
         }
         return listarNivel;

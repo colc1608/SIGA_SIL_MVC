@@ -31,7 +31,7 @@ public class SeccionDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Seccion --> registrar ");
+            System.out.println(" error --> DAO --> Seccion --> registrar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -50,7 +50,7 @@ public class SeccionDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Seccion --> actualizar ");
+            System.out.println(" error --> DAO --> Seccion --> actualizar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -71,13 +71,13 @@ public class SeccionDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Seccion --> eliminar  ");
+            System.out.println(" error --> DAO --> Seccion --> eliminar  "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
 
-    public List<Seccion> ListarSeccion() {
+    public List<Seccion> ListarSeccion()throws SQLException {
         List<Seccion> listarSeccion = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
@@ -93,7 +93,7 @@ public class SeccionDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Seccion --> listar  ");
+            System.out.println(" error --> DAO --> Seccion --> listar  "+e.getMessage());
             e.printStackTrace();
         }
         return listarSeccion;

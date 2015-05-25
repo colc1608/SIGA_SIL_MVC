@@ -30,7 +30,7 @@ public class EspecialidadDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error --> DAO --> especialidad  --> registrar");
+            System.out.println("error --> DAO --> especialidad  --> registrar"+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -48,7 +48,7 @@ public class EspecialidadDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error --> DAO --> especialidad  --> actualizar ");
+            System.out.println("error --> DAO --> especialidad  --> actualizar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -68,13 +68,13 @@ public class EspecialidadDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error --> DAO --> especialidad  --> eliminar ");
+            System.out.println("error --> DAO --> especialidad  --> eliminar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public List<Especialidad>ListarEspecialidad(){
+    public List<Especialidad>ListarEspecialidad()throws SQLException{
         List<Especialidad> listarEspecialidad = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
@@ -89,7 +89,7 @@ public class EspecialidadDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> especialidad  --> listar ");
+            System.out.println(" error --> DAO --> especialidad  --> listar "+e.getMessage());
             e.printStackTrace();
         }
         return listarEspecialidad;

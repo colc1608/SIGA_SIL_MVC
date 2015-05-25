@@ -6,20 +6,25 @@
 package edu.sil.sga.dao;
 
 import edu.sil.sga.entidades.Grado;
+import edu.sil.sga.entidades.Nivel;
+import edu.sil.sga.entidades.Seccion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 // HOLA SOY CESAR
-
 // LALALALALALALALALALALALLALALALALALAL
 /**
  *
  * @author Cesar Lopez
  */
 public class GradoDAO {
-/*hola mundo..!!*/
-    public boolean RegistrarGrado(Grado grado) throws Exception {
+    /*hola mundo..!!*/
+
+    public boolean RegistrarGrado(Grado grado) throws SQLException {
         boolean retornar = false;
 
         try {
@@ -36,35 +41,94 @@ public class GradoDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
+            System.out.println(" error --> DAO --> grado --> registrar  " + e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
-    
-    
-    public boolean ActualizarGrado(Grado grado){
+
+    public boolean ActualizarGrado(Grado grado) throws SQLException {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("UPDATE grado SET idNivelEducacion = ? ,"
-                    + "idSeccion = ?, descripcion = ?  WHERE id = ? ");
-            
+            PreparedStatement pstm = con.prepareStatement("UPDATE grado SET "
+                    + " idNivelEducacion = ?, idSeccion = ?, descripcion = ?  WHERE id = ? ");
+
             pstm.setInt(1, grado.getNivel().getId());
             pstm.setInt(2, grado.getSeccion().getId());
             pstm.setString(3, grado.getDescripcion());
             pstm.setInt(4, grado.getId());
-            
-            
+
             pstm.execute();
             pstm.close();
             con.close();
             retornar = true;
         } catch (Exception e) {
+            System.out.println(" error --> DAO --> grado --> actualizar  " + e.getMessage());
+            e.printStackTrace();
+        }
+        return retornar;
+    }
+
+    public boolean EliminarGrado(Grado grado) throws SQLException {
+        boolean retornar = false;
+        try {
+            // update usuario set usuario='3001', clave='rojo2' where id=3;
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("UPDATE grado SET "
+                    + " idNivelEducacion = ? , idSeccion = ?, descripcion = ?, estado = ? WHERE id = ? ");
+
+            pstm.setInt(1, grado.getNivel().getId());
+            pstm.setInt(2, grado.getSeccion().getId());
+            pstm.setString(3, grado.getDescripcion());
+            pstm.setString(4, "0");
+            pstm.setInt(5, grado.getId());
+
+            pstm.execute();
+            pstm.close();
+            con.close();
+            retornar = true;
+        } catch (Exception e) {
+            System.out.println(" error --> DAO --> grado --> eliminar " + e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
     
+    public List<Grado> ListarGrado() throws SQLException{
+        List<Grado> listarGrado = new ArrayList<>();
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement(" select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado , s.descripcion as seccion"
+                    + " from nivelEducacion n, grado g , seccion s "
+                    + " where g.IDNIVELEDUCACION = n.ID and "
+                    + " g.IDSECCION = s.ID and "
+                    + " g.ESTADO = 1  ");
+            ResultSet rst = pstm.executeQuery();
+            while (rst.next()) {
+                Grado grado = new Grado();
+                Nivel nivel = new Nivel();
+                Seccion seccion = new Seccion();
+                
+                grado.setId(rst.getInt("id"));
+                nivel.setNombreCorto(rst.getString("nivel"));
+                grado.setNivel(nivel);
+                seccion.setDescripcion(rst.getString("grado"));
+                grado.setSeccion(seccion);
+                grado.setDescripcion(rst.getString("seccion"));
+
+                listarGrado.add(grado);
+            }
+            pstm.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println(" error --> DAO --> grado --> listar " + e.getMessage());
+            e.printStackTrace();
+        }
+        return listarGrado;
+    }
     
     
+    
+
 }

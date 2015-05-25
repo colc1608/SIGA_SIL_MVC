@@ -603,7 +603,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             activaCajas(true);
-            activaCajas(true);
         } else {
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
