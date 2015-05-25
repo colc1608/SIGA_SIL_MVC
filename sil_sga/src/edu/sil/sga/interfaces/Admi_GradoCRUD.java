@@ -380,7 +380,11 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-
+        
+        
+        // ME FALTA MEJORAR EL ACTUALIZAAAAAAAAAAAAR
+        
+        
         try {
 
             Grado grado = new Grado();
