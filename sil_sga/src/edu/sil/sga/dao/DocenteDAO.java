@@ -65,7 +65,7 @@ public class DocenteDAO {
             
             return true;
         } catch (Exception e) {
-            System.out.println(" error dao -------> ingresoProductoDAO "+e.getMessage());
+            System.out.println(" ERROR --> DAO --> Docente --> registrar  "+e.getMessage());
             e.printStackTrace();
             return false;
         }finally{
@@ -74,7 +74,7 @@ public class DocenteDAO {
         }
     }
     
-    public boolean ActualizarDocente(Docente objDocente){
+    public boolean ActualizarDocente(Docente objDocente)throws  Exception{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -93,12 +93,13 @@ public class DocenteDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Docente --> actualizar"+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public boolean EliminarDocente(Docente objDocente){
+    public boolean EliminarDocente(Docente objDocente)throws  Exception{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -119,12 +120,13 @@ public class DocenteDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Docente --> eliminar"+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public List<Docente>ListarDocente(){
+    public List<Docente>ListarDocente()throws  Exception{
         List<Docente> listarDocente = new ArrayList<>();
         try {
             Connection con  = Conexion.getConnection();
@@ -150,12 +152,13 @@ public class DocenteDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Docente --> listar"+e.getMessage());
             e.printStackTrace();
         }
         return listarDocente;
     }
     
-    public List<Docente>buscarDocente(String tipo, String cadena){
+    public List<Docente>buscarDocente(String tipo, String cadena)throws  Exception{
         List<Docente> listarDocente = new ArrayList<>();
         
         try {
@@ -186,7 +189,7 @@ public class DocenteDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
-            System.out.println("ERROR --> DAO Docente --> Buscar");
+            System.out.println("ERROR --> DAO --> Docente --> Buscar"+e.getMessage());
             e.printStackTrace();
         }
         return listarDocente;
