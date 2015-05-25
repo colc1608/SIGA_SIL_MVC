@@ -25,11 +25,10 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_GradoCRUD
      */
-    
     public List<Nivel> listaNivel;
     public List<Seccion> listaSeccion;
     public List<Grado> listaGrado;
-    
+
     public Admi_GradoCRUD() {
         initComponents();
         CargarNivel();
@@ -37,57 +36,54 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         ListarGrados();
         activaCombos(false);
     }
-   
+
     //-------------------------------------------------------------------------
     //METODOS A REUTILIZAR EN EL FORMULARIO =D  -------------------------------
-    
-    
-    void activaCombos(boolean a){
+    void activaCombos(boolean a) {
         cboNivel.setEnabled(a);
         cboGrado.setEnabled(a);
         cboSeccion.setEnabled(a);
     }
-    
-    public void activaBotones(boolean a, boolean b, boolean c, boolean d){
+
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d) {
         btnNuevo.setEnabled(a);
         btnGuardar.setEnabled(b);
         btnActualizar.setEnabled(c);
         btnEliminar.setEnabled(d);
     }
-    
-    
+
     void CargarNivel() {
         try {
-            
+
             DefaultComboBoxModel model = new DefaultComboBoxModel();
             listaNivel = new NivelDAO().ListarNivel();
             for (Nivel nivel : listaNivel) {
                 model.addElement(nivel.getNombreLargo());
             }
             cboNivel.setModel(model);
-            
+
         } catch (Exception e) {
             //JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
-            System.out.println("error --> interfaz --> grado --> cargar Nivel"+e.getMessage());
+            System.out.println("error --> interfaz --> grado --> cargar Nivel" + e.getMessage());
         }
     }
-    
+
     void CargarSeccion() {
         try {
-            
+
             DefaultComboBoxModel model = new DefaultComboBoxModel();
             listaSeccion = new SeccionDAO().ListarSeccion();
             for (Seccion seccion : listaSeccion) {
                 model.addElement(seccion.getDescripcion());
             }
             cboSeccion.setModel(model);
-            
+
         } catch (Exception e) {
             //JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
-            System.out.println("error --> interfaz --> grado --> cargar Seccion"+e.getMessage());
+            System.out.println("error --> interfaz --> grado --> cargar Seccion" + e.getMessage());
         }
     }
-    
+
     void ListarGrados() {
         try {
             GradoDAO dao = new GradoDAO();
@@ -102,23 +98,21 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
                     grado.getId() + "",
-                    grado.getNivel().getNombreCorto()+ "",
-                    grado.getDescripcion()+ "",
-                    grado.getSeccion().getDescripcion()+ ""
-                    
+                    grado.getNivel().getNombreCorto() + "",
+                    grado.getDescripcion() + "",
+                    grado.getSeccion().getDescripcion() + ""
+
                 });
             }
-            
+
             tablaListarGrado.setModel(modelo1);
 
         } catch (Exception e) {
-            System.out.println("error --> interfaz --> grado --> listar"+e.getMessage());
+            System.out.println("error --> interfaz --> grado --> listar" + e.getMessage());
         }
 
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -215,6 +209,11 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
+        tablaListarGrado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaListarGradoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaListarGrado);
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -247,6 +246,11 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         );
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -263,6 +267,11 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,7 +324,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
         if (btnNuevo.getText().equals("Nuevo")) {
-            
+
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             activaCombos(true);
@@ -328,11 +337,10 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+
         String niv = cboNivel.getSelectedItem().toString();
         String gra = cboGrado.getSelectedItem().toString();
         String sec = cboSeccion.getSelectedItem().toString();
-        
 
         if (niv.equalsIgnoreCase("") || gra.equalsIgnoreCase("") || sec.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*)");
@@ -342,20 +350,17 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             try {
                 Grado grado = new Grado();
                 GradoDAO dao = new GradoDAO();
-                
+
                 int posicionComboSeleccionado = cboNivel.getSelectedIndex();
                 Nivel nivelSeleccionado = listaNivel.get(posicionComboSeleccionado);
                 grado.setNivel(nivelSeleccionado);
-                
-                
-                int posicionComboSeleccionado2 = cboNivel.getSelectedIndex();
-                Seccion seccionSeleccionado = listaSeccion.get(posicionComboSeleccionado);
+
+                int posicionComboSeleccionado2 = cboSeccion.getSelectedIndex();
+                Seccion seccionSeleccionado = listaSeccion.get(posicionComboSeleccionado2);
                 grado.setSeccion(seccionSeleccionado);
-                
-                
+
                 grado.setDescripcion(gra);
 
-                
                 if (dao.RegistrarGrado(grado)) {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente el grado :) ");
                     ListarGrados();
@@ -370,8 +375,88 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
 
             }
         }
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+
+        try {
+
+            Grado grado = new Grado();
+            GradoDAO dao = new GradoDAO();
+
+            int posicionComboSeleccionado = cboNivel.getSelectedIndex();
+            Nivel nivelSeleccionado = listaNivel.get(posicionComboSeleccionado);
+            grado.setNivel(nivelSeleccionado);
+            
+            System.out.println("dato del nivel: "+nivelSeleccionado.getId());
+
+            int posicionComboSeleccionado2 = cboSeccion.getSelectedIndex();
+            Seccion seccionSeleccionado = listaSeccion.get(posicionComboSeleccionado2);
+            grado.setSeccion(seccionSeleccionado);
+
+            grado.setDescripcion(cboGrado.getSelectedItem().toString());
+
+            if (dao.ActualizarGrado(grado)) {
+                JOptionPane.showMessageDialog(this, "Se Actualizo correctamente los datos del Docente ");
+                ListarGrados();
+                activaBotones(true, false, false, false);
+                activaCombos(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del docente :(" + e.getMessage());
+        }
+
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void tablaListarGradoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListarGradoMouseClicked
+        // TODO add your handling code here:
+
+        int fila = tablaListarGrado.getSelectedRow();
+        String id = tablaListarGrado.getValueAt(fila, 0).toString();
+        String nivel = tablaListarGrado.getValueAt(fila, 1).toString();
+        String grado = tablaListarGrado.getValueAt(fila, 2).toString();
+        String seccion = tablaListarGrado.getValueAt(fila, 3).toString();
+
+        cboNivel.setSelectedItem(nivel);
+        cboGrado.setSelectedItem(grado);
+        cboSeccion.setSelectedItem(seccion);
+
+        btnNuevo.setText("Nuevo");
+        activaBotones(true, false, true, true);
+        activaCombos(true);
+    }//GEN-LAST:event_tablaListarGradoMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+
+        try {
+
+            Grado grado = new Grado();
+            GradoDAO dao = new GradoDAO();
+
+            grado.setNivel(listaNivel.get(cboNivel.getSelectedIndex()));
+            grado.setSeccion(listaSeccion.get(cboSeccion.getSelectedIndex()));
+            grado.setDescripcion(cboGrado.getSelectedItem().toString());
+
+            if (dao.EliminarGrado(grado)) {
+                JOptionPane.showMessageDialog(this, "Se Actualizo correctamente el grado ^^  ");
+                ListarGrados();
+                activaBotones(true, false, false, false);
+                activaCombos(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del docente :(" + e.getMessage());
+        }
+
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

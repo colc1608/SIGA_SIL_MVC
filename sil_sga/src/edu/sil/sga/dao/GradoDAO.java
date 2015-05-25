@@ -54,6 +54,9 @@ public class GradoDAO {
             PreparedStatement pstm = con.prepareStatement("UPDATE grado SET "
                     + " idNivelEducacion = ?, idSeccion = ?, descripcion = ?  WHERE id = ? ");
 
+            System.out.println("en el dao el nivel tiene: "+grado.getNivel().getId());
+            
+            
             pstm.setInt(1, grado.getNivel().getId());
             pstm.setInt(2, grado.getSeccion().getId());
             pstm.setString(3, grado.getDescripcion());
@@ -99,11 +102,12 @@ public class GradoDAO {
         List<Grado> listarGrado = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement(" select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado , s.descripcion as seccion"
+            PreparedStatement pstm = con.prepareStatement(" select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado, s.descripcion as seccion  "
                     + " from nivelEducacion n, grado g , seccion s "
                     + " where g.IDNIVELEDUCACION = n.ID and "
                     + " g.IDSECCION = s.ID and "
-                    + " g.ESTADO = 1  ");
+                    + " g.ESTADO = 1  "
+                    + " order by nivel asc ");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 Grado grado = new Grado();
@@ -113,10 +117,11 @@ public class GradoDAO {
                 grado.setId(rst.getInt("id"));
                 nivel.setNombreCorto(rst.getString("nivel"));
                 grado.setNivel(nivel);
-                seccion.setDescripcion(rst.getString("grado"));
+                seccion.setDescripcion(rst.getString("seccion"));
                 grado.setSeccion(seccion);
-                grado.setDescripcion(rst.getString("seccion"));
-
+                grado.setDescripcion(rst.getString("grado"));
+                
+                
                 listarGrado.add(grado);
             }
             pstm.close();
@@ -127,8 +132,6 @@ public class GradoDAO {
         }
         return listarGrado;
     }
-    
-    
-    
+  
 
 }

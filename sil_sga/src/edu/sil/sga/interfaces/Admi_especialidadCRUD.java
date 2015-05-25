@@ -318,9 +318,11 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         } else {
             try {
                 Especialidad objEspecialidad = new Especialidad();
-                objEspecialidad.setId(Integer.parseInt(txtcodigo.getText()));
-                objEspecialidad.setDescripcion(txtdescripcion.getText());
                 EspecialidadDAO dao = new EspecialidadDAO();
+                
+                objEspecialidad.setId(Integer.parseInt(codigo));
+                objEspecialidad.setDescripcion(descripcion);
+                
                 if (dao.ActualizarEspecialidad(objEspecialidad)) {
                     JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
                     txtcodigo.setText("");

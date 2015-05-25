@@ -20,61 +20,61 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_SeccionCRUD
      */
-    
-    
     public List<Seccion> listaSeccion;
-    
+
     public Admi_SeccionCRUD() {
         initComponents();
-        
+
         setSize(740, 460); // X , Y
-        setLocation(350,200);
-        activaBotones(true,false,false,false);
+        setLocation(350, 200);
+        activaBotones(true, false, false, false);
         ListarSecciones();
         activaCajas(false);
-        
+
     }
-    
-    void activaCajas(boolean a){
+
+    void activaCajas(boolean a) {
         txtDescripcion.setEnabled(a);
     }
-    
-    void limpiarCajas(){
+
+    void limpiarCajas() {
         txtCodigo.setText("");
         txtDescripcion.setText("");
     }
-    
-    public void activaBotones(boolean a, boolean b, boolean c, boolean d){
+
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d) {
         btnNuevo.setEnabled(a);
         btnGuardar.setEnabled(b);
         btnActualizar.setEnabled(c);
         btnEliminar.setEnabled(d);
-    };
-    
-    public void ListarSecciones(){
-
-        SeccionDAO dao = new SeccionDAO();
-        listaSeccion = dao.ListarSeccion();
-        
-        DefaultTableModel modelo1 = new DefaultTableModel();
-        
-        modelo1.addColumn("id");
-        modelo1.addColumn("descripcion");
-        
-        
-        for (Seccion seccion : listaSeccion) {
-            modelo1.addRow(new String[]{
-            
-            seccion.getId()+"",
-            seccion.getDescripcion()+""
-            });
-        }
-        tablaListaSeccion.setModel(modelo1);
     }
+
+    ;
     
-    
-    
-    
+    public void ListarSecciones() {
+
+        try {
+
+            SeccionDAO dao = new SeccionDAO();
+            listaSeccion = dao.ListarSeccion();
+
+            DefaultTableModel modelo1 = new DefaultTableModel();
+
+            modelo1.addColumn("id");
+            modelo1.addColumn("descripcion");
+
+            for (Seccion seccion : listaSeccion) {
+                modelo1.addRow(new String[]{
+                    seccion.getId() + "",
+                    seccion.getDescripcion() + ""
+                });
+            }
+            tablaListaSeccion.setModel(modelo1);
+
+        } catch (Exception e) {
+            System.out.println("Ups.. error interno :( ");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -249,12 +249,12 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
 
     private void tablaListaSeccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaSeccionMouseClicked
         // TODO add your handling code here:
-        
+
         int fila = tablaListaSeccion.getSelectedRow();
-        
+
         String cod = tablaListaSeccion.getValueAt(fila, 0).toString();
         String desc = tablaListaSeccion.getValueAt(fila, 1).toString();
-        
+
         txtCodigo.setText(cod);
         txtDescripcion.setText(desc);
         activaCajas(true);
@@ -264,12 +264,12 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        if(btnNuevo.getText().equals("Nuevo")){
+        if (btnNuevo.getText().equals("Nuevo")) {
             limpiarCajas();
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             activaCajas(true);
-        }else{
+        } else {
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
             activaCajas(false);
@@ -279,20 +279,18 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+
         String desc = txtDescripcion.getText();
-        
-        
-        if(desc.equalsIgnoreCase("") )
+
+        if (desc.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Debe los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
-        
-        else{
-            try{
+        } else {
+            try {
                 Seccion seccion = new Seccion();
                 SeccionDAO dao = new SeccionDAO();
-                
+
                 seccion.setDescripcion(desc);
-                
+
                 if (dao.RegistrarSeccion(seccion)) {
                     JOptionPane.showMessageDialog(null, "Se registro correctamente", "Operacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
                     activaBotones(true, false, false, false);
@@ -300,43 +298,42 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
                     limpiarCajas();
                     ListarSecciones();
                     activaCajas(false);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, " Ups.. Ocurrio un problema interno :( ");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        
+
         String codigo = txtCodigo.getText();
         String desc = txtDescripcion.getText();
-        
-        
-        if(codigo.equalsIgnoreCase("") || desc.equalsIgnoreCase("") ){
+
+        if (codigo.equalsIgnoreCase("") || desc.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro e ingresar los campos requeridos (*) ");
-        }else{
-            try{
+        } else {
+            try {
                 Seccion seccion = new Seccion();
                 SeccionDAO dao = new SeccionDAO();
-                
+
                 seccion.setId(Integer.parseInt(codigo));
                 seccion.setDescripcion(desc);
-                
+
                 if (dao.ActualizarSeccion(seccion)) {
                     JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
                     limpiarCajas();
                     activaBotones(true, false, false, false);
                     activaCajas(false);
                     ListarSecciones();
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Ups.. Ocurrio un problema interno :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -345,28 +342,27 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
 
-        if(txtCodigo.getText().equals(""))
+        if (txtCodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
-        
-        else{
-            
-            try{
+        } else {
+
+            try {
                 Seccion seccion = new Seccion();
                 SeccionDAO dao = new SeccionDAO();
-                
+
                 seccion.setId(Integer.parseInt(txtCodigo.getText()));
                 seccion.setDescripcion(txtDescripcion.getText());
-                
+
                 if (dao.EliminarSeccion(seccion)) {
                     JOptionPane.showMessageDialog(this, "Se elimino correctamente");
                     limpiarCajas();
                     activaBotones(true, false, false, false);
                     ListarSecciones();
                     activaCajas(false);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Ups.. Ocurrio un problema interno :( ");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
