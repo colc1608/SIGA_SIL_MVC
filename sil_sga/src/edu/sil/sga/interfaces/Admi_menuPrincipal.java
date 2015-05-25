@@ -126,6 +126,11 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
         jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem11.setText("Seccion");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem11);
 
         jMenuItem12.setText("Tipo Evaluacion");
@@ -201,6 +206,13 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         jdPrincipal.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem15ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        Admi_SeccionCRUD frm = new Admi_SeccionCRUD();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     /**
      * @param args the command line arguments

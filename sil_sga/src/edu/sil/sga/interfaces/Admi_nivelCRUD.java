@@ -112,7 +112,7 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         jLabel1.setText("Nivel de educacion");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Nivel"));
 
         jLabel2.setText("Nombre corto:");
 

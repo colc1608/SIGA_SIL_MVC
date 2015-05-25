@@ -5,6 +5,12 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.SeccionDAO;
+import edu.sil.sga.entidades.Seccion;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
@@ -14,9 +20,61 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_SeccionCRUD
      */
+    
+    
+    public List<Seccion> listaSeccion;
+    
     public Admi_SeccionCRUD() {
         initComponents();
+        
+        setSize(740, 460); // X , Y
+        setLocation(350,200);
+        activaBotones(true,false,false,false);
+        ListarSecciones();
+        activaCajas(false);
+        
     }
+    
+    void activaCajas(boolean a){
+        txtDescripcion.setEnabled(a);
+    }
+    
+    void limpiarCajas(){
+        txtCodigo.setText("");
+        txtDescripcion.setText("");
+    }
+    
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d){
+        btnNuevo.setEnabled(a);
+        btnGuardar.setEnabled(b);
+        btnActualizar.setEnabled(c);
+        btnEliminar.setEnabled(d);
+    };
+    
+    public void ListarSecciones(){
+
+        SeccionDAO dao = new SeccionDAO();
+        listaSeccion = dao.ListarSeccion();
+        
+        DefaultTableModel modelo1 = new DefaultTableModel();
+        
+        modelo1.addColumn("id");
+        modelo1.addColumn("descripcion");
+        
+        
+        for (Seccion seccion : listaSeccion) {
+            modelo1.addRow(new String[]{
+            
+            seccion.getId()+"",
+            seccion.getDescripcion()+""
+            });
+        }
+        tablaListaSeccion.setModel(modelo1);
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -29,16 +87,16 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
 
         jLabel2 = new javax.swing.JLabel();
         panelEspecialidad = new javax.swing.JPanel();
-        txtdescripcion = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaLista = new javax.swing.JTable();
+        tablaListaSeccion = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtcodigo = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Seccion");
@@ -55,7 +113,7 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
                 .addGap(33, 33, 33)
-                .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(40, Short.MAX_VALUE))
         );
         panelEspecialidadLayout.setVerticalGroup(
@@ -64,14 +122,14 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
                 .addGap(26, 26, 26)
                 .addGroup(panelEspecialidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtdescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar Especialidad"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar Secciones"));
 
-        tablaLista.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tablaLista.setModel(new javax.swing.table.DefaultTableModel(
+        tablaListaSeccion.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tablaListaSeccion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -82,12 +140,12 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
                 "Title 1"
             }
         ));
-        tablaLista.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaListaSeccion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaListaMouseClicked(evt);
+                tablaListaSeccionMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaLista);
+        jScrollPane1.setViewportView(tablaListaSeccion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,7 +192,7 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
             }
         });
 
-        txtcodigo.setEditable(false);
+        txtCodigo.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -142,19 +200,17 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(90, 90, 90))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(41, 41, 41)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(panelEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,7 +229,7 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -191,34 +247,129 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tablaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaMouseClicked
+    private void tablaListaSeccionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaSeccionMouseClicked
         // TODO add your handling code here:
-
         
-    }//GEN-LAST:event_tablaListaMouseClicked
+        int fila = tablaListaSeccion.getSelectedRow();
+        
+        String cod = tablaListaSeccion.getValueAt(fila, 0).toString();
+        String desc = tablaListaSeccion.getValueAt(fila, 1).toString();
+        
+        txtCodigo.setText(cod);
+        txtDescripcion.setText(desc);
+        activaCajas(true);
+        btnNuevo.setText("Nuevo");
+        activaBotones(true, false, true, true);
+    }//GEN-LAST:event_tablaListaSeccionMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        
+        if(btnNuevo.getText().equals("Nuevo")){
+            limpiarCajas();
+            activaBotones(true, true, false, false);
+            btnNuevo.setText("Cancelar");
+            activaCajas(true);
+        }else{
+            activaBotones(true, false, false, false);
+            btnNuevo.setText("Nuevo");
+            activaCajas(false);
+        }
 
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-
+        String desc = txtDescripcion.getText();
+        
+        
+        if(desc.equalsIgnoreCase("") )
+            JOptionPane.showMessageDialog(null, "Debe los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        
+        else{
+            try{
+                Seccion seccion = new Seccion();
+                SeccionDAO dao = new SeccionDAO();
+                
+                seccion.setDescripcion(desc);
+                
+                if (dao.RegistrarSeccion(seccion)) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente", "Operacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    activaBotones(true, false, false, false);
+                    btnNuevo.setText("Nuevo");
+                    limpiarCajas();
+                    ListarSecciones();
+                    activaCajas(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, " Ups.. Ocurrio un problema interno :( ");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         
-
+        String codigo = txtCodigo.getText();
+        String desc = txtDescripcion.getText();
+        
+        
+        if(codigo.equalsIgnoreCase("") || desc.equalsIgnoreCase("") ){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro e ingresar los campos requeridos (*) ");
+        }else{
+            try{
+                Seccion seccion = new Seccion();
+                SeccionDAO dao = new SeccionDAO();
+                
+                seccion.setId(Integer.parseInt(codigo));
+                seccion.setDescripcion(desc);
+                
+                if (dao.ActualizarSeccion(seccion)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                    ListarSecciones();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ups.. Ocurrio un problema interno :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
 
+        if(txtCodigo.getText().equals(""))
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
         
+        else{
+            
+            try{
+                Seccion seccion = new Seccion();
+                SeccionDAO dao = new SeccionDAO();
+                
+                seccion.setId(Integer.parseInt(txtCodigo.getText()));
+                seccion.setDescripcion(txtDescripcion.getText());
+                
+                if (dao.EliminarSeccion(seccion)) {
+                    JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    ListarSecciones();
+                    activaCajas(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Ups.. Ocurrio un problema interno :( ");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -232,8 +383,8 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelEspecialidad;
-    private javax.swing.JTable tablaLista;
-    private javax.swing.JTextField txtcodigo;
-    private javax.swing.JTextField txtdescripcion;
+    private javax.swing.JTable tablaListaSeccion;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtDescripcion;
     // End of variables declaration//GEN-END:variables
 }
