@@ -264,11 +264,9 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        txtcodigo.setText("");
-        txtdescripcion.setText("");
+        
         if(btnNuevo.getText().equals("Nuevo")){
-            txtcodigo.setText("");
-            txtdescripcion.setText("");
+            limpiarCajas();
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             activaCajas(true);

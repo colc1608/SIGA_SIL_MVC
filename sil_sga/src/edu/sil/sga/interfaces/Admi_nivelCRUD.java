@@ -5,17 +5,76 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.NivelDAO;
+import edu.sil.sga.entidades.Nivel;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
- * @author Sammy Guergachi <sguergachi at gmail.com>
+  * @author Cesar Lopez
  */
 public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Admi_nivelCRUD
      */
+    public List<Nivel> listaNivel;
+    public  Nivel objNivel;
+    
+    
     public Admi_nivelCRUD() {
         initComponents();
+        setSize(740, 460); // X , Y
+        setLocation(350,200);
+        activaBotones(true,false,false,false);
+        ListarNiveles();
+        activaCajas(false);
+        //txtCodigo.setVisible(false);
+    }
+    
+    //METODOS A REUTILIZAR EN EL FORMULARIO =D  -------------------------------
+    
+    void activaCajas(boolean a){
+        txtNombreCorto.setEnabled(a);
+        txtNombreLargo.setEnabled(a);
+    }
+    
+    void limpiarCajas(){
+        txtCodigo.setText("");
+        txtNombreCorto.setText("");
+        txtNombreLargo.setText("");
+    }
+    
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d){
+        btnNuevo.setEnabled(a);
+        btnGuardar.setEnabled(b);
+        btnActualizar.setEnabled(c);
+        btnEliminar.setEnabled(d);
+    };
+    
+    public void ListarNiveles(){
+
+        NivelDAO dao = new NivelDAO();
+        listaNivel = dao.ListarNivel();
+        
+        DefaultTableModel modelo1 = new DefaultTableModel();
+        
+        modelo1.addColumn("id");
+        modelo1.addColumn("Nombre Corto");
+        modelo1.addColumn("Nombre Largo");
+        
+        
+        for (Nivel nivel : listaNivel) {
+            modelo1.addRow(new String[]{
+            
+            nivel.getId()+"",
+            nivel.getNombreCorto()+"",
+            nivel.getNombreLargo()+""
+            });
+        }
+        tablaNivel.setModel(modelo1);
     }
 
     /**
@@ -31,15 +90,16 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtNombreLargo = new javax.swing.JTextField();
+        txtNombreCorto = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaNivel = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -69,8 +129,8 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -79,10 +139,10 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreLargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -91,7 +151,7 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar niveles"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaNivel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -102,7 +162,12 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tablaNivel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaNivelMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaNivel);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -155,28 +220,139 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         });
         getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, -1, -1));
 
+        txtCodigo.setEditable(false);
+        getContentPane().add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 70, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
 
+        if(btnNuevo.getText().equals("Nuevo")){
+            limpiarCajas();
+            activaBotones(true, true, false, false);
+            btnNuevo.setText("Cancelar");
+            activaCajas(true);
+        }else{
+            activaBotones(true, false, false, false);
+            btnNuevo.setText("Nuevo");
+            activaCajas(false);
+        }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-
+        String nomCorto = txtNombreCorto.getText();
+        String nomLargo = txtNombreLargo.getText();
+        
+        if(nomCorto.equalsIgnoreCase("") || nomLargo.equalsIgnoreCase("") )
+            JOptionPane.showMessageDialog(null, "Debe los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        
+        else{
+            try{
+                Nivel nivel = new Nivel();
+                NivelDAO dao = new NivelDAO();
+                
+                nivel.setNombreCorto(nomCorto);
+                nivel.setNombreLargo(nomLargo);
+                
+                if (dao.RegistrarNivel(nivel)) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente", "Operacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    activaBotones(true, false, false, false);
+                    btnNuevo.setText("Nuevo");
+                    limpiarCajas();
+                    ListarNiveles();
+                    activaCajas(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Ups.. Ocurrio un problema interno :(");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-
+        String codigo = txtCodigo.getText();
+        String nomCorto = txtNombreCorto.getText();
+        String nomLargo = txtNombreLargo.getText();
+        
+        
+        if(codigo.equalsIgnoreCase("") || nomCorto.equalsIgnoreCase("") || nomLargo.equalsIgnoreCase("") ){
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro e ingresar los campos requeridos (*) ");
+        }else{
+            try{
+                Nivel nivel = new Nivel();
+                NivelDAO dao = new NivelDAO();
+                
+                nivel.setId(Integer.parseInt(codigo));
+                nivel.setNombreCorto(nomCorto);
+                nivel.setNombreLargo(nomLargo);
+                
+                if (dao.ActualizarNivel(nivel)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                    ListarNiveles();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Ups.. Ocurrio un problema interno :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-
+        
+        if(txtCodigo.getText().equals(""))
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
+        
+        else{
+            
+            try{
+                Nivel nivel = new Nivel();
+                NivelDAO dao = new NivelDAO();
+                
+                nivel.setId(Integer.parseInt(txtCodigo.getText()));
+                nivel.setNombreCorto(txtNombreCorto.getText());
+                nivel.setNombreLargo(txtNombreLargo.getText());
+                
+                if (dao.EliminarNivel(nivel)) {
+                    JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    ListarNiveles();
+                    activaCajas(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Ups.. Ocurrio un problema interno :( ");
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tablaNivelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaNivelMouseClicked
+        // TODO add your handling code here:
+        int fila = tablaNivel.getSelectedRow();
+        
+        String cod = tablaNivel.getValueAt(fila, 0).toString();
+        String nomCor = tablaNivel.getValueAt(fila, 1).toString();
+        String nomLar = tablaNivel.getValueAt(fila, 2).toString();
+        
+        txtCodigo.setText(cod);
+        txtNombreCorto.setText(nomCor);
+        txtNombreLargo.setText(nomLar);
+        activaCajas(true);
+        btnNuevo.setText("Nuevo");
+        activaBotones(true, false, true, true);
+    }//GEN-LAST:event_tablaNivelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -190,8 +366,9 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTable tablaNivel;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtNombreCorto;
+    private javax.swing.JTextField txtNombreLargo;
     // End of variables declaration//GEN-END:variables
 }

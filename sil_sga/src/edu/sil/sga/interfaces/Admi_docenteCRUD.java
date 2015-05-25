@@ -160,11 +160,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         }
         
         tablaListaDocente.setModel(modelo1);
-        /*
-        TableColumn columna = tablaListaDocente.getColumn("id");
-        columna.setMinWidth(0);
-        */
         
+        //buscando como ocultar columnas
         
         tablaListaDocente.getColumnModel().getColumn(0).setPreferredWidth(0);
         tablaListaDocente.getColumnModel().getColumn(1).setPreferredWidth(1500);
@@ -172,15 +169,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         tablaListaDocente.getColumnModel().getColumn(3).setPreferredWidth(1500);
         tablaListaDocente.getColumnModel().getColumn(4).setPreferredWidth(1500);
         
-        /*
-        TableColumnModel columnModel = tablaListaDocente.getColumnModel();
         
-        columnModel.getColumn(0).setPreferredWidth(0);
-        columnModel.getColumn(1).setPreferredWidth(400);
-        columnModel.getColumn(2).setPreferredWidth(400);
-        columnModel.getColumn(3).setPreferredWidth(400);
-        columnModel.getColumn(4).setPreferredWidth(400);
-        */
     }
     
     void limpiarCajas(){
