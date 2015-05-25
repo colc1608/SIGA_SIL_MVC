@@ -10,22 +10,25 @@ package edu.sil.sga.entidades;
  * @author Cesar Lopez
  */
 public class Docente {
-    private int id;
-    private String nombre;
-    private String apellidopaterno;
-    private String apellidomaterno;
-    private String dni;
-    private String telefono;
-    private String movil;
+    int id;
+    String nombre;
+    String apellidopaterno;
+    String apellidomaterno;
+    String dni;
+    String telefono;
+    String movil;
    // private Date fechadenacimiento;
-    private String email;
-    private Especialidad especialidad;
+    String email;
+    Especialidad especialidad;
+    String estado;
     
     public Docente(){
-        this(0,"","","","","","","",new Especialidad());
+        this(0,"","","","","","","",new Especialidad(),"");
     }
 
-    public Docente(int id, String nombre, String apellidopaterno, String apellidomaterno, String dni, String telefono, String movil, String email, Especialidad especialidad) {
+    
+    
+    public Docente(int id, String nombre, String apellidopaterno, String apellidomaterno, String dni, String telefono, String movil, String email, Especialidad especialidad, String estado) {
         this.id = id;
         this.nombre = nombre;
         this.apellidopaterno = apellidopaterno;
@@ -35,8 +38,12 @@ public class Docente {
         this.movil = movil;
         this.email = email;
         this.especialidad = especialidad;
+        this.estado = estado;
     }
 
+    
+    
+    
     public int getId() {
         return id;
     }
@@ -108,4 +115,16 @@ public class Docente {
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
+    
+    
 }

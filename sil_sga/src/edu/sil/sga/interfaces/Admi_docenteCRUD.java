@@ -32,23 +32,22 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
      */
     public List<Docente> listaDocente;
     public List<Especialidad> listaEspecialidad;
-    
+
     public Admi_docenteCRUD() {
         initComponents();
-        
-        setLocation(250,100);
+
+        setLocation(250, 100);
         setSize(850, 700); // X , Y
         CargarEspecialidad();
-        activaBotones( true, false, false, false);
+        activaBotones(true, false, false, false);
         ListarDocente();
         activaCajas(false);
         txtCodigo.setVisible(false);
     }
-    
+
     //metodos a utulizar 
-    
-    void activaCajas(boolean a){
-        
+    void activaCajas(boolean a) {
+
         cboEspecialidad.setEnabled(a);
         txtnombre.setEnabled(a);
         txtapellidoPaterno.setEnabled(a);
@@ -58,19 +57,17 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtEmail.setEnabled(a);
         txtMovil.setEnabled(a);
     }
-    
-    
-    void activaBotones(boolean a, boolean b, boolean c, boolean d){
-        
+
+    void activaBotones(boolean a, boolean b, boolean c, boolean d) {
+
         btnNuevo.setEnabled(a);
         btnGuardar.setEnabled(b);
         btnActualizar.setEnabled(c);
         btnEliminar.setEnabled(d);
-        
+
     }
-    
-    
-    void CargarEspecialidad(){
+
+    void CargarEspecialidad() {
         try {
             DefaultComboBoxModel model = new DefaultComboBoxModel();
             listaEspecialidad = new EspecialidadDAO().ListarEspecialidad();
@@ -83,96 +80,91 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             System.out.println("Error: Carga Categoria");
         }
     }
-    
-    
-    void ListarDocente(){
-        
-        DocenteDAO dao = new DocenteDAO();
-        listaDocente = dao.ListarDocente();
-        
-        DefaultTableModel modelo1 = new DefaultTableModel();
-        
-        modelo1.addColumn("id");
-        
-        modelo1.addColumn("Nombre");
-        
-        modelo1.addColumn("Apellido Paterno");
-        modelo1.addColumn("Apellido Materno");
-        modelo1.addColumn("DNI");
-        modelo1.addColumn("Telefono");
-        modelo1.addColumn("Movil");
-        modelo1.addColumn("Email");
-        modelo1.addColumn("Especialidad");
-        
-        
-        
-        for (Docente objDocente : listaDocente) {
-            modelo1.addRow(new String[]{
+
+    void ListarDocente() {
+        try {
+            DocenteDAO dao = new DocenteDAO();
+            listaDocente = dao.ListarDocente();
+            DefaultTableModel modelo1 = new DefaultTableModel();
+
+            modelo1.addColumn("id");
+            modelo1.addColumn("Nombre");
+            modelo1.addColumn("Apellido Paterno");
+            modelo1.addColumn("Apellido Materno");
+            modelo1.addColumn("DNI");
+            modelo1.addColumn("Telefono");
+            modelo1.addColumn("Movil");
+            modelo1.addColumn("Email");
+            modelo1.addColumn("Especialidad");
+
+            for (Docente objDocente : listaDocente) {
+                modelo1.addRow(new String[]{
+                    objDocente.getId() + "",
+                    objDocente.getNombre() + "",
+                    objDocente.getApellidopaterno() + "",
+                    objDocente.getApellidomaterno() + "",
+                    objDocente.getDni() + "",
+                    objDocente.getTelefono() + "",
+                    objDocente.getMovil() + "",
+                    objDocente.getEmail() + "",
+                    objDocente.getEspecialidad().getDescripcion()
+                });
+            }
             
-            objDocente.getId()+"",
-            objDocente.getNombre()+"",
-            objDocente.getApellidopaterno()+"",
-            objDocente.getApellidomaterno()+"",
-            objDocente.getDni()+"",
-            objDocente.getTelefono()+"",
-            objDocente.getMovil()+"",
-            objDocente.getEmail()+"",
-            String.valueOf(objDocente.getEspecialidad().getDescripcion())
-            });
+            tablaListaDocente.setModel(modelo1);
+
+        } catch (Exception e) {
+            System.out.println("error --> interfaz --> docente --> listar");
         }
-        tablaListaDocente.setModel(modelo1);
+
     }
-    
-    void actualizarBusqueda(){
-        
-        //System.out.println("el valor del combo es: "+String.valueOf(cboSeleccion.getSelectedItem()));
-        //System.out.println(txtCampoBusqueda.getText());
-        
-        listaDocente = new DocenteDAO().buscarDocente(String.valueOf(cboSeleccion.getSelectedItem()), txtCampoBusqueda.getText());
 
-        DefaultTableModel modelo1 = new DefaultTableModel();
+    void actualizarBusqueda() {
 
-        modelo1.addColumn("id");
-        modelo1.addColumn("Nombre");
-        modelo1.addColumn("Apellido Paterno");
-        modelo1.addColumn("Apellido Materno");
-        modelo1.addColumn("DNI");
-        modelo1.addColumn("Telefono");
-        modelo1.addColumn("Movil");
-        modelo1.addColumn("Email");
-        modelo1.addColumn("Especialidad");
-        
-        
+        try {
+            listaDocente = new DocenteDAO().buscarDocente(String.valueOf(cboSeleccion.getSelectedItem()), txtCampoBusqueda.getText());
 
-        for (Docente objDocente : listaDocente) {
-            modelo1.addRow(new String[]{
+            DefaultTableModel modelo1 = new DefaultTableModel();
 
-            objDocente.getId()+"",
-            objDocente.getNombre()+"",
-            objDocente.getApellidopaterno()+"",
-            objDocente.getApellidomaterno()+"",
-            objDocente.getDni()+"",
-            objDocente.getTelefono()+"",
-            objDocente.getMovil()+"",
-            objDocente.getEmail()+"",
-            String.valueOf(objDocente.getEspecialidad().getDescripcion())
-            });
+            modelo1.addColumn("id");
+            modelo1.addColumn("Nombre");
+            modelo1.addColumn("Apellido Paterno");
+            modelo1.addColumn("Apellido Materno");
+            modelo1.addColumn("DNI");
+            modelo1.addColumn("Telefono");
+            modelo1.addColumn("Movil");
+            modelo1.addColumn("Email");
+            modelo1.addColumn("Especialidad");
+
+            for (Docente objDocente : listaDocente) {
+                modelo1.addRow(new String[]{
+                    objDocente.getId() + "",
+                    objDocente.getNombre() + "",
+                    objDocente.getApellidopaterno() + "",
+                    objDocente.getApellidomaterno() + "",
+                    objDocente.getDni() + "",
+                    objDocente.getTelefono() + "",
+                    objDocente.getMovil() + "",
+                    objDocente.getEmail() + "",
+                    String.valueOf(objDocente.getEspecialidad().getDescripcion())
+                });
+            }
+
+            tablaListaDocente.setModel(modelo1);
+
+            //buscando como ocultar columnas
+            tablaListaDocente.getColumnModel().getColumn(0).setPreferredWidth(0);
+            tablaListaDocente.getColumnModel().getColumn(1).setPreferredWidth(1500);
+            tablaListaDocente.getColumnModel().getColumn(2).setPreferredWidth(1500);
+            tablaListaDocente.getColumnModel().getColumn(3).setPreferredWidth(1500);
+            tablaListaDocente.getColumnModel().getColumn(4).setPreferredWidth(1500);
+        } catch (Exception e) {
+            System.out.println("error --> interfaz --> docente --> actualizar busqueda");
         }
-        
-        tablaListaDocente.setModel(modelo1);
-        
-        //buscando como ocultar columnas
-        
-        tablaListaDocente.getColumnModel().getColumn(0).setPreferredWidth(0);
-        tablaListaDocente.getColumnModel().getColumn(1).setPreferredWidth(1500);
-        tablaListaDocente.getColumnModel().getColumn(2).setPreferredWidth(1500);
-        tablaListaDocente.getColumnModel().getColumn(3).setPreferredWidth(1500);
-        tablaListaDocente.getColumnModel().getColumn(4).setPreferredWidth(1500);
-        
-        
+
     }
-    
-    void limpiarCajas(){
+
+    void limpiarCajas() {
         txtCodigo.setText("");
         txtnombre.setText("");
         txtapellidoPaterno.setText("");
@@ -183,7 +175,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtEmail.setText("");
         txtFechaNacimiento.setText("");
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -477,7 +468,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        
+
         String nombre = txtnombre.getText();
         String apellidoPa = txtapellidoPaterno.getText();
         String apellidoMa = txtApellidoMaterno.getText();
@@ -485,12 +476,14 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         String movil = txtMovil.getText();
         String email = txtEmail.getText();
-        
-        if(nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("") 
-           && apellidoMa.equalsIgnoreCase("")|| dni.equalsIgnoreCase(""))
+
+        if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
+                && apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*)");
-        else{
-            try{
+
+        } else {
+
+            try {
                 Docente objDocente = new Docente();
                 int posicionComboSeleccionado = cboEspecialidad.getSelectedIndex();
                 Especialidad objEspecialidadSeleccionada = listaEspecialidad.get(posicionComboSeleccionado);
@@ -502,30 +495,31 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 objDocente.setTelefono(telefono);
                 objDocente.setMovil(movil);
                 objDocente.setEmail(email);
-                
+
                 DocenteDAO dao = new DocenteDAO();
                 if (dao.RegistrarDocente(objDocente)) {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente al docente :) ");
                     ListarDocente();
                     limpiarCajas();
-                    activaBotones( true, false, false, false);
+                    activaBotones(true, false, false, false);
                     activaCajas(false);
                     btnNuevo.setText("Nuevo");
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
-            }catch (Exception e){
+
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No pudimos agregar al nuevo docente :( " + e.getMessage());
-                
+
             }
         }
-        
-        
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        
+
         String id = txtCodigo.getText();
         String nombre = txtnombre.getText();
         String apellidoPa = txtapellidoPaterno.getText();
@@ -534,18 +528,19 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         String movil = txtMovil.getText();
         String email = txtEmail.getText();
-        
-        if(nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("") 
-           && apellidoMa.equalsIgnoreCase("")|| dni.equalsIgnoreCase("")|| id.equalsIgnoreCase("") ){
-            
+
+        if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("") 
+                || apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("") || id.equalsIgnoreCase("")) {
+
             JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*) y debe existir el codigo");
-            
-        }else{
-            try{
+
+        } else {
+
+            try {
+
                 Docente objDocente = new Docente();
                 objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
                 objDocente.setId(Integer.parseInt(id));
-                objDocente.setNombre(nombre);
                 objDocente.setNombre(nombre);
                 objDocente.setApellidopaterno(apellidoPa);
                 objDocente.setApellidomaterno(apellidoMa);
@@ -553,22 +548,22 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 objDocente.setTelefono(telefono);
                 objDocente.setMovil(movil);
                 objDocente.setEmail(email);
-                
+
                 DocenteDAO dao = new DocenteDAO();
                 if (dao.ActualizarDocente(objDocente)) {
                     JOptionPane.showMessageDialog(this, "Se Actualizo correctamente los datos del Docente ");
                     ListarDocente();
                     limpiarCajas();
-                    activaBotones( true, false, false, false);
+                    activaBotones(true, false, false, false);
                     activaCajas(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
-            }catch (Exception e){
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del docente :(" + e.getMessage());
             }
         }
-        
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void tablaListaDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaDocenteMouseClicked
@@ -583,7 +578,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         String movil = tablaListaDocente.getValueAt(fila, 6).toString();
         String email = tablaListaDocente.getValueAt(fila, 7).toString();
         String espec = tablaListaDocente.getValueAt(fila, 8).toString();
-        
+
         txtCodigo.setText(id);
         txtnombre.setText(nomb);
         txtapellidoPaterno.setText(apePater);
@@ -593,24 +588,23 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtMovil.setText(movil);
         txtEmail.setText(email);
         cboEspecialidad.setSelectedItem(espec);
-        
+
         btnNuevo.setText("Nuevo");
-        activaBotones( true , false, true, true);
+        activaBotones(true, false, true, true);
         activaCajas(true);
     }//GEN-LAST:event_tablaListaDocenteMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        
+
         limpiarCajas();
-        if(btnNuevo.getText().equals("Nuevo")){
+        if (btnNuevo.getText().equals("Nuevo")) {
             limpiarCajas();
-            activaBotones( true, true, false, false);
+            activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             activaCajas(true);
-            activaCajas(true);
-        }else{
-            activaBotones( true, false, false, false);
+        } else {
+            activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
             activaCajas(false);
         }
@@ -618,32 +612,58 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        
-        if(txtCodigo.getText().equals("")){
-            JOptionPane.showMessageDialog(this, "No ha seleccionado un registro para eliminar.");
-        }else{
-            Docente objDocente = new Docente();
-            objDocente.setId(Integer.parseInt(txtCodigo.getText()));
-            DocenteDAO dao = new DocenteDAO();
-            if (dao.EliminarDocente(objDocente)) {
-                JOptionPane.showMessageDialog(this, "Se elimino correctamente");
-                ListarDocente();
-                limpiarCajas();
-                activaBotones( true, false, false, false);
-                activaCajas(false);
-            }else{
-                JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+
+       if (txtnombre.getText().equalsIgnoreCase("") || txtapellidoPaterno.getText().equalsIgnoreCase("") 
+                || txtApellidoMaterno.getText().equalsIgnoreCase("") || txtDNI.getText().equalsIgnoreCase("") || txtCodigo.getText().equalsIgnoreCase("")) {
+
+            JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
+
+        } else {
+            
+            try {
+
+                Docente objDocente = new Docente();
+                DocenteDAO dao = new DocenteDAO();
+                
+                //objDocente.setId(Integer.parseInt(txtCodigo.getText()));
+                
+                //Docente objDocente = new Docente();
+                objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
+                objDocente.setId(Integer.parseInt(txtCodigo.getText()));
+                objDocente.setNombre(txtnombre.getText());
+                objDocente.setApellidopaterno(txtapellidoPaterno.getText());
+                objDocente.setApellidomaterno(txtApellidoMaterno.getText());
+                objDocente.setDni(txtDNI.getText());
+                objDocente.setTelefono(txtTelefono.getText());
+                objDocente.setMovil(txtMovil.getText());
+                objDocente.setEmail(txtEmail.getText());
+                
+                
+                if (dao.EliminarDocente(objDocente)) {
+                    JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                    ListarDocente();
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+                }
+
+            } catch (Exception e) {
+                System.out.println("error --> interfaz --> docente --> eliminar");
             }
+
         }
-        
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtCampoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCampoBusquedaKeyReleased
         // TODO add your handling code here:
-        if(String.valueOf(cboSeleccion.getSelectedIndex())=="")
+        if (String.valueOf(cboSeleccion.getSelectedIndex()) == "") {
             ListarDocente();
-        else
+        } else {
             actualizarBusqueda();
+        }
     }//GEN-LAST:event_txtCampoBusquedaKeyReleased
 
 

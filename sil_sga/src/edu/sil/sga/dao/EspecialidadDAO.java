@@ -22,14 +22,15 @@ public class EspecialidadDAO {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("INSERT INTO Especialidad(id,descripcion)values"+"(sq_especialidad.NEXTVAL,?)");
+            PreparedStatement pstm = con.prepareStatement("INSERT INTO Especialidad(id,descripcion) "
+                    + "values (sq_especialidad.NEXTVAL,?)");
             pstm.setString(1, objEspecialidad.getDescripcion());
             pstm.execute();
             pstm.close();
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error --> DAO registrar especialidad");
+            System.out.println("error --> DAO --> especialidad  --> registrar"+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -39,7 +40,7 @@ public class EspecialidadDAO {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("UPDATE Especialidad SET descripcion = ? " + "WHERE id=?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE Especialidad SET descripcion = ? WHERE id = ?");
             pstm.setString(1, objEspecialidad.getDescripcion());
             pstm.setInt(2, objEspecialidad.getId());
             pstm.execute();
@@ -47,7 +48,7 @@ public class EspecialidadDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error --> DAO actualizar especialidad");
+            System.out.println("error --> DAO --> especialidad  --> actualizar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
@@ -57,32 +58,38 @@ public class EspecialidadDAO {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("DELETE FROM Especialidad WHERE id=?");
-            pstm.setInt(1, objEspecialidad.getId());
+            PreparedStatement pstm = con.prepareStatement("UPDATE Especialidad SET descripcion = ?, estado = ?"
+                    + " WHERE id = ? ");
+            pstm.setString(1, objEspecialidad.getDescripcion());
+            pstm.setString(2, "0");
+            pstm.setInt(3, objEspecialidad.getId());
             pstm.execute();
             pstm.close();
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("error --> DAO eliminar especialidad ");
+            System.out.println("error --> DAO --> especialidad  --> eliminar "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public List<Especialidad>ListarEspecialidad(){
+    public List<Especialidad>ListarEspecialidad()throws SQLException{
         List<Especialidad> listarEspecialidad = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("SELECT * FROM Especialidad order by descripcion asc");
+            PreparedStatement pstm = con.prepareStatement("SELECT id, descripcion FROM Especialidad where estado = 1 order by descripcion asc");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
-                listarEspecialidad.add(new Especialidad(rst.getInt("id"),rst.getString("descripcion")));
+                Especialidad especialidad = new Especialidad();
+                especialidad.setId(rst.getInt("id"));
+                especialidad.setDescripcion(rst.getString("descripcion"));
+                listarEspecialidad.add(especialidad);
             }
             pstm.close();
             con.close();
         } catch (Exception e) {
-            System.out.println("error --> DAO listar especialidad ");
+            System.out.println(" error --> DAO --> especialidad  --> listar "+e.getMessage());
             e.printStackTrace();
         }
         return listarEspecialidad;

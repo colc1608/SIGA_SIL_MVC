@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
  */
 public class DocenteDAO {
     
-    public boolean RegistrarDocente(Docente objDocente)throws  Exception{
+    public boolean RegistrarDocente(Docente objDocente)throws  SQLException{
         /*
         boolean retornar = false;
         try {
@@ -65,7 +66,7 @@ public class DocenteDAO {
             
             return true;
         } catch (Exception e) {
-            System.out.println(" error dao -------> ingresoProductoDAO "+e.getMessage());
+            System.out.println(" ERROR --> DAO --> Docente --> registrar  "+e.getMessage());
             e.printStackTrace();
             return false;
         }finally{
@@ -74,7 +75,7 @@ public class DocenteDAO {
         }
     }
     
-    public boolean ActualizarDocente(Docente objDocente){
+    public boolean ActualizarDocente(Docente objDocente)throws  SQLException{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -93,16 +94,21 @@ public class DocenteDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Docente --> actualizar"+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public boolean EliminarDocente(Docente objDocente){
+    
+    
+    
+    public boolean EliminarDocente(Docente objDocente)throws  SQLException{
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,telefono=?,movil=?,email=?,idespecialidad=?,nombre=?, estado = ?" + "WHERE id=?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,"
+                    + "telefono=?, movil=?, email=?, idespecialidad=?, nombre=?, estado = ?" + "WHERE id=?");
             pstm.setString(1, objDocente.getApellidopaterno());
             pstm.setString(2, objDocente.getApellidomaterno());
             pstm.setString(3, objDocente.getDni());
@@ -118,12 +124,17 @@ public class DocenteDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Docente --> eliminar"+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
     
-    public List<Docente>ListarDocente(){
+    
+    
+    
+    
+    public List<Docente>ListarDocente()throws  SQLException{
         List<Docente> listarDocente = new ArrayList<>();
         try {
             Connection con  = Conexion.getConnection();
@@ -149,12 +160,17 @@ public class DocenteDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Docente --> listar"+e.getMessage());
             e.printStackTrace();
         }
         return listarDocente;
     }
     
-    public List<Docente>buscarDocente(String tipo, String cadena){
+    
+    
+    
+    
+    public List<Docente>buscarDocente(String tipo, String cadena)throws  SQLException{
         List<Docente> listarDocente = new ArrayList<>();
         
         try {
@@ -185,7 +201,7 @@ public class DocenteDAO {
             pstm.close();
             con.close();
         } catch (Exception e) {
-            System.out.println("ERROR --> DAO Docente --> Buscar");
+            System.out.println("ERROR --> DAO --> Docente --> Buscar"+e.getMessage());
             e.printStackTrace();
         }
         return listarDocente;

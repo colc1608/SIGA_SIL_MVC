@@ -20,54 +20,56 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_especialidadCRUD
      */
-    
     public List<Especialidad> listaEspecialidad;
-    public  Especialidad objEspecialidad;
-    
+    public Especialidad objEspecialidad;
+
     public Admi_especialidadCRUD() {
-        
+
         initComponents();
         setSize(740, 460); // X , Y
-        setLocation(350,200);
-        activaBotones(true,false,false,false);
+        setLocation(350, 200);
+        activaBotones(true, false, false, false);
         ListarEspecialidad();
         activaCajas(false);
         txtcodigo.setVisible(false);
 
     }
-    
-    
+
     //metodos a utilizar en el formulario =D
-    
-    
-    void activaCajas(boolean a){
+    void activaCajas(boolean a) {
         txtdescripcion.setEnabled(a);
     }
-    
-    void limpiarCajas(){
+
+    void limpiarCajas() {
         txtcodigo.setText("");
         txtdescripcion.setText("");
     }
-    
-    public void activaBotones(boolean a, boolean b, boolean c, boolean d){
+
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d) {
         btnNuevo.setEnabled(a);
         btnGuardar.setEnabled(b);
         btnActualizar.setEnabled(c);
         btnEliminar.setEnabled(d);
-    };
-    
-    public void ListarEspecialidad(){
+    }
 
-        EspecialidadDAO dao = new EspecialidadDAO();
-        listaEspecialidad = dao.ListarEspecialidad();
-        
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("ID");
-        modelo.addColumn("Descripcion");
-        for(Especialidad objEspecialidad: listaEspecialidad){
-            modelo.addRow(new String[]{objEspecialidad.getId()+"",objEspecialidad.getDescripcion()});
+    ;
+    
+    public void ListarEspecialidad() {
+
+        try {
+            EspecialidadDAO dao = new EspecialidadDAO();
+            listaEspecialidad = dao.ListarEspecialidad();
+
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("ID");
+            modelo.addColumn("Descripcion");
+            for (Especialidad objEspecialidad : listaEspecialidad) {
+                modelo.addRow(new String[]{objEspecialidad.getId() + "", objEspecialidad.getDescripcion()});
+            }
+            tablaLista.setModel(modelo);
+        } catch (Exception e) {
+
         }
-        tablaLista.setModel(modelo);
     }
 
     /**
@@ -248,73 +250,73 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
 
     private void tablaListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaMouseClicked
         // TODO add your handling code here:
-        
+
         int fila = tablaLista.getSelectedRow();
         String codigo = tablaLista.getValueAt(fila, 0).toString();
         String descripcion = tablaLista.getValueAt(fila, 1).toString();
-        if(descripcion.equals(""))
+        if (descripcion.equals("")) {
             descripcion = "";
-            txtdescripcion.setText(descripcion);
-            txtcodigo.setText(codigo);
-            activaCajas(true);
-            btnNuevo.setText("Nuevo");
-        
+        }
+        txtdescripcion.setText(descripcion);
+        txtcodigo.setText(codigo);
+        activaCajas(true);
+        btnNuevo.setText("Nuevo");
+
         activaBotones(true, false, true, true);
     }//GEN-LAST:event_tablaListaMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        
-        if(btnNuevo.getText().equals("Nuevo")){
+
+        if (btnNuevo.getText().equals("Nuevo")) {
             limpiarCajas();
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             activaCajas(true);
-        }else{
+        } else {
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
             activaCajas(false);
         }
-        
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         String descripcion = txtdescripcion.getText();
-        if(descripcion.equalsIgnoreCase("")){
+        if (descripcion.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Debe ingresar una descripcion", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }else{
-            try{
+        } else {
+            try {
                 Especialidad objEspecialidad = new Especialidad();
                 objEspecialidad.setDescripcion(descripcion);
                 EspecialidadDAO dao = new EspecialidadDAO();
                 if (dao.RegistrarEspecialidad(objEspecialidad)) {
                     JOptionPane.showMessageDialog(null, "Se registro correctamente", "CORRECTO", JOptionPane.INFORMATION_MESSAGE);
-                    JOptionPane.showMessageDialog(this, "Se registro correctamente");
                     activaBotones(true, false, false, false);
                     btnNuevo.setText("Nuevo");
                     limpiarCajas();
                     ListarEspecialidad();
                     activaCajas(false);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "No se puede registrar");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            
+
         }
-        
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         String codigo = txtcodigo.getText();
         String descripcion = txtdescripcion.getText();
-        if(codigo.equalsIgnoreCase("") && descripcion.equalsIgnoreCase("")){
+        if (codigo.equalsIgnoreCase("") && descripcion.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
-        }else{
-            try{
+        } else {
+            try {
                 Especialidad objEspecialidad = new Especialidad();
                 objEspecialidad.setId(Integer.parseInt(txtcodigo.getText()));
                 objEspecialidad.setDescripcion(txtdescripcion.getText());
@@ -326,25 +328,24 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                     activaBotones(true, false, false, false);
                     activaCajas(false);
                     ListarEspecialidad();
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "No se puedo registrar su especialidad :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        
-        if(txtcodigo.getText().equals("")){
+
+        if (txtcodigo.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
-        }else{
-            try{
+        } else {
+            try {
                 Especialidad especialidad = new Especialidad();
                 especialidad.setId(Integer.parseInt(txtcodigo.getText()));
                 especialidad.setDescripcion(txtdescripcion.getText());
@@ -355,10 +356,10 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                     activaBotones(true, false, false, false);
                     ListarEspecialidad();
                     activaCajas(false);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
                 }
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

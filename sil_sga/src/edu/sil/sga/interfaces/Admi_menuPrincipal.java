@@ -39,7 +39,6 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         itemEspecialidad = new javax.swing.JMenuItem();
         itemDocente = new javax.swing.JMenuItem();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
@@ -112,10 +111,6 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(itemDocente);
-
-        jMenuItem9.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem9.setText("Grado");
-        jMenu2.add(jMenuItem9);
 
         jMenuItem15.setText("Nivel");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
@@ -282,7 +277,6 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JDesktopPane jdPrincipal;
     // End of variables declaration//GEN-END:variables
 }

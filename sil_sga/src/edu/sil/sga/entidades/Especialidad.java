@@ -12,15 +12,19 @@ package edu.sil.sga.entidades;
 public class Especialidad {
     private int id;
     private String Descripcion;
+    String estado;
     
     public Especialidad(){
-       this(0,"");
+       this(0,"","");
+    }
+
+    public Especialidad(int id, String Descripcion, String estado) {
+        this.id = id;
+        this.Descripcion = Descripcion;
+        this.estado = estado;
     }
     
-    public Especialidad(int id, String Descripcion){
-        this.id=id;
-        this.Descripcion=Descripcion;
-    }
+    
 
     public int getId() {
         return id;
@@ -37,4 +41,14 @@ public class Especialidad {
     public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+    
+    
 }
