@@ -290,7 +290,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                 EspecialidadDAO dao = new EspecialidadDAO();
                 if (dao.RegistrarEspecialidad(objEspecialidad)) {
                     JOptionPane.showMessageDialog(null, "Se registro correctamente", "CORRECTO", JOptionPane.INFORMATION_MESSAGE);
-                    JOptionPane.showMessageDialog(this, "Se registro correctamente");
                     activaBotones(true, false, false, false);
                     btnNuevo.setText("Nuevo");
                     limpiarCajas();

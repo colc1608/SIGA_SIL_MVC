@@ -102,7 +102,8 @@ public class DocenteDAO {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,telefono=?,movil=?,email=?,idespecialidad=?,nombre=?, estado = ?" + "WHERE id=?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,"
+                    + "telefono=?, movil=?, email=?, idespecialidad=?, nombre=?, estado = ?" + "WHERE id=?");
             pstm.setString(1, objDocente.getApellidopaterno());
             pstm.setString(2, objDocente.getApellidomaterno());
             pstm.setString(3, objDocente.getDni());
