@@ -396,6 +396,11 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -560,6 +565,73 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+/*      String id = txtId.getText();
+        String nomCo = txtNombreCorto.getText();
+        String nomLa = txtNombreLargo.getText();
+        String horaTe = txtHorasTeoricas.getText();
+        String horaPr = txtHorasPracticas.getText();
+        String desc = txtDescripcion.getText();
+        
+         if(nomCo.equalsIgnoreCase("")||nomLa.equalsIgnoreCase("")||horaTe.equalsIgnoreCase("")){
+            JOptionPane.showMessageDialog(null, "No borre los campos Requeridos por favor: (*) ","ERROR",JOptionPane.ERROR_MESSAGE);
+        }else{
+             try {
+                Curso objCurso = new Curso();
+                CursoDAO dao = new CursoDAO();
+
+                objCurso.setId(Integer.parseInt(id));
+                objCurso.setNombreCorto(nomCo);
+                objCurso.setNombreLargo(nomLa);
+                objCurso.setHorasTecnicas(Integer.parseInt(horaTe));
+                objCurso.setHorasPracticas(Integer.parseInt(horaPr));
+                objCurso.setDescripcion(desc);
+                  if (dao.EliminarCurso(objCurso)) {
+                    JOptionPane.showMessageDialog(this, "Se elimino Correctamente","CONFIRMACION",JOptionPane.INFORMATION_MESSAGE);
+                    ListarCurso();
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                 }else{
+                     JOptionPane.showMessageDialog(this, "No se pudo eliminar ","ERROR",JOptionPane.ERROR_MESSAGE);
+                 }
+             } catch (Exception e) {
+                 System.out.println("error --> interfaz --> docente --> eliminar");
+             }
+         }*/
+        
+        if(txtNombreCorto.getText().equalsIgnoreCase("") || txtNombreLargo.getText().equalsIgnoreCase("") 
+                || txtHorasTeoricas.getText().equalsIgnoreCase("") || txtId.getText().equalsIgnoreCase("")){
+            
+            JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
+            
+        }else{
+            try {
+                Curso objCurso = new Curso();
+                CursoDAO dao = new CursoDAO();
+                
+                objCurso.setId(Integer.parseInt(txtId.getText()));
+                objCurso.setNombreCorto(txtNombreCorto.getText());
+                objCurso.setNombreLargo(txtNombreLargo.getText());
+                objCurso.setHorasTecnicas(Integer.parseInt(txtHorasTeoricas.getText()));
+                objCurso.setHorasPracticas(Integer.parseInt(txtHorasPracticas.getText()));
+                objCurso.setDescripcion(txtDescripcion.getText());
+                
+                if (dao.EliminarCurso(objCurso)) {
+                    JOptionPane.showMessageDialog(this, "Se Elimino Correctamente");
+                    ListarCurso();
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+                }
+            } catch (Exception e) {
+                System.out.println("error --> interfaz --> docente --> eliminar");
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
