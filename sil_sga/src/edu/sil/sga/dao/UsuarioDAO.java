@@ -21,10 +21,11 @@ public class UsuarioDAO {
         //int id = 0;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("select id  from usuario where usuario = '"+user+"'  and clave = '"+cla+"' ");
+            PreparedStatement pstm = con.prepareStatement("select id, tipo  from usuario where usuario = '"+user+"'  and clave = '"+cla+"' ");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 objUsuario.setId(rst.getInt("id"));
+                objUsuario.setTipo(rst.getString("tipo"));
                 //id = rst.getInt("id");
             }
             pstm.close();

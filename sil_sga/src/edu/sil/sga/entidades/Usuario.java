@@ -14,18 +14,22 @@ public class Usuario {
     int id;
     String usuario;
     String clave;
+    String tipo;
     String estado;
     
     public Usuario(){
-       this(0,"","","");
+       this(0,"","","","");
     }
 
-    public Usuario(int id, String usuario, String clave, String estado) {
+    public Usuario(int id, String usuario, String clave, String tipo, String estado) {
         this.id = id;
         this.usuario = usuario;
         this.clave = clave;
+        this.tipo = tipo;
         this.estado = estado;
     }
+
+    
 
     public int getId() {
         return id;
@@ -58,5 +62,16 @@ public class Usuario {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+    
+    
+    
     
 }

@@ -139,6 +139,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -273,37 +274,46 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCodigo.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo)
-                                .addGap(17, 17, 17)
-                                .addComponent(btnGuardar)
-                                .addGap(19, 19, 19)
-                                .addComponent(btnActualizar)
-                                .addGap(11, 11, 11)
-                                .addComponent(btnEliminar))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
-                        .addComponent(jLabel1)))
+                        .addComponent(btnNuevo)
+                        .addGap(17, 17, 17)
+                        .addComponent(btnGuardar)
+                        .addGap(19, 19, 19)
+                        .addComponent(btnActualizar)
+                        .addGap(11, 11, 11)
+                        .addComponent(btnEliminar)))
                 .addContainerGap(47, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(253, 253, 253)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(103, 103, 103))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(jLabel1)
-                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel1)
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
@@ -315,7 +325,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         pack();
@@ -380,26 +390,16 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        
-        
+
         // ME FALTA MEJORAR EL ACTUALIZAAAAAAAAAAAAR
-        
-        
         try {
 
             Grado grado = new Grado();
             GradoDAO dao = new GradoDAO();
 
-            int posicionComboSeleccionado = cboNivel.getSelectedIndex();
-            Nivel nivelSeleccionado = listaNivel.get(posicionComboSeleccionado);
-            grado.setNivel(nivelSeleccionado);
-            
-            System.out.println("dato del nivel: "+nivelSeleccionado.getId());
-
-            int posicionComboSeleccionado2 = cboSeccion.getSelectedIndex();
-            Seccion seccionSeleccionado = listaSeccion.get(posicionComboSeleccionado2);
-            grado.setSeccion(seccionSeleccionado);
-
+            grado.setId(Integer.parseInt(txtCodigo.getText()));
+            grado.setNivel(listaNivel.get(cboNivel.getSelectedIndex()));
+            grado.setSeccion(listaSeccion.get(cboSeccion.getSelectedIndex()));
             grado.setDescripcion(cboGrado.getSelectedItem().toString());
 
             if (dao.ActualizarGrado(grado)) {
@@ -426,6 +426,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         String grado = tablaListarGrado.getValueAt(fila, 2).toString();
         String seccion = tablaListarGrado.getValueAt(fila, 3).toString();
 
+        txtCodigo.setText(id);
         cboNivel.setSelectedItem(nivel);
         cboGrado.setSelectedItem(grado);
         cboSeccion.setSelectedItem(seccion);
@@ -442,7 +443,8 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
 
             Grado grado = new Grado();
             GradoDAO dao = new GradoDAO();
-
+            
+            grado.setId(Integer.parseInt(txtCodigo.getText()));
             grado.setNivel(listaNivel.get(cboNivel.getSelectedIndex()));
             grado.setSeccion(listaSeccion.get(cboSeccion.getSelectedIndex()));
             grado.setDescripcion(cboGrado.getSelectedItem().toString());
@@ -481,5 +483,6 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tablaListarGrado;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

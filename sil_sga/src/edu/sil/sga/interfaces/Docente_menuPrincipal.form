@@ -8,6 +8,21 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Inicio"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Principal"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Salir"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem3ActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu5">
           <Properties>
@@ -19,13 +34,16 @@
             <Property name="text" type="java.lang.String" value="Gestionar"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemGestionarNota">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+G"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Notas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemGestionarNotaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -72,12 +90,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jdp_principalDocente" alignment="0" pref="662" max="32767" attributes="0"/>
+          <Component id="jdp_principalDocente" alignment="0" pref="697" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jdp_principalDocente" alignment="0" pref="370" max="32767" attributes="0"/>
+          <Component id="jdp_principalDocente" alignment="0" pref="359" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -85,7 +103,7 @@
     <Container class="javax.swing.JDesktopPane" name="jdp_principalDocente">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+          <Color blue="cc" green="cc" red="cc" type="rgb"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -102,7 +120,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="362" y="83" width="215" height="-1"/>
+              <AbsoluteConstraints x="110" y="80" width="215" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -112,7 +130,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="475" y="34" width="-1" height="-1"/>
+              <AbsoluteConstraints x="520" y="80" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -122,7 +140,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="549" y="34" width="-1" height="-1"/>
+              <AbsoluteConstraints x="600" y="80" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -132,7 +150,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="36" y="115" width="113" height="134"/>
+              <AbsoluteConstraints x="50" y="120" width="113" height="134"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -142,7 +160,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="210" y="11" width="178" height="37"/>
+              <AbsoluteConstraints x="240" y="20" width="178" height="37"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -152,7 +170,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="40" y="70" width="-1" height="-1"/>
+              <AbsoluteConstraints x="40" y="80" width="-1" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
