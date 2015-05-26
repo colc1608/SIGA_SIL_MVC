@@ -116,7 +116,7 @@ public class CursoDAO {
        List<Curso> listarCurso = new ArrayList<>();
        try {
            Connection con = Conexion.getConnection();
-           PreparedStatement pstm = con.prepareStatement("select id,nombreCorto,nombreLargo,horasTecnicas,horasPracticas,descripcion from curso where nombreLargo like '%" + nomLar+"%'");
+           PreparedStatement pstm = con.prepareStatement("select id,nombreCorto,nombreLargo,horasTecnicas,horasPracticas,descripcion from curso where estado=1 and nombreLargo like '%" + nomLar+"%'");
            ResultSet rst = pstm.executeQuery();
            while (rst.next()) {               
                Curso c = new Curso();
