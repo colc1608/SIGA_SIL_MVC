@@ -33,19 +33,19 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         jdPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        menuItemPrincipal = new javax.swing.JMenuItem();
+        menuItemSalir = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        itemEspecialidad = new javax.swing.JMenuItem();
-        itemDocente = new javax.swing.JMenuItem();
-        menuGrado = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
+        menuItemAlumno = new javax.swing.JMenuItem();
+        menuItemApoderado = new javax.swing.JMenuItem();
+        menuItemCurso = new javax.swing.JMenuItem();
+        menuItemEspecialidad = new javax.swing.JMenuItem();
+        menuItemDocente = new javax.swing.JMenuItem();
+        menuItemGrado = new javax.swing.JMenuItem();
+        menuItemNivel = new javax.swing.JMenuItem();
+        menuItemPeriodo = new javax.swing.JMenuItem();
+        menuItemSeccion = new javax.swing.JMenuItem();
+        menuItemTipoEvaluacion = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -56,116 +56,123 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jdPrincipal.setBackground(new java.awt.Color(204, 204, 204));
+
         javax.swing.GroupLayout jdPrincipalLayout = new javax.swing.GroupLayout(jdPrincipal);
         jdPrincipal.setLayout(jdPrincipalLayout);
         jdPrincipalLayout.setHorizontalGroup(
             jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 424, Short.MAX_VALUE)
+            .addGap(0, 637, Short.MAX_VALUE)
         );
         jdPrincipalLayout.setVerticalGroup(
             jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 283, Short.MAX_VALUE)
+            .addGap(0, 332, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Inicio");
 
-        jMenuItem7.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem7.setText("Principal");
-        jMenu1.add(jMenuItem7);
+        menuItemPrincipal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemPrincipal.setText("Principal");
+        jMenu1.add(menuItemPrincipal);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        jMenuItem5.setText("Salir");
-        jMenu1.add(jMenuItem5);
+        menuItemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
+        menuItemSalir.setText("Salir");
+        menuItemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSalirActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuItemSalir);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Gestionar");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem3.setText("Alumno");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuItemAlumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemAlumno.setText("Alumno");
+        menuItemAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuItemAlumnoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem3);
+        jMenu2.add(menuItemAlumno);
 
-        jMenuItem8.setText("Apoderado");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        menuItemApoderado.setText("Apoderado");
+        menuItemApoderado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                menuItemApoderadoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        jMenu2.add(menuItemApoderado);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Curso");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menuItemCurso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemCurso.setText("Curso");
+        menuItemCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menuItemCursoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(menuItemCurso);
 
-        itemEspecialidad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        itemEspecialidad.setText("Especialidad");
-        itemEspecialidad.addActionListener(new java.awt.event.ActionListener() {
+        menuItemEspecialidad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemEspecialidad.setText("Especialidad");
+        menuItemEspecialidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemEspecialidadActionPerformed(evt);
+                menuItemEspecialidadActionPerformed(evt);
             }
         });
-        jMenu2.add(itemEspecialidad);
+        jMenu2.add(menuItemEspecialidad);
 
-        itemDocente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
-        itemDocente.setText("Docente");
-        itemDocente.addActionListener(new java.awt.event.ActionListener() {
+        menuItemDocente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemDocente.setText("Docente");
+        menuItemDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemDocenteActionPerformed(evt);
+                menuItemDocenteActionPerformed(evt);
             }
         });
-        jMenu2.add(itemDocente);
+        jMenu2.add(menuItemDocente);
 
-        menuGrado.setText("Grado");
-        menuGrado.addActionListener(new java.awt.event.ActionListener() {
+        menuItemGrado.setText("Grado");
+        menuItemGrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuGradoActionPerformed(evt);
+                menuItemGradoActionPerformed(evt);
             }
         });
-        jMenu2.add(menuGrado);
+        jMenu2.add(menuItemGrado);
 
-        jMenuItem15.setText("Nivel");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+        menuItemNivel.setText("Nivel");
+        menuItemNivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
+                menuItemNivelActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem15);
+        jMenu2.add(menuItemNivel);
 
-        jMenuItem10.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem10.setText("Periodo");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+        menuItemPeriodo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemPeriodo.setText("Periodo");
+        menuItemPeriodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
+                menuItemPeriodoActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem10);
+        jMenu2.add(menuItemPeriodo);
 
-        jMenuItem11.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem11.setText("Seccion");
-        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+        menuItemSeccion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemSeccion.setText("Seccion");
+        menuItemSeccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem11ActionPerformed(evt);
+                menuItemSeccionActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem11);
+        jMenu2.add(menuItemSeccion);
 
-        jMenuItem12.setText("Tipo Evaluacion");
-        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+        menuItemTipoEvaluacion.setText("Tipo Evaluacion");
+        menuItemTipoEvaluacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem12ActionPerformed(evt);
+                menuItemTipoEvaluacionActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem12);
+        jMenu2.add(menuItemTipoEvaluacion);
 
         jMenuBar1.add(jMenu2);
 
@@ -213,66 +220,73 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEspecialidadActionPerformed
+    private void menuItemEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemEspecialidadActionPerformed
         // TODO add your handling code here:
         Admi_especialidadCRUD frm = new Admi_especialidadCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-    }//GEN-LAST:event_itemEspecialidadActionPerformed
+    }//GEN-LAST:event_menuItemEspecialidadActionPerformed
 
-    private void itemDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDocenteActionPerformed
+    private void menuItemDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDocenteActionPerformed
         // TODO add your handling code here:
         Admi_docenteCRUD frm = new Admi_docenteCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-    }//GEN-LAST:event_itemDocenteActionPerformed
+    }//GEN-LAST:event_menuItemDocenteActionPerformed
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
-    private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
+    private void menuItemNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNivelActionPerformed
         // TODO add your handling code here:
         Admi_nivelCRUD frm = new Admi_nivelCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem15ActionPerformed
+    }//GEN-LAST:event_menuItemNivelActionPerformed
 
-    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+    private void menuItemSeccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSeccionActionPerformed
         // TODO add your handling code here:
         Admi_SeccionCRUD frm = new Admi_SeccionCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem11ActionPerformed
+    }//GEN-LAST:event_menuItemSeccionActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menuItemCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCursoActionPerformed
         Admi_cursoCRUD frm = new Admi_cursoCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menuItemCursoActionPerformed
 
-    private void menuGradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGradoActionPerformed
+    private void menuItemGradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGradoActionPerformed
         // TODO add your handling code here:
         Admi_GradoCRUD frm = new Admi_GradoCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-    }//GEN-LAST:event_menuGradoActionPerformed
+    }//GEN-LAST:event_menuItemGradoActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void menuItemAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAlumnoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_menuItemAlumnoActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void menuItemApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemApoderadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_menuItemApoderadoActionPerformed
 
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+    private void menuItemPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPeriodoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
+    }//GEN-LAST:event_menuItemPeriodoActionPerformed
 
-    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+    private void menuItemTipoEvaluacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTipoEvaluacionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem12ActionPerformed
+    }//GEN-LAST:event_menuItemTipoEvaluacionActionPerformed
+
+    private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login dialog = new Login(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_menuItemSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -310,28 +324,28 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem itemDocente;
-    private javax.swing.JMenuItem itemEspecialidad;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
-    private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JDesktopPane jdPrincipal;
-    private javax.swing.JMenuItem menuGrado;
+    private javax.swing.JMenuItem menuItemAlumno;
+    private javax.swing.JMenuItem menuItemApoderado;
+    private javax.swing.JMenuItem menuItemCurso;
+    private javax.swing.JMenuItem menuItemDocente;
+    private javax.swing.JMenuItem menuItemEspecialidad;
+    private javax.swing.JMenuItem menuItemGrado;
+    private javax.swing.JMenuItem menuItemNivel;
+    private javax.swing.JMenuItem menuItemPeriodo;
+    private javax.swing.JMenuItem menuItemPrincipal;
+    private javax.swing.JMenuItem menuItemSalir;
+    private javax.swing.JMenuItem menuItemSeccion;
+    private javax.swing.JMenuItem menuItemTipoEvaluacion;
     // End of variables declaration//GEN-END:variables
 }
