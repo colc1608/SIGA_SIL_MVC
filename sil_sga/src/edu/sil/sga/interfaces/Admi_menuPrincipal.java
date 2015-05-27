@@ -266,7 +266,9 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemGradoActionPerformed
 
     private void menuItemAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAlumnoActionPerformed
-        // TODO add your handling code here:
+       Admi_alumnoCRUD frm = new Admi_alumnoCRUD();
+       jdPrincipal.add(frm);
+       frm.setVisible(true);
     }//GEN-LAST:event_menuItemAlumnoActionPerformed
 
     private void menuItemApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemApoderadoActionPerformed

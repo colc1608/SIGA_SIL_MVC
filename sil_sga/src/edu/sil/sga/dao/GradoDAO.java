@@ -5,6 +5,7 @@
  */
 package edu.sil.sga.dao;
 
+import edu.sil.sga.entidades.Especialidad;
 import edu.sil.sga.entidades.Grado;
 import edu.sil.sga.entidades.Nivel;
 import edu.sil.sga.entidades.Seccion;
@@ -133,5 +134,34 @@ public class GradoDAO {
         return listarGrado;
     }
   
-
+   /* public List<Grado>buscarGrado(String nomLa, String desc)throws SQLException{
+        List<Grado> listarGrado = new ArrayList<>();
+        System.out.println("nombre Largo = " + nomLa);
+        System.out.println("descripcion = " + desc);
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado, s.descripcion as seccion from niveleducacion n \n" +
+            "inner join grado g on(n.ID = g.idniveleducacion)\n" +
+            "inner join seccion s on(g.idseccion = s.ID)\n" +
+            "where n.nombreLargo='"+ nomLa +"' and g.descripcion= '"+desc+"'");
+            ResultSet rst = pstm.executeQuery();
+            while (rst.next()) {                
+                Grado grado = new Grado();
+                Nivel nivel = new Nivel();
+                Seccion seccion = new Seccion();
+                
+                grado.setId(rst.getInt("id"));
+                nivel.setNombreCorto(rst.getString("nivel"));
+                grado.setNivel(nivel);
+                seccion.setDescripcion(rst.getString("seccion"));
+                grado.setSeccion(seccion);
+                grado.setDescripcion(rst.getString("grado"));
+                listarGrado.add(grado);
+            }
+        } catch (Exception e) {
+            System.out.println("Error - Grado - DAO - Busqueda");
+        }
+        return listarGrado;
+    }
+*/
 }
