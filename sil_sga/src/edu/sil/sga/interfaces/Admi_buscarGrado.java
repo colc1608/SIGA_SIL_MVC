@@ -202,14 +202,14 @@ public class Admi_buscarGrado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtDescripcionKeyReleased
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-       /* int index = tblGrado.getSelectedRow();
+      int index = tblGrado.getSelectedRow();
         if (index!=-1) {
             Grado objGrado = listaGrado.get(index);
-            Admi_alumnoCRUD alucrud = new Admi_alumnoCRUD();
+            Admi_alumnoCRUD alucrud = new Admi_alumnoCRUD(objGrado);
             this.getParent().add(alucrud);
             alucrud.setVisible(true);
             this.dispose();
-        }*/
+        }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
 
