@@ -5,7 +5,10 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.AlumnoDAO;
+import edu.sil.sga.entidades.Alumno;
 import edu.sil.sga.entidades.Grado;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,19 +20,20 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
      * Creates new form Admi_alumnoCRUD
      */
     private Grado objGrado;
+
     public Admi_alumnoCRUD(Grado objGrado) {
         initComponents();
         cargarDatos(objGrado);
-       
+        System.out.println("variables del grado: " + objGrado.getId());
+
     }
-    
-    void cargarDatos(Grado objGrado){
-       this.objGrado = objGrado;
-       txtGrado.setText(objGrado.getDescripcion());
-       txtSeccion.setText(objGrado.getSeccion().getDescripcion());
-       txtNivel.setText(objGrado.getNivel().getNombreCorto());
+
+    void cargarDatos(Grado objGrado) {
+        this.objGrado = objGrado;
+        txtGrado.setText(objGrado.getDescripcion());
+        txtSeccion.setText(objGrado.getSeccion().getDescripcion());
+        txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
- 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,15 +86,15 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Gestionar Alumno - IEP San Ignacio de Loyola");
         setToolTipText("");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Alumno");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
 
         jLabel3.setText("Apellido Paterno: ");
+
+        txtFecha.setEditable(false);
 
         jLabel2.setText("Nombres: ");
 
@@ -150,7 +154,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,8 +176,18 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         );
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnActualizar.setText("Actualizar");
 
@@ -197,25 +211,25 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(txtApeMa, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(txtDni, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(txtApePa, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                    .addComponent(txtApeMa)
+                    .addComponent(txtDni)
+                    .addComponent(txtApePa)
+                    .addComponent(txtNombre)
+                    .addComponent(txtTelefono)
+                    .addComponent(txtFecha)
                     .addComponent(txtMovil))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btnNuevo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(14, 14, 14)
                         .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,10 +276,8 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 620, 330));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Alumnos"));
 
@@ -310,7 +322,34 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 .addContainerGap(100, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 380, 330));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(500, 500, 500)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -320,6 +359,70 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         this.getParent().add(form);
         form.setVisible(true);
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+
+        String nombre = txtNombre.getText();
+        String apellidoPa = txtApePa.getText();
+        String apellidoMa = txtApeMa.getText();
+        String dni = txtDni.getText();
+        String telefono = txtTelefono.getText();
+        String movil = txtMovil.getText();
+        String email = txtEmail.getText();
+        int idGrado = Integer.parseInt(String.valueOf(objGrado.getId()));
+
+        if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
+                && apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*)");
+
+        } else {
+
+            try {
+                Alumno alumno = new Alumno();
+                Grado grado = new Grado();
+                grado.setId(idGrado);
+                alumno.setGrado(grado);
+
+                alumno.setNombre(nombre);
+                alumno.setApellidopaterno(apellidoPa);
+                alumno.setApellidomaterno(apellidoMa);
+                alumno.setDni(dni);
+                alumno.setTelefono(telefono);
+                alumno.setMovil(movil);
+                alumno.setEmail(email);
+
+                AlumnoDAO dao = new AlumnoDAO();
+                if (dao.RegistrarAlumno(alumno)) {
+                    JOptionPane.showMessageDialog(this, "Se registro correctamente al docente :) ");
+                    
+                    btnNuevo.setText("Nuevo");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No pudimos agregar al nuevo alumno :( " + e.getMessage());
+
+            }
+        }
+
+
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+
+        int idGrado = objGrado.getId();
+        Alumno alumno = new Alumno();
+        Grado grado = new Grado();
+        grado.setId(idGrado);
+        alumno.setGrado(grado);
+
+        System.out.println("el valor de grado id es : " + idGrado);
+
+        System.out.println("el varlo de grado de frfan es : " + grado.getId());
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
