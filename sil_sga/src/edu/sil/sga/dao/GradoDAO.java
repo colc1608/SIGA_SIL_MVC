@@ -134,7 +134,7 @@ public class GradoDAO {
         return listarGrado;
     }
   
-   /* public List<Grado>buscarGrado(String nomLa, String desc)throws SQLException{
+   public List<Grado>buscarGrado(String nomLa, String desc)throws SQLException{
         List<Grado> listarGrado = new ArrayList<>();
         System.out.println("nombre Largo = " + nomLa);
         System.out.println("descripcion = " + desc);
@@ -163,5 +163,5 @@ public class GradoDAO {
         }
         return listarGrado;
     }
-*/
+
 }

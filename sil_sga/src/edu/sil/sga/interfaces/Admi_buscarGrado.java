@@ -22,34 +22,37 @@ public class Admi_buscarGrado extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_buscarGrado
      */
-    public List<Nivel>listaNivel;
-    public List<Grado>listaGrado;
-    
+    public List<Nivel> listaNivel;
+    public List<Grado> listaGrado;
+
     public Admi_buscarGrado() {
+         
+        
+        
         initComponents();
         CargarNivel();
         listarGrado();
         ActivaSeleccionar(false);
     }
-    
-    public void ActivaSeleccionar(boolean a){
+
+    public void ActivaSeleccionar(boolean a) {
         btnEnviar.setEnabled(a);
     }
-    
-    void CargarNivel(){
+
+    void CargarNivel() {
         try {
             DefaultComboBoxModel model = new DefaultComboBoxModel();
             listaNivel = new NivelDAO().ListarNivel();
             for (Nivel nivel : listaNivel) {
                 model.addElement(nivel.getNombreLargo());
             }
-           cboNivel.setModel(model);
+            cboNivel.setModel(model);
         } catch (Exception e) {
             System.out.println("error - cargar - combo - nivel");
         }
     }
-    
-    void listarGrado(){
+
+    void listarGrado() {
         try {
             GradoDAO dao = new GradoDAO();
             listaGrado = dao.ListarGrado();
@@ -58,11 +61,11 @@ public class Admi_buscarGrado extends javax.swing.JInternalFrame {
             modelo1.addColumn("Nivel");
             modelo1.addColumn("Grado");
             modelo1.addColumn("Seccion");
-            
+
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
-                    grado.getId()+"",
-                    grado.getNivel().getNombreCorto()+"",
+                    grado.getId() + "",
+                    grado.getNivel().getNombreCorto() + "",
                     grado.getDescripcion() + "",
                     grado.getSeccion().getDescripcion() + ""
                 });
@@ -72,31 +75,31 @@ public class Admi_buscarGrado extends javax.swing.JInternalFrame {
             System.out.println("Error - cargar - grado - listar");
         }
     }
-    
- /*       void ActualizarBusqueda(){
-            String desc = txtDescripcion.getText();
-            try {
-                listaGrado = new GradoDAO().buscarGrado(String.valueOf(cboNivel.getSelectedItem()),desc);
-                DefaultTableModel modelo1 = new DefaultTableModel();
-                        modelo1.addColumn("id");
-                        modelo1.addColumn("Nivel");
-                        modelo1.addColumn("Grado");
-                        modelo1.addColumn("Seccion");
-            
+
+    void ActualizarBusqueda() {
+        String desc = txtDescripcion.getText();
+        try {
+            listaGrado = new GradoDAO().buscarGrado(String.valueOf(cboNivel.getSelectedItem()), desc);
+            DefaultTableModel modelo1 = new DefaultTableModel();
+            modelo1.addColumn("id");
+            modelo1.addColumn("Nivel");
+            modelo1.addColumn("Grado");
+            modelo1.addColumn("Seccion");
+
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
-                    grado.getId()+"",
-                    grado.getNivel().getNombreCorto()+"",
+                    grado.getId() + "",
+                    grado.getNivel().getNombreCorto() + "",
                     grado.getDescripcion() + "",
                     grado.getSeccion().getDescripcion() + ""
                 });
             }
             tblGrado.setModel(modelo1);
-                
-            } catch (Exception e) {
-                  System.out.println("Error - Actualizar cargar - grado - listar");
-            }
-        }*/
+
+        } catch (Exception e) {
+            System.out.println("Error - Actualizar cargar - grado - listar");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,7 +122,6 @@ public class Admi_buscarGrado extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Buscar Grado");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busqueda de Grado"));
         jPanel1.setToolTipText("");
@@ -176,15 +178,36 @@ public class Admi_buscarGrado extends javax.swing.JInternalFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, 200));
-
         btnEnviar.setText("Seleccionar");
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEnviar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(464, 464, 464)
+                        .addComponent(btnEnviar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(121, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -194,16 +217,16 @@ public class Admi_buscarGrado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tblGradoMouseClicked
 
     private void txtDescripcionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescripcionKeyReleased
-   /*     if (String.valueOf(txtDescripcion.getText())== "" && String.valueOf(cboNivel.getSelectedIndex())== "") {
+        if (String.valueOf(txtDescripcion.getText()) == "" ) {
             listarGrado();
-        }else{
+        } else {
             ActualizarBusqueda();
-        }*/
+        }
     }//GEN-LAST:event_txtDescripcionKeyReleased
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-      int index = tblGrado.getSelectedRow();
-        if (index!=-1) {
+        int index = tblGrado.getSelectedRow();
+        if (index != -1) {
             Grado objGrado = listaGrado.get(index);
             Admi_alumnoCRUD alucrud = new Admi_alumnoCRUD(objGrado);
             this.getParent().add(alucrud);
