@@ -87,30 +87,29 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             listaDocente = dao.ListarDocente();
             DefaultTableModel modelo1 = new DefaultTableModel();
 
-            modelo1.addColumn("id");
+            //modelo1.addColumn("id");
             modelo1.addColumn("Nombre");
             modelo1.addColumn("Apellido Paterno");
             modelo1.addColumn("Apellido Materno");
             modelo1.addColumn("DNI");
-            modelo1.addColumn("Telefono");
-            modelo1.addColumn("Movil");
-            modelo1.addColumn("Email");
-            modelo1.addColumn("Especialidad");
+            //modelo1.addColumn("Telefono");
+            //modelo1.addColumn("Movil");
+            //modelo1.addColumn("Email");
+            //modelo1.addColumn("Especialidad");
 
             for (Docente objDocente : listaDocente) {
                 modelo1.addRow(new String[]{
-                    objDocente.getId() + "",
+                    //objDocente.getId() + "",
                     objDocente.getNombre() + "",
                     objDocente.getApellidopaterno() + "",
                     objDocente.getApellidomaterno() + "",
-                    objDocente.getDni() + "",
-                    objDocente.getTelefono() + "",
-                    objDocente.getMovil() + "",
-                    objDocente.getEmail() + "",
-                    objDocente.getEspecialidad().getDescripcion()
+                    objDocente.getDni() + "", //objDocente.getTelefono() + "",
+                //objDocente.getMovil() + "",
+                //objDocente.getEmail() + "",
+                //objDocente.getEspecialidad().getDescripcion()
                 });
             }
-            
+
             tablaListaDocente.setModel(modelo1);
 
         } catch (Exception e) {
@@ -124,29 +123,30 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         try {
             listaDocente = new DocenteDAO().buscarDocente(String.valueOf(cboSeleccion.getSelectedItem()), txtCampoBusqueda.getText());
 
-            DefaultTableModel modelo1 = new DefaultTableModel();
+            DefaultTableModel modelo1 = (DefaultTableModel) tablaListaDocente.getModel();
+            while (modelo1.getRowCount() > 0) {
+                modelo1.removeRow(0);
+            }
 
-            modelo1.addColumn("id");
-            modelo1.addColumn("Nombre");
-            modelo1.addColumn("Apellido Paterno");
-            modelo1.addColumn("Apellido Materno");
-            modelo1.addColumn("DNI");
-            modelo1.addColumn("Telefono");
-            modelo1.addColumn("Movil");
-            modelo1.addColumn("Email");
-            modelo1.addColumn("Especialidad");
-
+            //modelo1.addColumn("id");
+            //modelo1.addColumn("Nombre");
+            //modelo1.addColumn("Apellido Paterno");
+            //modelo1.addColumn("Apellido Materno");
+            //modelo1.addColumn("DNI");
+            //modelo1.addColumn("Telefono");
+            //modelo1.addColumn("Movil");
+            //modelo1.addColumn("Email");
+            //modelo1.addColumn("Especialidad");
             for (Docente objDocente : listaDocente) {
                 modelo1.addRow(new String[]{
-                    objDocente.getId() + "",
+                    //objDocente.getId() + "",
                     objDocente.getNombre() + "",
                     objDocente.getApellidopaterno() + "",
                     objDocente.getApellidomaterno() + "",
-                    objDocente.getDni() + "",
-                    objDocente.getTelefono() + "",
-                    objDocente.getMovil() + "",
-                    objDocente.getEmail() + "",
-                    String.valueOf(objDocente.getEspecialidad().getDescripcion())
+                    objDocente.getDni() + "", //objDocente.getTelefono() + "",
+                //objDocente.getMovil() + "",
+                //objDocente.getEmail() + "",
+                //String.valueOf(objDocente.getEspecialidad().getDescripcion())
                 });
             }
 
@@ -362,15 +362,17 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtCampoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCampoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                        .addComponent(cboSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34))
+                        .addComponent(cboSeleccion, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -529,7 +531,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         String movil = txtMovil.getText();
         String email = txtEmail.getText();
 
-        if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("") 
+        if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
                 || apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("") || id.equalsIgnoreCase("")) {
 
             JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*) y debe existir el codigo");
@@ -569,29 +571,34 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private void tablaListaDocenteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaDocenteMouseClicked
         // TODO add your handling code here:
         int fila = tablaListaDocente.getSelectedRow();
-        String id = tablaListaDocente.getValueAt(fila, 0).toString();
-        String nomb = tablaListaDocente.getValueAt(fila, 1).toString();
-        String apePater = tablaListaDocente.getValueAt(fila, 2).toString();
-        String apeMater = tablaListaDocente.getValueAt(fila, 3).toString();
-        String dni = tablaListaDocente.getValueAt(fila, 4).toString();
-        String telef = tablaListaDocente.getValueAt(fila, 5).toString();
-        String movil = tablaListaDocente.getValueAt(fila, 6).toString();
-        String email = tablaListaDocente.getValueAt(fila, 7).toString();
-        String espec = tablaListaDocente.getValueAt(fila, 8).toString();
+        if (fila != -1) {
+            Docente objDocenteSeleccionado = listaDocente.get(fila);
+            /*String id = tablaListaDocente.getValueAt(fila, 0).toString();
+             String nomb = tablaListaDocente.getValueAt(fila, 1).toString();
+             String apePater = tablaListaDocente.getValueAt(fila, 2).toString();
+             String apeMater = tablaListaDocente.getValueAt(fila, 3).toString();
+             String dni = tablaListaDocente.getValueAt(fila, 4).toString();
+             String telef = tablaListaDocente.getValueAt(fila, 5).toString();
+             String movil = tablaListaDocente.getValueAt(fila, 6).toString();
+             String email = tablaListaDocente.getValueAt(fila, 7).toString();
+             String espec = tablaListaDocente.getValueAt(fila, 8).toString();*/
 
-        txtCodigo.setText(id);
-        txtnombre.setText(nomb);
-        txtapellidoPaterno.setText(apePater);
-        txtApellidoMaterno.setText(apeMater);
-        txtDNI.setText(dni);
-        txtTelefono.setText(telef);
-        txtMovil.setText(movil);
-        txtEmail.setText(email);
-        cboEspecialidad.setSelectedItem(espec);
+            txtCodigo.setText(String.valueOf(objDocenteSeleccionado.getId()));
+            txtnombre.setText(String.valueOf(objDocenteSeleccionado.getNombre()));
 
-        btnNuevo.setText("Nuevo");
-        activaBotones(true, false, true, true);
-        activaCajas(true);
+            txtapellidoPaterno.setText(String.valueOf(objDocenteSeleccionado.getApellidopaterno()));
+            txtApellidoMaterno.setText(String.valueOf(objDocenteSeleccionado.getApellidomaterno()));
+            txtDNI.setText(String.valueOf(objDocenteSeleccionado.getDni()));
+            txtTelefono.setText(String.valueOf(objDocenteSeleccionado.getTelefono()));
+            txtMovil.setText(String.valueOf(objDocenteSeleccionado.getMovil()));
+            txtEmail.setText(String.valueOf(objDocenteSeleccionado.getEmail()));
+            cboEspecialidad.setSelectedItem(String.valueOf(objDocenteSeleccionado.getEspecialidad().getDescripcion()));
+
+            btnNuevo.setText("Nuevo");
+            activaBotones(true, false, true, true);
+            activaCajas(true);
+        }
+
     }//GEN-LAST:event_tablaListaDocenteMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -613,20 +620,19 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
 
-       if (txtnombre.getText().equalsIgnoreCase("") || txtapellidoPaterno.getText().equalsIgnoreCase("") 
+        if (txtnombre.getText().equalsIgnoreCase("") || txtapellidoPaterno.getText().equalsIgnoreCase("")
                 || txtApellidoMaterno.getText().equalsIgnoreCase("") || txtDNI.getText().equalsIgnoreCase("") || txtCodigo.getText().equalsIgnoreCase("")) {
 
             JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
 
         } else {
-            
+
             try {
 
                 Docente objDocente = new Docente();
                 DocenteDAO dao = new DocenteDAO();
-                
+
                 //objDocente.setId(Integer.parseInt(txtCodigo.getText()));
-                
                 //Docente objDocente = new Docente();
                 objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
                 objDocente.setId(Integer.parseInt(txtCodigo.getText()));
@@ -637,8 +643,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 objDocente.setTelefono(txtTelefono.getText());
                 objDocente.setMovil(txtMovil.getText());
                 objDocente.setEmail(txtEmail.getText());
-                
-                
+
                 if (dao.EliminarDocente(objDocente)) {
                     JOptionPane.showMessageDialog(this, "Se elimino correctamente");
                     ListarDocente();

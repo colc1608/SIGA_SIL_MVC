@@ -8,6 +8,8 @@ package edu.sil.sga.interfaces;
 import edu.sil.sga.dao.AlumnoDAO;
 import edu.sil.sga.entidades.Alumno;
 import edu.sil.sga.entidades.Grado;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,14 +23,15 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
      */
     private Grado objGrado;
 
-    public Admi_alumnoCRUD(Grado objGrado) {
+    public Admi_alumnoCRUD() {
         initComponents();
-        cargarDatos(objGrado);
-        System.out.println("variables del grado: " + objGrado.getId());
+        //cargarDatos(objGrado);
+        //System.out.println("variables del grado: " + objGrado.getId());
 
     }
 
     void cargarDatos(Grado objGrado) {
+        
         this.objGrado = objGrado;
         txtGrado.setText(objGrado.getDescripcion());
         txtSeccion.setText(objGrado.getSeccion().getDescripcion());
@@ -355,9 +358,15 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        Admi_buscarGrado form = new Admi_buscarGrado();
-        this.getParent().add(form);
+        List<Grado> lstGrado = new ArrayList<>();
+        Admi_buscarGrado form = new Admi_buscarGrado(null, true, lstGrado);
         form.setVisible(true);
+        if (lstGrado.isEmpty()){
+            //Ventana se cerro sin seleccionar
+        }else{
+            Grado objGradoElegido = lstGrado.get(0);
+            cargarDatos(objGradoElegido);
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
