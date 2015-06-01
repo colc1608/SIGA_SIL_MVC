@@ -153,11 +153,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             tablaListaDocente.setModel(modelo1);
 
             //buscando como ocultar columnas
-            tablaListaDocente.getColumnModel().getColumn(0).setPreferredWidth(0);
-            tablaListaDocente.getColumnModel().getColumn(1).setPreferredWidth(1500);
-            tablaListaDocente.getColumnModel().getColumn(2).setPreferredWidth(1500);
-            tablaListaDocente.getColumnModel().getColumn(3).setPreferredWidth(1500);
-            tablaListaDocente.getColumnModel().getColumn(4).setPreferredWidth(1500);
         } catch (Exception e) {
             System.out.println("error --> interfaz --> docente --> actualizar busqueda");
         }
