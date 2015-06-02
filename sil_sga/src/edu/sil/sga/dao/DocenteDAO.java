@@ -9,6 +9,7 @@ import edu.sil.sga.entidades.Docente;
 import edu.sil.sga.entidades.Especialidad;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +61,8 @@ public class DocenteDAO {
             cstm.setString(3,objDocente.getApellidopaterno());
             cstm.setString(4,objDocente.getApellidomaterno());
             cstm.setString(5, objDocente.getDni());
+            cstm.setDate(6, new Date(objDocente.getFechadenacimiento().getTime()));
+            
             
             
             cstm.execute();

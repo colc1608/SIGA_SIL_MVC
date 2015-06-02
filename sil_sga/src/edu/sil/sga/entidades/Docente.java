@@ -5,6 +5,8 @@
  */
 package edu.sil.sga.entidades;
 
+import java.util.Date;
+
 /**
  *
  * @author Cesar Lopez
@@ -17,18 +19,18 @@ public class Docente {
     String dni;
     String telefono;
     String movil;
-   // private Date fechadenacimiento;
+    Date fechadenacimiento; // siempr es el UTIL
     String email;
     Especialidad especialidad;
     String estado;
     
     public Docente(){
-        this(0,"","","","","","","",new Especialidad(),"");
+        this(0,"","","","","","","",new Especialidad(),"",new Date());
     }
 
     
     
-    public Docente(int id, String nombre, String apellidopaterno, String apellidomaterno, String dni, String telefono, String movil, String email, Especialidad especialidad, String estado) {
+    public Docente(int id, String nombre, String apellidopaterno, String apellidomaterno, String dni, String telefono, String movil, String email, Especialidad especialidad, String estado, Date fechaNacimiento) {
         this.id = id;
         this.nombre = nombre;
         this.apellidopaterno = apellidopaterno;
@@ -39,6 +41,7 @@ public class Docente {
         this.email = email;
         this.especialidad = especialidad;
         this.estado = estado;
+        this.fechadenacimiento = fechaNacimiento;
     }
 
     
@@ -122,6 +125,14 @@ public class Docente {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public Date getFechadenacimiento() {
+        return fechadenacimiento;
+    }
+
+    public void setFechadenacimiento(Date fechadenacimiento) {
+        this.fechadenacimiento = fechadenacimiento;
     }
     
     

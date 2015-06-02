@@ -26,7 +26,6 @@ public class UsuarioDAO {
             while (rst.next()) {
                 objUsuario.setId(rst.getInt("id"));
                 objUsuario.setTipo(rst.getString("tipo"));
-                //id = rst.getInt("id");
             }
             pstm.close();
             con.close();
