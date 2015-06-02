@@ -18,9 +18,8 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
     }
-    
-    //GENERE TODOS LOS MENU ITEM =D 
 
+    //GENERE TODOS LOS MENU ITEM =D 
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,6 +38,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         menuItemAlumno = new javax.swing.JMenuItem();
         menuItemApoderado = new javax.swing.JMenuItem();
         menuItemCurso = new javax.swing.JMenuItem();
+        menuItemClase = new javax.swing.JMenuItem();
         menuItemEspecialidad = new javax.swing.JMenuItem();
         menuItemDocente = new javax.swing.JMenuItem();
         menuItemGrado = new javax.swing.JMenuItem();
@@ -113,6 +113,14 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuItemCurso);
+
+        menuItemClase.setText("Clase");
+        menuItemClase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemClaseActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemClase);
 
         menuItemEspecialidad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         menuItemEspecialidad.setText("Especialidad");
@@ -266,9 +274,9 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemGradoActionPerformed
 
     private void menuItemAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAlumnoActionPerformed
-       Admi_alumnoCRUD frm = new Admi_alumnoCRUD();
-       jdPrincipal.add(frm);
-       frm.setVisible(true);
+        Admi_alumnoCRUD frm = new Admi_alumnoCRUD();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
     }//GEN-LAST:event_menuItemAlumnoActionPerformed
 
     private void menuItemApoderadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemApoderadoActionPerformed
@@ -289,6 +297,13 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         Login dialog = new Login(new javax.swing.JFrame(), true);
         dialog.setVisible(true);
     }//GEN-LAST:event_menuItemSalirActionPerformed
+
+    private void menuItemClaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemClaseActionPerformed
+        // TODO add your handling code here:
+        Admi_claseCRUD frm = new Admi_claseCRUD();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuItemClaseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,6 +354,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jdPrincipal;
     private javax.swing.JMenuItem menuItemAlumno;
     private javax.swing.JMenuItem menuItemApoderado;
+    private javax.swing.JMenuItem menuItemClase;
     private javax.swing.JMenuItem menuItemCurso;
     private javax.swing.JMenuItem menuItemDocente;
     private javax.swing.JMenuItem menuItemEspecialidad;

@@ -24,6 +24,9 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
      */
     
     public List<Nivel> listaNivel;
+    
+    
+    
     public List<Grado> listaGrado;
     private List<Grado> lstGrado;
     

@@ -25,8 +25,8 @@ public class Conexion {
     private static String port = "1521";
 
     
-    private static String dbname = "dbsilsiga";   // CONEXION PARA PAUL
-    //private static String dbname = "DBSILSGA";      // CONEXION PARA CESAR 
+    //private static String dbname = "dbsilsiga";   // CONEXION PARA PAUL
+    private static String dbname = "DBSILSGA";      // CONEXION PARA CESAR 
 
     
     public static Connection getConnection()throws SQLException{
@@ -38,7 +38,7 @@ public class Conexion {
             System.out.println("conexion finalizada correctamente :) ");
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(" error --> Conexion --> getConnection  ");
+            System.out.println(" error --> Conexion --> getConnection  "+e.getMessage());
         }
         return con;
     }
