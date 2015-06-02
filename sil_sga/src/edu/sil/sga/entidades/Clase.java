@@ -10,7 +10,8 @@ package edu.sil.sga.entidades;
  * @author Cesar Lopez
  */
 public class Clase {
-
+    
+    int id;
     Curso curso;
     Grado grado;
     Docente docente;
@@ -20,11 +21,11 @@ public class Clase {
     
     
     public Clase(){
-       this(new Curso(), new Grado(), new Docente(), 0 , "","");
+       this(0,new Curso(), new Grado(), new Docente(), 0 , "","");
     }
-    
-    
-    public Clase(Curso curso, Grado grado, Docente docente, int cantidadAlumnos, String observacion, String estado) {
+
+    public Clase(int id, Curso curso, Grado grado, Docente docente, int cantidadAlumnos, String observacion, String estado) {
+        this.id = id;
         this.curso = curso;
         this.grado = grado;
         this.docente = docente;
@@ -32,8 +33,17 @@ public class Clase {
         this.observacion = observacion;
         this.estado = estado;
     }
+
     
     
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
     
     public Curso getCurso() {
