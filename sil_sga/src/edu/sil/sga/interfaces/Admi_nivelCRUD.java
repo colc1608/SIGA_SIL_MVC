@@ -52,7 +52,7 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         btnEliminar.setEnabled(d);
     }
 
-    ;
+    
     
     public void ListarNiveles() {
 

@@ -285,10 +285,21 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
     private void menuItemPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPeriodoActionPerformed
         // TODO add your handling code here:
+        
+        Admi_periodoCRUD frm = new Admi_periodoCRUD();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+        
     }//GEN-LAST:event_menuItemPeriodoActionPerformed
 
     private void menuItemTipoEvaluacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTipoEvaluacionActionPerformed
         // TODO add your handling code here:
+        
+        Admi_tipoEvaluacionCRUD frm = new Admi_tipoEvaluacionCRUD();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+        
+        
     }//GEN-LAST:event_menuItemTipoEvaluacionActionPerformed
 
     private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
