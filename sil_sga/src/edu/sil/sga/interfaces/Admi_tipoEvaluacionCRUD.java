@@ -227,7 +227,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
         });
 
         txtCodigo.setEditable(false);
-        txtCodigo.setText("codigo");
+        txtCodigo.setText("codigo oculto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -253,7 +253,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                         .addGap(248, 248, 248)
                         .addComponent(jLabel1)
                         .addGap(129, 129, 129)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -274,7 +274,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnEliminar)
                             .addComponent(btnActualizar)
                             .addComponent(btnGuardar))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();

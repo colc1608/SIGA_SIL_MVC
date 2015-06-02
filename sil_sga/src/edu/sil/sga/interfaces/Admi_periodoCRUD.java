@@ -5,6 +5,12 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.PeriodoDAO;
+import edu.sil.sga.entidades.Periodo;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cesar Lopez
@@ -14,10 +20,68 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_periodoCRUD
      */
+    
+    
+    public List<Periodo> listaDePeriodos;
+    public Periodo periodo;
+    
+    
     public Admi_periodoCRUD() {
         initComponents();
+        initComponents();
+        activaBotones(true, false, false, false);
+        ListarPeriodos();
+        activaCajas(false);
+        txtCodigo.setVisible(false);
+    }
+    
+    
+    void activaCajas(boolean a) {
+        txtDescripcion.setEnabled(a);
+        txtObservacion.setEnabled(a);
     }
 
+    void limpiarCajas() {
+        txtCodigo.setText("");
+        txtDescripcion.setText("");
+        txtObservacion.setText("");
+    }
+
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d) {
+        btnNuevo.setEnabled(a);
+        btnGuardar.setEnabled(b);
+        btnActualizar.setEnabled(c);
+        btnEliminar.setEnabled(d);
+    }
+    
+    public void ListarPeriodos() {
+
+        try {
+
+            PeriodoDAO dao = new PeriodoDAO();
+            listaDePeriodos = dao.ListarPeriodo();
+            DefaultTableModel modelo1 = new DefaultTableModel();
+
+            
+            modelo1.addColumn("Descripcion");
+            modelo1.addColumn("Observacion");
+
+            for (Periodo periodo : listaDePeriodos) {
+                modelo1.addRow(new String[]{
+                    
+                    periodo.getDescripcion() + "",
+                    periodo.getObservacion() + ""
+                });
+            }
+            tblPeriodos.setModel(modelo1);
+
+        } catch (Exception e) {
+            System.out.println("ERROR - Interfaz - Periodo - Listar ");
+        }
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,31 +92,342 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtDescripcion = new javax.swing.JTextField();
+        txtObservacion = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPeriodos = new javax.swing.JTable();
+        btnGuardar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setText("Gestionar Periodo Academico");
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de Periodo"));
+
+        jLabel2.setText("* Descripcion");
+
+        jLabel3.setText("Observacion");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtObservacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Periodos"));
+
+        tblPeriodos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        tblPeriodos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPeriodosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblPeriodos);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        txtCodigo.setEditable(false);
+        txtCodigo.setText("codigo oculto");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(318, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(148, 148, 148))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNuevo)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(199, 199, 199)
+                        .addComponent(jLabel1)
+                        .addGap(90, 90, 90)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addContainerGap(330, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnNuevo)
+                            .addComponent(btnActualizar)
+                            .addComponent(btnEliminar)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        if (btnNuevo.getText().equals("Nuevo")) {
+            limpiarCajas();
+            activaBotones(true, true, false, false);
+            btnNuevo.setText("Cancelar");
+            activaCajas(true);
+        } else {
+            activaBotones(true, false, false, false);
+            btnNuevo.setText("Nuevo");
+            activaCajas(false);
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        
+
+        String desc = txtDescripcion.getText();
+        String obs = txtObservacion.getText();
+
+        if (desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Debe completar los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+            try {
+                Periodo periodo = new Periodo();
+                PeriodoDAO dao = new PeriodoDAO();
+
+                periodo.setDescripcion(desc);
+                periodo.setObservacion(obs);
+
+                if (dao.RegistrarPeriodo(periodo)) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente", "Operacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    activaBotones(true, false, false, false);
+                    btnNuevo.setText("Nuevo");
+                    limpiarCajas();
+                    ListarPeriodos();
+                    activaCajas(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ups.. Ocurrio un problema interno :(");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        
+        String cod = txtCodigo.getText();
+        String desc = txtDescripcion.getText();
+        String obs = txtObservacion.getText();
+
+        if (desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Debe completar los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            try {
+                Periodo periodo = new Periodo();
+                PeriodoDAO dao = new PeriodoDAO();
+
+                periodo.setId(Integer.parseInt(cod));
+                periodo.setDescripcion(desc);
+                periodo.setObservacion(obs);
+
+                if (dao.ActualizarPeriodo(periodo)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                    ListarPeriodos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ups.. Ocurrio un problema interno :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        
+        
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        
+        
+        String cod = txtCodigo.getText();
+        String desc = txtDescripcion.getText();
+        String obs = txtObservacion.getText();
+
+        if (desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(null, "Debe completar los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        } else {
+
+            try {
+                Periodo periodo = new Periodo();
+                PeriodoDAO dao = new PeriodoDAO();
+
+                periodo.setId(Integer.parseInt(cod));
+                periodo.setDescripcion(desc);
+                periodo.setObservacion(obs);
+
+                if (dao.EliminarPeriodo(periodo)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                    ListarPeriodos();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ups.. Ocurrio un problema interno :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblPeriodosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeriodosMouseClicked
+        // TODO add your handling code here:
+        
+        int fila = tblPeriodos.getSelectedRow();
+        if (fila != -1) {
+            Periodo tipoEvalSeleccionado = listaDePeriodos.get(fila);
+
+            txtCodigo.setText(String.valueOf(tipoEvalSeleccionado.getId()));
+            txtDescripcion.setText(String.valueOf(tipoEvalSeleccionado.getDescripcion()));
+            txtObservacion.setText(String.valueOf(tipoEvalSeleccionado.getObservacion()));
+
+            btnNuevo.setText("Nuevo");
+            activaBotones(true, false, true, true);
+            activaCajas(true);
+        }
+        
+    }//GEN-LAST:event_tblPeriodosMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblPeriodos;
+    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtObservacion;
     // End of variables declaration//GEN-END:variables
 }
