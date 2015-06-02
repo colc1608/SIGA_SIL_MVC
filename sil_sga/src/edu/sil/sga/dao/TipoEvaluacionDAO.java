@@ -28,6 +28,7 @@ public class TipoEvaluacionDAO {
             PreparedStatement pstm = con.prepareStatement("INSERT INTO TipoEvaluacion (id,descripcion,peso, observacion)"
                     + " values (sq_tipoevaluacion.NEXTVAL, ?, ? ,?) ");
             pstm.setString(1, tipoEval.getDescripcion());
+            System.out.println("el valor del peso en el DAO para insertar es : "+tipoEval.getPeso());
             pstm.setDouble(2, tipoEval.getPeso());
             pstm.setString(3, tipoEval.getObservacion());
             pstm.execute();

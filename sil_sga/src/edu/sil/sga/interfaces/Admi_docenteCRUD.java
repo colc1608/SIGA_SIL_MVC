@@ -38,7 +38,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     public Admi_docenteCRUD() {
         initComponents();
 
-        setLocation(250, 100);
+        setLocation(150, 100);
         setSize(850, 700); // X , Y
         CargarEspecialidad();
         activaBotones(true, false, false, false);
@@ -58,6 +58,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtTelefono.setEnabled(a);
         txtEmail.setEnabled(a);
         txtMovil.setEnabled(a);
+        spnFechaNacimiento.setEnabled(a);
     }
 
     void activaBotones(boolean a, boolean b, boolean c, boolean d) {
@@ -145,16 +146,16 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     objDocente.getNombre() + "",
                     objDocente.getApellidopaterno() + "",
                     objDocente.getApellidomaterno() + "",
-                    objDocente.getDni() + "", //objDocente.getTelefono() + "",
-                //objDocente.getMovil() + "",
-                //objDocente.getEmail() + "",
-                //String.valueOf(objDocente.getEspecialidad().getDescripcion())
+                    objDocente.getDni() + ""
+                    //objDocente.getTelefono() + "",
+                    //objDocente.getMovil() + "",
+                    //objDocente.getEmail() + "",
+                    //String.valueOf(objDocente.getEspecialidad().getDescripcion())
                 });
             }
 
             tablaListaDocente.setModel(modelo1);
 
-            //buscando como ocultar columnas
         } catch (Exception e) {
             System.out.println("error --> interfaz --> docente --> actualizar busqueda");
         }
@@ -170,7 +171,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtTelefono.setText("");
         txtMovil.setText("");
         txtEmail.setText("");
-        txtFechaNacimiento.setText("");
+        //String fecha = txtFechaNacimiento.getText();
     }
 
     /**
@@ -200,7 +201,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         txtEmail = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        txtFechaNacimiento = new javax.swing.JTextField();
         cboEspecialidad = new javax.swing.JComboBox();
         spnFechaNacimiento = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
@@ -225,9 +225,33 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
 
+        txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDNIKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("* Apellido Paterno: ");
 
+        txtMovil.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMovilKeyTyped(evt);
+            }
+        });
+
+        txtapellidoPaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtapellidoPaternoKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("* Especialidad:");
+
+        txtApellidoMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtApellidoMaternoKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("* Nombres: ");
 
@@ -237,13 +261,17 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Fecha Nacimiento");
 
+        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtnombreKeyTyped(evt);
+            }
+        });
+
         jLabel6.setText("Telefono :");
 
         jLabel11.setText("Email");
 
         jLabel12.setText("Movil: ");
-
-        txtFechaNacimiento.setEnabled(false);
 
         cboEspecialidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -283,11 +311,9 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(spnFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtFechaNacimiento)
-                                .addComponent(txtEmail)
-                                .addComponent(txtMovil)
-                                .addComponent(cboEspecialidad, 0, 137, Short.MAX_VALUE)))))
+                            .addComponent(txtEmail)
+                            .addComponent(txtMovil)
+                            .addComponent(cboEspecialidad, 0, 137, Short.MAX_VALUE))))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -319,19 +345,17 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel7)
+                    .addComponent(spnFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMovil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Docente"));
@@ -418,6 +442,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCodigo.setText("codigo oculto");
         txtCodigo.setEnabled(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -466,7 +491,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -482,11 +507,11 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         String movil = txtMovil.getText();
         String email = txtEmail.getText();
-        String fecha = txtFechaNacimiento.getText();
+        //String fecha = txtFechaNacimiento.getText();
 
         if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
                 && apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("")) {
-            JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*)");
+            JOptionPane.showMessageDialog(this, "Debe ingresar los campos requeridos (*)");
 
         } else {
 
@@ -502,9 +527,10 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 objDocente.setTelefono(telefono);
                 objDocente.setMovil(movil);
                 objDocente.setEmail(email);
+
                 /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                objDocente.setFechadenacimiento(sdf.parse(fecha));*/
-                objDocente.setFechadenacimiento((Date)spnFechaNacimiento.getValue());
+                 objDocente.setFechadenacimiento(sdf.parse(fecha));*/
+                objDocente.setFechadenacimiento((Date) spnFechaNacimiento.getValue());
                 //SwingX
                 DocenteDAO dao = new DocenteDAO();
                 if (dao.RegistrarDocente(objDocente)) {
@@ -542,7 +568,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
                 || apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("") || id.equalsIgnoreCase("")) {
 
-            JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*) y debe existir el codigo");
+            JOptionPane.showMessageDialog(this, "Debe ingresar los campos requeridos (*)");
 
         } else {
 
@@ -679,6 +705,48 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtCampoBusquedaKeyReleased
 
+    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtnombreKeyTyped
+
+    private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtDNIKeyTyped
+
+    private void txtMovilKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMovilKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtMovilKeyTyped
+
+    private void txtapellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoPaternoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtapellidoPaternoKeyTyped
+
+    private void txtApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoMaternoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtApellidoMaternoKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -707,7 +775,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtMovil;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtapellidoPaterno;

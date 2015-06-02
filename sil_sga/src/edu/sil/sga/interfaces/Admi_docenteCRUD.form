@@ -79,7 +79,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="91" max="32767" attributes="0"/>
+              <EmptySpace pref="32" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,12 +142,9 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="spnFechaNacimiento" pref="137" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="txtFechaNacimiento" max="32767" attributes="0"/>
-                                  <Component id="txtEmail" max="32767" attributes="0"/>
-                                  <Component id="txtMovil" max="32767" attributes="0"/>
-                                  <Component id="cboEspecialidad" alignment="0" pref="137" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="txtEmail" max="32767" attributes="0"/>
+                              <Component id="txtMovil" max="32767" attributes="0"/>
+                              <Component id="cboEspecialidad" alignment="0" pref="137" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -190,22 +187,20 @@
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spnFechaNacimiento" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="spnFechaNacimiento" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtMovil" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="25" max="32767" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -214,6 +209,9 @@
         <Component class="javax.swing.JTextField" name="txtTelefono">
         </Component>
         <Component class="javax.swing.JTextField" name="txtDNI">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDNIKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -221,8 +219,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMovil">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMovilKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtapellidoPaterno">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtapellidoPaternoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -230,6 +234,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtApellidoMaterno">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtApellidoMaternoKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -252,6 +259,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtnombre">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtnombreKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
@@ -268,11 +278,6 @@
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
             <Property name="text" type="java.lang.String" value="Movil: "/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtFechaNacimiento">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cboEspecialidad">
@@ -414,6 +419,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtCodigo">
       <Properties>
+        <Property name="text" type="java.lang.String" value="codigo oculto"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>

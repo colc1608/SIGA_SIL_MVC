@@ -34,14 +34,14 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
     }
 
     void cargarDatos(Grado objGrado) {
-        
+
         this.objGrado = objGrado;
         txtGrado.setText(objGrado.getDescripcion());
         txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
-    
-    void ActivaCajas(boolean a){
+
+    void ActivaCajas(boolean a) {
         txtNombre.setEnabled(a);
         txtApePa.setEnabled(a);
         txtApeMa.setEnabled(a);
@@ -51,15 +51,15 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         txtFecha.setEnabled(a);
         txtEmail.setEnabled(a);
     }
-    
-    void activaBotones(boolean a,boolean b, boolean c, boolean d){
+
+    void activaBotones(boolean a, boolean b, boolean c, boolean d) {
         btnNuevo.setEnabled(a);
         btnGuardar.setEnabled(b);
         btnActualizar.setEnabled(c);
         btnEliminar.setEnabled(d);
     }
-    
-    void LimpiarCajas(){
+
+    void LimpiarCajas() {
         txtNombre.setText("");
         txtApePa.setText("");
         txtApeMa.setText("");
@@ -72,52 +72,51 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         txtNivel.setText("");
         txtNombre.requestFocus();
     }
-    
-    void ListarALumno(){
+
+    void ListarALumno() {
         try {
             AlumnoDAO dao = new AlumnoDAO();
             listAlumno = dao.ListadoAlumno();
             DefaultTableModel modelo1 = new DefaultTableModel();
-            
+
             modelo1.addColumn("Nombre");
             modelo1.addColumn("Apellido Paterno");
             modelo1.addColumn("Apellido Materno");
             modelo1.addColumn("DNI");
-            
+
             for (Alumno obAlumno : listAlumno) {
                 modelo1.addRow(new String[]{
                     obAlumno.getNombre() + "",
                     obAlumno.getApellidopaterno() + "",
                     obAlumno.getApellidomaterno() + "",
-                    obAlumno.getDni()+"",
-                });
+                    obAlumno.getDni() + "",});
             }
             tblAlumno.setModel(modelo1);
         } catch (Exception e) {
             System.out.println("ERROR - INTERFAZ - ALUMNO - LISTAR");
         }
     }
-    
-    void ActualizarBusqueda(){
+
+    void ActualizarBusqueda() {
         try {
-            listAlumno = new AlumnoDAO().BuscarAlumno(String.valueOf(cboBusqueda.getSelectedItem()),txtbusquedaNom.getText());
+            listAlumno = new AlumnoDAO().BuscarAlumno(String.valueOf(cboBusqueda.getSelectedItem()), txtbusquedaNom.getText());
             DefaultTableModel modelo1 = (DefaultTableModel) tblAlumno.getModel();
-            while (modelo1.getRowCount() > 0) {                
+            while (modelo1.getRowCount() > 0) {
                 modelo1.removeRow(0);
             }
             for (Alumno obalumno : listAlumno) {
                 modelo1.addRow(new String[]{
-                    obalumno.getNombre()+ "",
+                    obalumno.getNombre() + "",
                     obalumno.getApellidopaterno() + "",
                     obalumno.getApellidomaterno() + "",
-                    obalumno.getDni() + "",
-                });
+                    obalumno.getDni() + "",});
             }
             tblAlumno.setModel(modelo1);
         } catch (Exception e) {
             System.out.println("ERROR - INTERFAZ - ALUMNO - ACTUALIZAR BUSQUEDA");
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -470,9 +469,9 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         List<Grado> lstGrado = new ArrayList<>();
         Admi_buscarGrado form = new Admi_buscarGrado(null, true, lstGrado);
         form.setVisible(true);
-        if (lstGrado.isEmpty()){
+        if (lstGrado.isEmpty()) {
             //Ventana se cerro sin seleccionar
-        }else{
+        } else {
             Grado objGradoElegido = lstGrado.get(0);
             cargarDatos(objGradoElegido);
         }
@@ -492,7 +491,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
 
         if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
                 && apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("")) {
-            
+
             JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*)");
 
         } else {
@@ -514,7 +513,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 AlumnoDAO dao = new AlumnoDAO();
                 if (dao.RegistrarAlumno(alumno)) {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente al docente :) ");
-                    
+
                     btnNuevo.setText("Nuevo");
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
@@ -537,7 +536,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             ActivaCajas(true);
-        }else{
+        } else {
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
             ActivaCajas(false);
@@ -548,7 +547,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         if (String.valueOf(cboBusqueda.getSelectedIndex()) == "") {
             ListarALumno();
-        }else{
+        } else {
             ActualizarBusqueda();
         }
     }//GEN-LAST:event_txtbusquedaNomKeyReleased
@@ -556,9 +555,9 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
     private void tblAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlumnoMouseClicked
         // TODO add your handling code here:
         int fila = tblAlumno.getSelectedRow();
-        if(fila!= -1){
+        if (fila != -1) {
             Alumno obAlumno = listAlumno.get(fila);
-            
+
             txtCodigo.setText(String.valueOf(obAlumno.getId()));
             txtNombre.setText(String.valueOf(obAlumno.getNombre()));
             txtApePa.setText(String.valueOf(obAlumno.getApellidopaterno()));
@@ -578,20 +577,20 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-       String id = txtCodigo.getText();
-       String nombre = txtNombre.getText();
-       String ApePa = txtApePa.getText();
-       String ApeMa = txtApeMa.getText();
-       String dni = txtDni.getText();
-       String telefono = txtTelefono.getText();
-       String movil = txtMovil.getText();
-       String Email = txtEmail.getText();
-       String grado = String.valueOf(objGrado.getId());
-       
-        if (nombre.equalsIgnoreCase("")|| ApePa.equalsIgnoreCase("")|| ApeMa.equalsIgnoreCase("")||
-                dni.equalsIgnoreCase("") ) {
-            JOptionPane.showMessageDialog(this, "debe ingresar todos los campos requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
-        }else{
+        String id = txtCodigo.getText();
+        String nombre = txtNombre.getText();
+        String ApePa = txtApePa.getText();
+        String ApeMa = txtApeMa.getText();
+        String dni = txtDni.getText();
+        String telefono = txtTelefono.getText();
+        String movil = txtMovil.getText();
+        String Email = txtEmail.getText();
+        String grado = String.valueOf(objGrado.getId());
+
+        if (nombre.equalsIgnoreCase("") || ApePa.equalsIgnoreCase("") || ApeMa.equalsIgnoreCase("")
+                || dni.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "debe ingresar todos los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
             try {
                 Alumno obAlumno = new Alumno();
                 Grado grad = new Grado();
@@ -605,7 +604,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 obAlumno.setTelefono(telefono);
                 obAlumno.setMovil(movil);
                 obAlumno.setEmail(Email);
-                
+
                 AlumnoDAO dao = new AlumnoDAO();
                 if (dao.ActualizarAlumno(obAlumno)) {
                     JOptionPane.showMessageDialog(this, "Se Actualizo Correctamente los Datos");
@@ -613,22 +612,22 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                     LimpiarCajas();
                     activaBotones(true, false, false, false);
                     ActivaCajas(false);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No Pudimos Actualizar El Alumno");
             }
         }
-        
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if (txtNombre.getText().equalsIgnoreCase("")|| txtApePa.getText().equalsIgnoreCase("")|| txtApeMa.getText().equalsIgnoreCase("")||
-            txtDni.getText().equalsIgnoreCase("") ) {
-            JOptionPane.showMessageDialog(this, "No borre los campos requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
-        }else{
+        if (txtNombre.getText().equalsIgnoreCase("") || txtApePa.getText().equalsIgnoreCase("") || txtApeMa.getText().equalsIgnoreCase("")
+                || txtDni.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "No borre los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
             try {
                 Alumno obAlumno = new Alumno();
                 AlumnoDAO dao = new AlumnoDAO();
@@ -641,19 +640,19 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 obAlumno.setTelefono(txtTelefono.getText());
                 obAlumno.setMovil(txtMovil.getText());
                 obAlumno.setEmail(txtEmail.getText());
-                
+
                 if (dao.EliminarAlumno(obAlumno)) {
                     JOptionPane.showMessageDialog(this, "Se elimino Correctamente el Alumno");
                     ListarALumno();
                     LimpiarCajas();
                     activaBotones(true, false, false, false);
                     ActivaCajas(false);
-                }else{
-                     JOptionPane.showMessageDialog(this, "No se pudo eliminar Correctamente el Alumno");
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar Correctamente el Alumno");
                 }
-                
+
             } catch (Exception e) {
-                 System.out.println("error --> interfaz --> Alumno --> eliminar");
+                System.out.println("error --> interfaz --> Alumno --> eliminar");
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed

@@ -9,6 +9,7 @@ import edu.sil.sga.dao.TipoEvaluacionDAO;
 import edu.sil.sga.entidades.TipoEvaluacion;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,25 +20,28 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_tipoEvaluacionCRUD
      */
-    
     public List<TipoEvaluacion> listaTipoEvaluacion;
     public TipoEvaluacion objTipoEvaluacion;
-    
-    
+
     public Admi_tipoEvaluacionCRUD() {
         initComponents();
+        activaBotones(true, false, false, false);
+        ListarTipoEvaluacion();
+        activaCajas(false);
+        txtCodigo.setVisible(false);
     }
-    
+
     void activaCajas(boolean a) {
         txtDescripcion.setEnabled(a);
         txtPeso.setEnabled(a);
-        txtxObservacion.setEnabled(a);
+        txtObservacion.setEnabled(a);
     }
 
     void limpiarCajas() {
+        txtCodigo.setText("");
         txtPeso.setText("");
         txtDescripcion.setText("");
-        txtxObservacion.setText("");
+        txtObservacion.setText("");
     }
 
     public void activaBotones(boolean a, boolean b, boolean c, boolean d) {
@@ -46,9 +50,34 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
         btnActualizar.setEnabled(c);
         btnEliminar.setEnabled(d);
     }
-    
-    
-    
+
+    public void ListarTipoEvaluacion() {
+
+        try {
+
+            TipoEvaluacionDAO dao = new TipoEvaluacionDAO();
+            listaTipoEvaluacion = dao.ListarTipoEvaluacion();
+            DefaultTableModel modelo1 = new DefaultTableModel();
+
+            
+            modelo1.addColumn("Descripcion");
+            modelo1.addColumn("Peso");
+            modelo1.addColumn("Observacion");
+
+            for (TipoEvaluacion tipoEval : listaTipoEvaluacion) {
+                modelo1.addRow(new String[]{
+                    
+                    tipoEval.getDescripcion() + "",
+                    tipoEval.getPeso() + "",
+                    tipoEval.getObservacion() + ""
+                });
+            }
+            tblTipoEvaluacion.setModel(modelo1);
+
+        } catch (Exception e) {
+            System.out.println("ERROR - Interfaz - TipoEvaluacion - Listar ");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,17 +92,18 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         txtDescripcion = new javax.swing.JTextField();
         txtPeso = new javax.swing.JTextField();
-        txtxObservacion = new javax.swing.JTextField();
+        txtObservacion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTipoEvaluacion = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -83,6 +113,12 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
         jLabel1.setText("Tipo de evaluacion");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Tipo de evaluacion"));
+
+        txtPeso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPesoKeyTyped(evt);
+            }
+        });
 
         jLabel2.setText("* Descripcion");
 
@@ -102,7 +138,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGap(63, 63, 63)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtxObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPeso, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(46, Short.MAX_VALUE))
@@ -121,13 +157,13 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtxObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtObservacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar Tipos de Evaluacion"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTipoEvaluacion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -138,23 +174,28 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                 "Title 1"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblTipoEvaluacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTipoEvaluacionMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblTipoEvaluacion);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addGap(20, 20, 20))
         );
 
         btnNuevo.setText("Nuevo");
@@ -172,8 +213,21 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
         });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        txtCodigo.setEditable(false);
+        txtCodigo.setText("codigo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -197,14 +251,18 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(248, 248, 248)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1)
+                        .addGap(129, 129, 129)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel1)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -216,7 +274,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnEliminar)
                             .addComponent(btnActualizar)
                             .addComponent(btnGuardar))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,25 +283,26 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         Double peso = 0.0;
-        
-        if(txtPeso.getText().equalsIgnoreCase(""))
-            peso=0.0;
-        else
+
+        if (txtPeso.getText().equalsIgnoreCase("")) {
+            peso = 0.0;
+        } else {
             peso = Double.parseDouble(String.valueOf(txtPeso.getText()));
-        
+        }
+
         String desc = txtDescripcion.getText();
-        String obs = txtxObservacion.getText();
+        String obs = txtObservacion.getText();
 
         if (desc.equalsIgnoreCase("") || txtPeso.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Debe completar los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
-            
+
         } else {
             try {
                 TipoEvaluacion tipoEval = new TipoEvaluacion();
                 TipoEvaluacionDAO dao = new TipoEvaluacionDAO();
 
                 tipoEval.setDescripcion(desc);
-                tipoEval.setPeso(peso);
+                tipoEval.setPeso(peso / 10);
                 tipoEval.setObservacion(obs);
 
                 if (dao.RegistrarTipoEvaluacion(tipoEval)) {
@@ -251,7 +310,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                     activaBotones(true, false, false, false);
                     btnNuevo.setText("Nuevo");
                     limpiarCajas();
-                    //ListarNiveles();
+                    ListarTipoEvaluacion();
                     activaCajas(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Ups.. Ocurrio un problema interno :(");
@@ -261,15 +320,13 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
             }
 
         }
-        
-        
-        
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        
-        
+
         if (btnNuevo.getText().equals("Nuevo")) {
             limpiarCajas();
             activaBotones(true, true, false, false);
@@ -280,9 +337,134 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
             btnNuevo.setText("Nuevo");
             activaCajas(false);
         }
-        
-        
+
+
     }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+
+        Double peso = 0.0;
+        if (txtPeso.getText().equalsIgnoreCase("")) {
+            peso = 0.0;
+        } else {
+            peso = Double.parseDouble(String.valueOf(txtPeso.getText()));
+        }
+
+        String codigo = txtCodigo.getText();
+        String desc = txtDescripcion.getText();
+        String obs = txtObservacion.getText();
+
+        if (codigo.equalsIgnoreCase("") || desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("") || txtPeso.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro e ingresar los campos requeridos (*) ");
+        } else {
+
+            try {
+                TipoEvaluacion tipoEval = new TipoEvaluacion();
+                TipoEvaluacionDAO dao = new TipoEvaluacionDAO();
+
+                tipoEval.setId(Integer.parseInt(codigo));
+                tipoEval.setDescripcion(desc);
+                tipoEval.setPeso(peso / 10);
+                tipoEval.setObservacion(obs);
+
+                if (dao.ActualizarTipoEvaluacion(tipoEval)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                    ListarTipoEvaluacion();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ups.. Ocurrio un problema interno :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+
+        Double peso = 0.0;
+        if (txtPeso.getText().equalsIgnoreCase("")) {
+            peso = 0.0;
+        } else {
+            peso = Double.parseDouble(String.valueOf(txtPeso.getText()));
+        }
+
+        String codigo = txtCodigo.getText();
+        String desc = txtDescripcion.getText();
+        String obs = txtObservacion.getText();
+
+        if (codigo.equalsIgnoreCase("") || desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("") || txtPeso.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro e ingresar los campos requeridos (*) ");
+        } else {
+
+            try {
+                TipoEvaluacion tipoEval = new TipoEvaluacion();
+                TipoEvaluacionDAO dao = new TipoEvaluacionDAO();
+
+                tipoEval.setId(Integer.parseInt(codigo));
+                tipoEval.setDescripcion(desc);
+                tipoEval.setPeso(peso / 10);
+                tipoEval.setObservacion(obs);
+
+                if (dao.EliminarTipoEvaluacion(tipoEval)) {
+                    JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                    ListarTipoEvaluacion();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ups.. Ocurrio un problema interno :( ", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblTipoEvaluacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTipoEvaluacionMouseClicked
+        // TODO add your handling code here:
+
+        int fila = tblTipoEvaluacion.getSelectedRow();
+        if (fila != -1) {
+            TipoEvaluacion tipoEvalSeleccionado = listaTipoEvaluacion.get(fila);
+            /*String id = tablaListaDocente.getValueAt(fila, 0).toString();
+             String nomb = tablaListaDocente.getValueAt(fila, 1).toString();
+             String apePater = tablaListaDocente.getValueAt(fila, 2).toString();
+             String apeMater = tablaListaDocente.getValueAt(fila, 3).toString();
+             String dni = tablaListaDocente.getValueAt(fila, 4).toString();
+             String telef = tablaListaDocente.getValueAt(fila, 5).toString();
+             String movil = tablaListaDocente.getValueAt(fila, 6).toString();
+             String email = tablaListaDocente.getValueAt(fila, 7).toString();
+             String espec = tablaListaDocente.getValueAt(fila, 8).toString();*/
+
+            txtCodigo.setText(String.valueOf(tipoEvalSeleccionado.getId()));
+            txtDescripcion.setText(String.valueOf(tipoEvalSeleccionado.getDescripcion()));
+            txtPeso.setText(String.valueOf(tipoEvalSeleccionado.getPeso()));
+            txtObservacion.setText(String.valueOf(tipoEvalSeleccionado.getObservacion()));
+
+            btnNuevo.setText("Nuevo");
+            activaBotones(true, false, true, true);
+            activaCajas(true);
+        }
+    }//GEN-LAST:event_tblTipoEvaluacionMouseClicked
+
+    private void txtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesoKeyTyped
+        // TODO add your handling code here:
+
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+
+    }//GEN-LAST:event_txtPesoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -297,9 +479,10 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblTipoEvaluacion;
+    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtObservacion;
     private javax.swing.JTextField txtPeso;
-    private javax.swing.JTextField txtxObservacion;
     // End of variables declaration//GEN-END:variables
 }

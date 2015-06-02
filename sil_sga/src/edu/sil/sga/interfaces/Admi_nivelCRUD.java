@@ -30,7 +30,7 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         activaBotones(true, false, false, false);
         ListarNiveles();
         activaCajas(false);
-        //txtCodigo.setVisible(false);
+        txtCodigo.setVisible(false);
     }
 
     //METODOS A REUTILIZAR EN EL FORMULARIO =D  -------------------------------
