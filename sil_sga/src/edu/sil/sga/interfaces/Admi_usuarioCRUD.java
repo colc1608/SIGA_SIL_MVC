@@ -5,6 +5,12 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.UsuarioDAO;
+import edu.sil.sga.entidades.Usuario;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Sammy Guergachi <sguergachi at gmail.com>
@@ -14,10 +20,78 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_usuarioCRUD
      */
+    public List<Usuario> listaUsuario;
     public Admi_usuarioCRUD() {
         initComponents();
+        ActivaBotones(true, false, false, false);
+        ListarUsuario();
+        activaCajas(false);
+        txtid.setVisible(false);
     }
-
+    
+    void activaCajas(boolean a){
+        txtUsuario.setEnabled(a);
+        txtClave.setEnabled(a);
+    }
+    
+    void ActivaBotones(boolean a, boolean b, boolean c, boolean d){
+        btnNuevo.setEnabled(a);
+        btnGuardar.setEnabled(b);
+        btnActualizar.setEnabled(c);
+        btnEliminar.setEnabled(d);
+    }
+    
+    void LimpiarCajas(){
+        txtUsuario.setText("");
+        txtClave.setText("");
+        txtUsuario.requestFocus();
+    }
+    
+    void ListarUsuario(){
+        try {
+            UsuarioDAO dao = new UsuarioDAO();
+            listaUsuario = dao.ListarUsuario();
+            DefaultTableModel modelo1= new DefaultTableModel();
+            
+            modelo1.addColumn("Usuario");
+            modelo1.addColumn("Clave");
+            modelo1.addColumn("Tipo");
+            
+            for (Usuario objusuario : listaUsuario) {
+                modelo1.addRow(new String[]{
+                    objusuario.getUsuario()+ "",
+                    objusuario.getClave() + "",
+                    objusuario.getTipo() + "",
+                });
+            }
+            tblUsuario.setModel(modelo1);
+        } catch (Exception e) {
+            System.out.println("ERROR - INTERFAZ - USUARIO - LISTARUSUARIO");
+        }
+        
+    }
+    
+    void actualizarBusqueda(){
+        try {
+            listaUsuario = new UsuarioDAO().buscarUsuario(String.valueOf(cboBusqueda.getSelectedItem()), txtBusqueda.getText());
+            DefaultTableModel modelo1 = (DefaultTableModel)tblUsuario.getModel();
+            while (modelo1.getRowCount()>0) {                
+                modelo1.removeRow(0);
+            }
+            
+            for (Usuario objusuario : listaUsuario) {
+                modelo1.addRow(new String[]{
+                    objusuario.getUsuario() + "",
+                    objusuario.getClave() + "",
+                    objusuario.getTipo()+ "",
+                });
+            }
+            tblUsuario.setModel(modelo1);
+        } catch (Exception e) {
+            System.out.println("ERROR - INTERFAZ - USUARIO - ACTUALIZARBUSQUEDA");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,29 +104,33 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox();
-        jTextField1 = new javax.swing.JTextField();
+        tblUsuario = new javax.swing.JTable();
+        cboBusqueda = new javax.swing.JComboBox();
+        txtBusqueda = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox();
+        txtClave = new javax.swing.JTextField();
+        cboTipo = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        txtid = new javax.swing.JTextField();
+        btnNuevo = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel1.setFont(new java.awt.Font("Consolas", 0, 24)); // NOI18N
         jLabel1.setText("Gestionar Usuario");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Usuario"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -63,9 +141,20 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblUsuarioMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblUsuario);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuario", "Tipo" }));
+        cboBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Usuario", "Tipo" }));
+
+        txtBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBusquedaKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,9 +165,9 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, 0, 102, Short.MAX_VALUE)))
+                        .addComponent(cboBusqueda, 0, 102, Short.MAX_VALUE)))
                 .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
@@ -86,11 +175,11 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22))
+                    .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(36, 36, 36)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Usuario"));
@@ -99,60 +188,81 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
 
         jLabel3.setText("*Clave:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alumno", "Docente" }));
+        cboTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Alumno", "Docente", "Administrador" }));
 
-        jLabel4.setText("*Perfil:");
+        jLabel4.setText("*Tipo de Usuariol:");
 
-        jLabel5.setText("*Persona:");
+        txtid.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField4)
-                    .addComponent(jComboBox2, 0, 100, Short.MAX_VALUE)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField3))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cboTipo, 0, 100, Short.MAX_VALUE)
+                            .addComponent(txtUsuario)
+                            .addComponent(txtClave))))
                 .addGap(32, 32, 32))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
+                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Nuevo");
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Guardar");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Actualizar");
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Eliminar");
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -167,17 +277,17 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(btnNuevo)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)
+                                .addComponent(btnGuardar)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton4))))
+                                .addComponent(btnActualizar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnEliminar))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(191, 191, 191)
                         .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -186,41 +296,191 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(jButton3)
-                            .addComponent(jButton4))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(btnNuevo)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnActualizar)
+                            .addComponent(btnEliminar)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        LimpiarCajas();
+        if(btnNuevo.getText().equals("Nuevo")){
+            LimpiarCajas();
+            ActivaBotones(true, true, false, false);
+            btnNuevo.setText("Cancelar");
+            activaCajas(true);
+        }else{
+            ActivaBotones(true, false, false, false);
+            btnNuevo.setText("Nuevo");
+            activaCajas(false);
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        String usuario = txtUsuario.getText();
+        String clave = txtClave.getText();
+        if (usuario.equalsIgnoreCase("")|| clave.equalsIgnoreCase("")||cboTipo.getSelectedItem().toString()==""){
+            JOptionPane.showMessageDialog(this, "Debe Ingresar los campos requeridos(*)","ERROR",JOptionPane.ERROR_MESSAGE);            
+        }else{
+            try {
+                Usuario objUsuario = new Usuario();
+                objUsuario.setUsuario(usuario);
+                objUsuario.setClave(clave);
+                if (cboTipo.getSelectedItem()=="Administrador") {
+                    objUsuario.setTipo("0");
+                }if (cboTipo.getSelectedItem()=="Docente") {
+                    objUsuario.setTipo("1");
+                }if (cboTipo.getSelectedItem()=="Alumno") {
+                    objUsuario.setTipo("2");
+                }
+                UsuarioDAO dao = new UsuarioDAO();
+                if (dao.RegistrarUsuario(objUsuario)) {
+                    JOptionPane.showMessageDialog(this, "Se registro Correctamente al usuario","Confirmacion",JOptionPane.INFORMATION_MESSAGE);
+                    ListarUsuario();
+                    LimpiarCajas();
+                    ActivaBotones(true, false, false, false);
+                    activaCajas(false);
+                    btnNuevo.setText("Nuevo");
+                }else{
+                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados sean correctos");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No se pudo Registrar al usuario");
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void tblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuarioMouseClicked
+        // TODO add your handling code here:
+        int fila = tblUsuario.getSelectedRow();
+        if(fila != -1){
+            Usuario obUsuarioSeleccionad = listaUsuario.get(fila);
+            txtUsuario.setText(String.valueOf(obUsuarioSeleccionad.getUsuario()));
+            txtClave.setText(String.valueOf(obUsuarioSeleccionad.getClave()));
+            txtid.setText(String.valueOf(obUsuarioSeleccionad.getId()));
+            if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("0")) {
+                cboTipo.setSelectedIndex(2);
+            }if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("1")) {
+                cboTipo.setSelectedIndex(1);
+            }if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("2")) {
+                cboTipo.setSelectedIndex(0);
+            }  
+            btnNuevo.setText("Nuevo");
+            ActivaBotones(true, false, true, true);
+            activaCajas(true);
+    }
+    }//GEN-LAST:event_tblUsuarioMouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        
+        String usuario = txtUsuario.getText();
+        String clave = txtClave.getText();
+        int id = Integer.parseInt(txtid.getText());
+        
+        if (usuario.equalsIgnoreCase("")|| clave.equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "debe Ingresar los campos requeridos(*)","ERROR",JOptionPane.ERROR_MESSAGE);
+        }else{
+            try {
+                Usuario obUsuario = new Usuario();
+                obUsuario.setUsuario(usuario);
+                obUsuario.setClave(clave);
+                if (cboTipo.getSelectedItem()=="Administrador") {
+                    obUsuario.setTipo("0");
+                }if (cboTipo.getSelectedItem()=="Docente") {
+                    obUsuario.setTipo("1");
+                }if (cboTipo.getSelectedItem()=="Alumno") {
+                    obUsuario.setTipo("2");
+                }
+                obUsuario.setId(id);
+                UsuarioDAO dao = new UsuarioDAO();
+                if (dao.ActualizarUsuario(obUsuario)) {
+                    JOptionPane.showMessageDialog(this, "Se Actualizo Correctamente al usuario","Confirmacion",JOptionPane.INFORMATION_MESSAGE);
+                    ListarUsuario();
+                    LimpiarCajas();
+                    ActivaBotones(true, false, false, false);
+                    activaCajas(false);
+                }else{
+                    JOptionPane.showMessageDialog(this, "Verifique los datos Ingresados e Intentelo nuevamente");
+                }
+            } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del Usuario" + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (txtUsuario.getText().equalsIgnoreCase("")|| txtClave.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
+        }else{
+            try {
+                Usuario objUsuario = new Usuario();
+                UsuarioDAO dao = new UsuarioDAO();
+                objUsuario.setUsuario(txtUsuario.getText());
+                objUsuario.setClave(txtClave.getText());
+                if (cboTipo.getSelectedItem()=="Administrador") {
+                    objUsuario.setTipo("0");
+                }if (cboTipo.getSelectedItem()=="Docente") {
+                    objUsuario.setTipo("1");
+                }if (cboTipo.getSelectedItem()=="Alumno") {
+                    objUsuario.setTipo("2");
+                }
+                objUsuario.setId(Integer.parseInt(txtid.getText()));
+                if (dao.EliminarUsuario(objUsuario)) {
+                    JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                    ListarUsuario();
+                    LimpiarCajas();
+                    ActivaBotones(true, false, false, false);
+                    activaCajas(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+                }
+            } catch (Exception e) {
+                 System.out.println("error --> interfaz --> docente --> eliminar");
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBusquedaKeyReleased
+        // TODO add your handling code here:
+        if (String.valueOf(cboBusqueda.getSelectedIndex())=="") {
+            ListarUsuario();
+        }else{
+            actualizarBusqueda();
+        }
+    }//GEN-LAST:event_txtBusquedaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox cboBusqueda;
+    private javax.swing.JComboBox cboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTable tblUsuario;
+    private javax.swing.JTextField txtBusqueda;
+    private javax.swing.JTextField txtClave;
+    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables
 }

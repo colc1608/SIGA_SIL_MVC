@@ -134,16 +134,15 @@ public class GradoDAO {
         return listarGrado;
     }
   
-   public List<Grado>buscarGrado(String nomLa, String desc)throws SQLException{
+   public List<Grado>buscarGradoCombo(String nomLa)throws SQLException{
         List<Grado> listarGrado = new ArrayList<>();
         System.out.println("nombre Largo = " + nomLa);
-        System.out.println("descripcion = " + desc);
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado, s.descripcion as seccion from niveleducacion n \n" +
-            "inner join grado g on(n.ID = g.idniveleducacion)\n" +
-            "inner join seccion s on(g.idseccion = s.ID)\n" +
-            "where n.nombreLargo='"+ nomLa +"' and g.descripcion= '"+desc+"'");
+            PreparedStatement pstm = con.prepareStatement("select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado, s.descripcion as seccion from niveleducacion n\n" +
+                    "inner join grado g on(n.ID = g.idniveleducacion)\n" +
+                    "inner join seccion s on(g.idseccion = s.ID)\n" +
+                    "where  n.NOMBRELARGO like '%"+nomLa+"%'");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {                
                 Grado grado = new Grado();

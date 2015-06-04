@@ -84,6 +84,27 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             System.out.println("Error - cargar - grado - listar");
         }
     }
+    
+    void ActualizarBusquedaCombo(){
+        try {
+            listaGrado = new GradoDAO().buscarGradoCombo(String.valueOf(cboNivel.getSelectedItem()));
+            DefaultTableModel modelo1 = (DefaultTableModel)tblGrado.getModel();
+            while (modelo1.getRowCount()>0) {                
+                modelo1.removeRow(0);
+            }
+            for (Grado grado : listaGrado) {
+                modelo1.addRow(new String[]{
+                    grado.getId() + "",
+                    grado.getNivel().getNombreCorto() + "",
+                    grado.getDescripcion() + "",
+                    grado.getSeccion().getDescripcion() + ""
+                });
+            }
+            tblGrado.setModel(modelo1);
+        } catch (Exception e) {
+            System.out.println("ERROR - CARGAR - GRADO - ACTUALIZARBUSQUEDACOMBO");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,6 +128,19 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busqueda de Grado"));
 
         cboNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNivel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboNivelMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cboNivelMousePressed(evt);
+            }
+        });
+        cboNivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboNivelActionPerformed(evt);
+            }
+        });
 
         tblGrado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -186,6 +220,20 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
         ActivaSeleccionar(true);
     }//GEN-LAST:event_tblGradoMouseClicked
 
+    private void cboNivelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboNivelMouseClicked
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cboNivelMouseClicked
+ 
+    private void cboNivelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboNivelMousePressed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_cboNivelMousePressed
+
+    private void cboNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboNivelActionPerformed
+        // TODO add your handling code here:
+          ActualizarBusquedaCombo();
+    }//GEN-LAST:event_cboNivelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;

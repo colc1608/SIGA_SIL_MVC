@@ -657,7 +657,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         if (txtnombre.getText().equalsIgnoreCase("") || txtapellidoPaterno.getText().equalsIgnoreCase("")
                 || txtApellidoMaterno.getText().equalsIgnoreCase("") || txtDNI.getText().equalsIgnoreCase("") || txtCodigo.getText().equalsIgnoreCase("")) {
 
-            JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
+           JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
 
         } else {
 
