@@ -36,18 +36,26 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" pref="290" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="btnNuevo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnActualizar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="btnNuevo" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnActualizar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
+                              <Component id="btnImprime" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -82,9 +90,11 @@
                           <Component id="btnActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnImprime" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -313,6 +323,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Nuevo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnGuardar">
       <Properties>
@@ -336,6 +349,12 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="text" type="java.lang.String" value="codigo oculto"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnImprime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="imprime en consola"/>
       </Properties>
     </Component>
   </SubComponents>

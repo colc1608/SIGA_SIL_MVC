@@ -37,9 +37,9 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         setLocation(150, 100);
         setSize(850, 700); // X , Y
         
-        //activaBotones(true, false, false, false);
+        activaBotones(true, false, false, false);
         ListarClases();
-        //activaCajas(false);
+        activaCajas(false);
         //txtCodigo.setVisible(false);
     }
 
@@ -103,6 +103,38 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    
+    void activaCajas(boolean a) {
+        txtCantidad.setEnabled(a);
+        txtObservacion.setEnabled(a);
+        txtGrado.setEnabled(a);
+        txtCurso.setEnabled(a);
+        txtDocente.setEnabled(a);
+        btnBuscarCurso.setEnabled(a);
+        btnBuscarDocente.setEnabled(a);
+        btnBuscarGrado.setEnabled(a);
+    }
+
+    void limpiarCajas() {
+        txtCodigo.setText("");
+        txtGrado.setText("");
+        txtCurso.setText("");
+        txtDocente.setText("");
+        txtObservacion.setText("");
+        txtCantidad.setText("");
+    }
+
+    public void activaBotones(boolean a, boolean b, boolean c, boolean d) {
+        btnNuevo.setEnabled(a);
+        btnGuardar.setEnabled(b);
+        btnActualizar.setEnabled(c);
+        btnEliminar.setEnabled(d);
+    }
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -137,6 +169,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtCodigo = new javax.swing.JTextField();
+        btnImprime = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -274,6 +307,11 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 240, 260));
 
         btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -288,6 +326,9 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
         txtCodigo.setEditable(false);
         txtCodigo.setText("codigo oculto");
+        txtCodigo.setEnabled(false);
+
+        btnImprime.setText("imprime en consola");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -303,18 +344,23 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNuevo)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGuardar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnActualizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)
-                                .addGap(39, 39, 39)))))
+                                .addGap(30, 30, 30)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnNuevo)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnGuardar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnActualizar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnEliminar)
+                                        .addGap(39, 39, 39))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(107, 107, 107)
+                                .addComponent(btnImprime)))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -338,8 +384,10 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnNuevo)
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
-                            .addComponent(btnEliminar))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                            .addComponent(btnEliminar))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnImprime)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -391,21 +439,31 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-
-        int cant = Integer.parseInt(txtCantidad.getText());
+        
+        int cant = 0, idGrado =0, idCurso =0, idDocente=0;
         String obser = txtObservacion.getText();
-        int idGrado = Integer.parseInt(String.valueOf(grado.getId()));
-        int idCurso = Integer.parseInt(String.valueOf(curso.getId()));
-        int idDocente = Integer.parseInt(String.valueOf(docente.getId()));
+        
+        
+        if (txtCantidad.getText().equalsIgnoreCase("")) {
+            cant = 0;
+        } else {
+            cant = Integer.parseInt(String.valueOf(txtCantidad.getText()));
+        }
+         
+        idGrado = Integer.parseInt(String.valueOf(grado.getId()));
+        idCurso = Integer.parseInt(String.valueOf(curso.getId()));
+        idDocente = Integer.parseInt(String.valueOf(docente.getId()));
 
         if (String.valueOf(grado.getId()).equalsIgnoreCase("")
                 || String.valueOf(curso.getId()).equalsIgnoreCase("")
-                || String.valueOf(docente.getId()).equalsIgnoreCase("")) {
+                || String.valueOf(docente.getId()).equalsIgnoreCase("")
+                || cant == 0) {
 
             JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
-
+            System.out.println("entro al IF");
+            
         } else {
-
+            System.out.println("entro al ELSE");
             try {
                 ClaseDAO dao = new ClaseDAO();
                 Clase clase = new Clase();
@@ -428,6 +486,10 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                 if (dao.RegistrarClase(clase)) {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
                     btnNuevo.setText("Nuevo");
+                    ListarClases();
+                    activaCajas(false);
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
 
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
@@ -462,6 +524,21 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_tblClaseMouseClicked
 
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        // TODO add your handling code here:
+        
+        if (btnNuevo.getText().equals("Nuevo")) {
+            limpiarCajas();
+            activaBotones(true, true, false, false);
+            btnNuevo.setText("Cancelar");
+            activaCajas(true);
+        } else {
+            activaBotones(true, false, false, false);
+            btnNuevo.setText("Nuevo");
+            activaCajas(false);
+        }
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
@@ -470,6 +547,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscarGrado;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImprime;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
