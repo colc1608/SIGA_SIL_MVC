@@ -40,7 +40,7 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        menuItemGestionarNota = new javax.swing.JMenuItem();
+        menuItemNotas = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -88,14 +88,14 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
 
         jMenu2.setText("Gestionar");
 
-        menuItemGestionarNota.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemGestionarNota.setText("Notas");
-        menuItemGestionarNota.addActionListener(new java.awt.event.ActionListener() {
+        menuItemNotas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
+        menuItemNotas.setText("Notas");
+        menuItemNotas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemGestionarNotaActionPerformed(evt);
+                menuItemNotasActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemGestionarNota);
+        jMenu2.add(menuItemNotas);
 
         jMenuBar1.add(jMenu2);
 
@@ -132,9 +132,12 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
         dialog.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
-    private void menuItemGestionarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemGestionarNotaActionPerformed
+    private void menuItemNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNotasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemGestionarNotaActionPerformed
+        Docente_gestionarNotaPorCurso frm = new Docente_gestionarNotaPorCurso();
+        jdp_principalDocente.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuItemNotasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +192,6 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     public javax.swing.JDesktopPane jdp_principalDocente;
-    private javax.swing.JMenuItem menuItemGestionarNota;
+    private javax.swing.JMenuItem menuItemNotas;
     // End of variables declaration//GEN-END:variables
 }
