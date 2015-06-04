@@ -46,6 +46,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         menuItemPeriodo = new javax.swing.JMenuItem();
         menuItemSeccion = new javax.swing.JMenuItem();
         menuItemTipoEvaluacion = new javax.swing.JMenuItem();
+        MenuItemUsuario = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
@@ -182,6 +183,14 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(menuItemTipoEvaluacion);
 
+        MenuItemUsuario.setText("Usuario");
+        MenuItemUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItemUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu2.add(MenuItemUsuario);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Accesos");
@@ -316,6 +325,13 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_menuItemClaseActionPerformed
 
+    private void MenuItemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemUsuarioActionPerformed
+        // TODO add your handling code here:
+        Admi_usuarioCRUD frm = new Admi_usuarioCRUD();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_MenuItemUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -352,6 +368,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuItemUsuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
