@@ -55,9 +55,8 @@ public class GradoDAO {
             PreparedStatement pstm = con.prepareStatement("UPDATE grado SET "
                     + " idNivelEducacion = ?, idSeccion = ?, descripcion = ?  WHERE id = ? ");
 
-            System.out.println("en el dao el nivel tiene: "+grado.getNivel().getId());
-            
-            
+            System.out.println("en el dao el nivel tiene: " + grado.getNivel().getId());
+
             pstm.setInt(1, grado.getNivel().getId());
             pstm.setInt(2, grado.getSeccion().getId());
             pstm.setString(3, grado.getDescripcion());
@@ -98,8 +97,8 @@ public class GradoDAO {
         }
         return retornar;
     }
-    
-    public List<Grado> ListarGrado() throws SQLException{
+
+    public List<Grado> ListarGrado() throws SQLException {
         List<Grado> listarGrado = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
@@ -114,15 +113,14 @@ public class GradoDAO {
                 Grado grado = new Grado();
                 Nivel nivel = new Nivel();
                 Seccion seccion = new Seccion();
-                
+
                 grado.setId(rst.getInt("id"));
                 nivel.setNombreCorto(rst.getString("nivel"));
                 grado.setNivel(nivel);
                 seccion.setDescripcion(rst.getString("seccion"));
                 grado.setSeccion(seccion);
                 grado.setDescripcion(rst.getString("grado"));
-                
-                
+
                 listarGrado.add(grado);
             }
             pstm.close();
@@ -133,22 +131,22 @@ public class GradoDAO {
         }
         return listarGrado;
     }
-  
-   public List<Grado>buscarGradoCombo(String nomLa)throws SQLException{
+
+    public List<Grado> buscarGradoCombo(String nomLa) throws SQLException {
         List<Grado> listarGrado = new ArrayList<>();
         System.out.println("nombre Largo = " + nomLa);
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado, s.descripcion as seccion from niveleducacion n\n" +
-                    "inner join grado g on(n.ID = g.idniveleducacion)\n" +
-                    "inner join seccion s on(g.idseccion = s.ID)\n" +
-                    "where  n.NOMBRELARGO like '%"+nomLa+"%'");
+            PreparedStatement pstm = con.prepareStatement("select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado, s.descripcion as seccion from niveleducacion n\n"
+                    + "inner join grado g on(n.ID = g.idniveleducacion)\n"
+                    + "inner join seccion s on(g.idseccion = s.ID)\n"
+                    + "where  n.NOMBRELARGO like '%" + nomLa + "%'");
             ResultSet rst = pstm.executeQuery();
-            while (rst.next()) {                
+            while (rst.next()) {
                 Grado grado = new Grado();
                 Nivel nivel = new Nivel();
                 Seccion seccion = new Seccion();
-                
+
                 grado.setId(rst.getInt("id"));
                 nivel.setNombreCorto(rst.getString("nivel"));
                 grado.setNivel(nivel);
@@ -163,4 +161,36 @@ public class GradoDAO {
         return listarGrado;
     }
 
+    public List<Grado> buscarGradoCaja(Grado objGrado) throws SQLException {
+        List<Grado> listagrado = new ArrayList<>();
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("select g.id as id , n.NOMBRECORTO as nivel, g.DESCRIPCION as grado, s.descripcion as seccion"
+                    + " from niveleducacion n\n"
+                    + " inner join grado g on(n.ID = g.idniveleducacion)\n"
+                    + " inner join seccion s on(g.idseccion = s.ID)\n"
+                    + " where g.DESCRIPCION like ? and n.NOMBRELARGO=?");
+            System.out.println("EL DATO QUE LLEGA DE CAJA ES: " + objGrado.getDescripcion());
+            pstm.setString(1, "%"+objGrado.getDescripcion()+"%");
+            pstm.setString(2, objGrado.getNivel().getNombreLargo());
+            ResultSet rst = pstm.executeQuery();
+            while (rst.next()) {
+                Grado grado = new Grado();
+                Nivel nivel = new Nivel();
+                Seccion seccion = new Seccion();
+
+                grado.setId(rst.getInt("id"));
+                nivel.setNombreCorto(rst.getString("nivel"));
+                grado.setNivel(nivel);
+                seccion.setDescripcion(rst.getString("seccion"));
+                grado.setSeccion(seccion);
+                grado.setDescripcion(rst.getString("grado"));
+                listagrado.add(grado);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("ERROR - GRADO - DAO - BUSCARGRADOCAJA" + e.getMessage());
+        }
+        return listagrado;
+    }
 }

@@ -57,15 +57,14 @@ public boolean RegistrarAlumno(Alumno objAlumno)throws  SQLException{
             con=Conexion.getConnection();
             String sql="CALL sp_addAlumno(?,?,?,?,?,?,?,?)";
             cstm=con.prepareCall(sql);
-            cstm.setInt(1,objAlumno.getGrado().getId());
-            cstm.setString(2,objAlumno.getNombre());
-            cstm.setString(3,objAlumno.getApellidopaterno());
-            cstm.setString(4,objAlumno.getApellidomaterno());
+            cstm.setInt(1, objAlumno.getGrado().getId());
+            cstm.setString(2, objAlumno.getNombre());
+            cstm.setString(3, objAlumno.getApellidopaterno());
+            cstm.setString(4, objAlumno.getApellidomaterno());
             cstm.setString(5, objAlumno.getDni());
             cstm.setString(6, objAlumno.getTelefono());
             cstm.setString(7, objAlumno.getMovil());
             cstm.setString(8, objAlumno.getEmail());
-            
             
             cstm.execute();
             
@@ -135,7 +134,7 @@ public List<Alumno> ListadoAlumno()throws SQLException{
     List<Alumno> listarAlumno = new ArrayList<>();
     try {
         Connection con = Conexion.getConnection();
-        PreparedStatement pstm = con.prepareStatement("SELECT A.ID,A.NOMBRE,A.APELLIDOPATERNO,A.APELLIDOMATERNO,A.DNI,A.TELEFONO,A.MOVIL,A.EMAIL,G.DESCRIPCION,S.DESCRIPCION as Seccion,N.NOMBRECORTO \n" +
+        PreparedStatement pstm = con.prepareStatement("SELECT A.ID,A.NOMBRE,A.APELLIDOPATERNO,A.APELLIDOMATERNO,A.DNI,A.TELEFONO,A.MOVIL,A.EMAIL,G.ID,G.DESCRIPCION,S.DESCRIPCION as Seccion,N.NOMBRECORTO \n" +
                     "FROM ALUMNO A,GRADO G,SECCION S,NIVELEDUCACION N\n" +
                     "WHERE A.IDGRADO = G.ID AND G.IDSECCION=S.ID AND G.IDNIVELEDUCACION=N.ID AND A.ESTADO=1 ORDER BY A.ID ASC");
         ResultSet rst = pstm.executeQuery();
@@ -150,6 +149,7 @@ public List<Alumno> ListadoAlumno()throws SQLException{
             a.setMovil(rst.getString("MOVIL"));
             a.setEmail(rst.getString("EMAIL"));
             Grado g = new Grado();
+            g.setId(rst.getInt("ID"));
             g.setDescripcion(rst.getString("DESCRIPCION"));
             Seccion s = new Seccion();
             s.setDescripcion(rst.getString("Seccion"));

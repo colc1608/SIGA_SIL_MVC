@@ -162,6 +162,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         txtbusquedaNom = new javax.swing.JTextField();
         cboBusqueda = new javax.swing.JComboBox();
         txtCodigo = new javax.swing.JTextField();
+        txtcodigogrado = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -446,7 +447,9 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(301, 301, 301))
+                .addGap(109, 109, 109)
+                .addComponent(txtcodigogrado, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -454,12 +457,14 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(2, 2, 2)
-                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcodigogrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -487,8 +492,12 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         String movil = txtMovil.getText();
         String email = txtEmail.getText();
-        int idGrado = Integer.parseInt(String.valueOf(objGrado.getId()));
-
+        int idGrado =Integer.parseInt(String.valueOf(objGrado.getId()));
+        System.out.println("EL NOMBRE ES : " + nombre);
+        System.out.println("EL APELLIDO PATERNO ES : " + apellidoPa);
+        System.out.println("EL APEELLIDO MATERNO ES : " + apellidoMa);
+        System.out.println("EL DNI ES : " +dni);
+        
         if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
                 && apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("")) {
 
@@ -500,6 +509,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 Alumno alumno = new Alumno();
                 Grado grado = new Grado();
                 grado.setId(idGrado);
+                System.out.println("EL CODIGO DEL GRADO ES : "+ idGrado);
                 alumno.setGrado(grado);
 
                 alumno.setNombre(nombre);
@@ -585,8 +595,8 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         String telefono = txtTelefono.getText();
         String movil = txtMovil.getText();
         String Email = txtEmail.getText();
-        String grado = String.valueOf(objGrado.getId());
-
+        String idgrado = String.valueOf(objGrado.getId());
+        
         if (nombre.equalsIgnoreCase("") || ApePa.equalsIgnoreCase("") || ApeMa.equalsIgnoreCase("")
                 || dni.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "debe ingresar todos los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -594,7 +604,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
             try {
                 Alumno obAlumno = new Alumno();
                 Grado grad = new Grado();
-                grad.setId(Integer.parseInt(grado));
+                grad.setId(Integer.parseInt(idgrado));
                 obAlumno.setGrado(grad);
                 obAlumno.setId(Integer.parseInt(id));
                 obAlumno.setNombre(nombre);
@@ -695,5 +705,6 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtSeccion;
     private javax.swing.JTextField txtTelefono;
     private javax.swing.JTextField txtbusquedaNom;
+    private javax.swing.JTextField txtcodigogrado;
     // End of variables declaration//GEN-END:variables
 }
