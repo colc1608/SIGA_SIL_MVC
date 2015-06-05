@@ -46,49 +46,77 @@ public class ClaseDAO {
         }
         return retornar;
     }
-    
-    
-    
-    public List<Clase>ListarClases()throws  SQLException{
+
+    public boolean ActualizarAlumno(Clase clase) throws SQLException {
+        boolean retornar = false;
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("update ... ");
+
+            pstm.setInt(1, clase.getId());
+            pstm.setInt(2, clase.getCurso().getId());
+            pstm.setInt(3, clase.getDocente().getId());
+            pstm.setInt(4, clase.getGrado().getId());
+            pstm.setInt(5, clase.getCantidadAlumnos());
+            pstm.setString(6, clase.getObservacion());
+
+            pstm.execute();
+            pstm.close();
+            con.close();
+            retornar = true;
+        } catch (Exception e) {
+            System.out.println("ERROR - DAO - CLASE - ACTUALIZAR"+e.getMessage());
+            e.printStackTrace();
+        }
+        return retornar;
+    }
+
+    public List<Clase> ListarClases() throws SQLException {
         List<Clase> listaDeClases = new ArrayList<>();
         try {
-            Connection con  = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement(" select c.id, c.CANTIDADALUMNOS as cantidad , c.observacion as observacion , d.nombre , d.APELLIDOPATERNO , cu.NOMBRELARGO as curso, g.DESCRIPCION as grado "
-                    + " from clase c, docente d, grado g, curso cu where "
-                    + " c.IDCURSO = cu.ID and "
-                    + " c.IDGRADO = g.ID and "
-                    + " c.IDDOCENTE = d.ID and "
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement(" select c.CANTIDADALUMNOS as cantidad , c.observacion as observacion ,\n"
+                    + " d.nombre, d.APELLIDOPATERNO , cu.NOMBRELARGO as curso, g.DESCRIPCION as grado,\n"
+                    + " c.id as idClase, cu.ID as idCurso, g.id as idGrado, d.id as idDocente\n"
+                    + " from clase c, docente d, grado g, curso cu where \n"
+                    + " c.IDCURSO = cu.ID and \n"
+                    + " c.IDGRADO = g.ID and \n"
+                    + " c.IDDOCENTE = d.ID and \n"
                     + " c. ESTADO = '1' ");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 Clase clase = new Clase();
-                
-                clase.setId(rst.getInt("id"));
+
                 clase.setCantidadAlumnos(rst.getInt("cantidad"));
                 clase.setObservacion(rst.getString("observacion"));
-                
+
                 Docente docente = new Docente();
                 docente.setNombre(rst.getString("nombre"));
                 docente.setApellidopaterno(rst.getString("APELLIDOPATERNO"));
                 clase.setDocente(docente);
-                
+
                 Curso curso = new Curso();
                 curso.setNombreLargo(rst.getString("curso"));
                 clase.setCurso(curso);
-                
+
                 Grado grado = new Grado();
                 grado.setDescripcion(rst.getString("grado"));
                 clase.setGrado(grado);
-                
+
+                clase.setId(rst.getInt("idClase"));
+                curso.setId(rst.getInt("idCurso"));
+                grado.setId(rst.getInt("idGrado"));
+                docente.setId(rst.getInt("idDocente"));
+
                 listaDeClases.add(clase);
             }
             pstm.close();
             con.close();
         } catch (Exception e) {
-            System.out.println("ERROR --> DAO --> Clase --> listar"+e.getMessage());
+            System.out.println("ERROR --> DAO --> Clase --> listar --> " + e.getMessage());
             e.printStackTrace();
         }
         return listaDeClases;
     }
-    
+
 }

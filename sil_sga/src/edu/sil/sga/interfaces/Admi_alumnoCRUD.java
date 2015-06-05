@@ -512,8 +512,8 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
 
                 AlumnoDAO dao = new AlumnoDAO();
                 if (dao.RegistrarAlumno(alumno)) {
-                    JOptionPane.showMessageDialog(this, "Se registro correctamente al docente :) ");
-
+                    JOptionPane.showMessageDialog(this, "Se registro correctamente al alumno :) ");
+                    ListarALumno();
                     btnNuevo.setText("Nuevo");
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");

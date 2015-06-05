@@ -6,7 +6,7 @@
 
 
 create or replace procedure sp_addDocente
-(espec in int, nom in varchar, apater in varchar, amater in varchar, dni in varchar)
+(espec in int, nom in varchar, apater in varchar, amater in varchar, dni in varchar, fec in DATE)
 as
 
 VID INT;
@@ -24,8 +24,8 @@ values (VID, (select usuario+1  from usuario where id = (select max(id) from usu
       INTO VID
       FROM DUAL;
 
-insert into docente (id, idespecialidad, nombre, APELLIDOPATERNO, APELLIDOMATERNO, dni, idusuario)
-values (VID, espec,nom,apater,amater,dni,(select max(id) from usuario));
+insert into docente (id, idespecialidad, nombre, APELLIDOPATERNO, APELLIDOMATERNO, dni, idusuario, FECHADENACIMIENTO)
+values (VID, espec,nom,apater,amater,dni,(select max(id) from usuario), fec);
 
 end;
 
