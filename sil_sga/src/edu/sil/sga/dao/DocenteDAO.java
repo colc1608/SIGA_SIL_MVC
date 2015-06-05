@@ -54,7 +54,7 @@ public class DocenteDAO {
         try {
             
             con=Conexion.getConnection();
-            String sql="CALL sp_addDocente(?,?,?,?,?)";
+            String sql="CALL sp_addDocente(?,?,?,?,?,?)";
             cstm=con.prepareCall(sql);
             cstm.setInt(1,objDocente.getEspecialidad().getId());
             cstm.setString(2,objDocente.getNombre());
