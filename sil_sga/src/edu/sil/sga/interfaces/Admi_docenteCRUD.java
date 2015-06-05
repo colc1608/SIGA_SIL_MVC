@@ -34,6 +34,8 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
      */
     public List<Docente> listaDocente;
     public List<Especialidad> listaEspecialidad;
+    Docente objDocenteSeleccionado;
+    Especialidad especialidad;
 
     public Admi_docenteCRUD() {
         initComponents();
@@ -44,7 +46,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         activaBotones(true, false, false, false);
         ListarDocente();
         activaCajas(false);
-        txtCodigo.setVisible(false);
+        
     }
 
     //metodos a utulizar 
@@ -130,27 +132,12 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             while (modelo1.getRowCount() > 0) {
                 modelo1.removeRow(0);
             }
-
-            //modelo1.addColumn("id");
-            //modelo1.addColumn("Nombre");
-            //modelo1.addColumn("Apellido Paterno");
-            //modelo1.addColumn("Apellido Materno");
-            //modelo1.addColumn("DNI");
-            //modelo1.addColumn("Telefono");
-            //modelo1.addColumn("Movil");
-            //modelo1.addColumn("Email");
-            //modelo1.addColumn("Especialidad");
             for (Docente objDocente : listaDocente) {
                 modelo1.addRow(new String[]{
-                    //objDocente.getId() + "",
                     objDocente.getNombre() + "",
                     objDocente.getApellidopaterno() + "",
                     objDocente.getApellidomaterno() + "",
                     objDocente.getDni() + ""
-                    //objDocente.getTelefono() + "",
-                    //objDocente.getMovil() + "",
-                    //objDocente.getEmail() + "",
-                    //String.valueOf(objDocente.getEspecialidad().getDescripcion())
                 });
             }
 
@@ -163,7 +150,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     }
 
     void limpiarCajas() {
-        txtCodigo.setText("");
+        
         txtnombre.setText("");
         txtapellidoPaterno.setText("");
         txtApellidoMaterno.setText("");
@@ -212,7 +199,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -442,9 +428,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             }
         });
 
-        txtCodigo.setText("codigo oculto");
-        txtCodigo.setEnabled(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -454,9 +437,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(320, 320, 320)
                         .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(570, 570, 570)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -478,9 +458,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel1)
-                .addGap(8, 8, 8)
-                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -491,7 +469,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -500,39 +478,36 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
 
-        String nombre = txtnombre.getText();
-        String apellidoPa = txtapellidoPaterno.getText();
-        String apellidoMa = txtApellidoMaterno.getText();
-        String dni = txtDNI.getText();
-        String telefono = txtTelefono.getText();
-        String movil = txtMovil.getText();
-        String email = txtEmail.getText();
-        //String fecha = txtFechaNacimiento.getText();
+        if (txtnombre.getText().equalsIgnoreCase("")
+                || txtapellidoPaterno.getText().equalsIgnoreCase("")
+                || txtApellidoMaterno.getText().equalsIgnoreCase("")
+                || txtDNI.getText().equalsIgnoreCase("")) {
 
-        if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
-                && apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Debe ingresar los campos requeridos (*)");
 
         } else {
 
             try {
                 Docente objDocente = new Docente();
+                DocenteDAO dao = new DocenteDAO();
+
                 int posicionComboSeleccionado = cboEspecialidad.getSelectedIndex();
                 Especialidad objEspecialidadSeleccionada = listaEspecialidad.get(posicionComboSeleccionado);
+
                 objDocente.setEspecialidad(objEspecialidadSeleccionada);
-                objDocente.setNombre(nombre);
-                objDocente.setApellidopaterno(apellidoPa);
-                objDocente.setApellidomaterno(apellidoMa);
-                objDocente.setDni(dni);
-                objDocente.setTelefono(telefono);
-                objDocente.setMovil(movil);
-                objDocente.setEmail(email);
+                objDocente.setNombre(txtnombre.getText());
+                objDocente.setApellidopaterno(txtapellidoPaterno.getText());
+                objDocente.setApellidomaterno(txtApellidoMaterno.getText());
+                objDocente.setDni(txtDNI.getText());
+                objDocente.setTelefono(txtTelefono.getText());
+                objDocente.setMovil(txtMovil.getText());
+                objDocente.setEmail(txtEmail.getText());
 
                 /*SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                  objDocente.setFechadenacimiento(sdf.parse(fecha));*/
                 objDocente.setFechadenacimiento((Date) spnFechaNacimiento.getValue());
                 //SwingX
-                DocenteDAO dao = new DocenteDAO();
+
                 if (dao.RegistrarDocente(objDocente)) {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente al docente :) ");
                     ListarDocente();
@@ -541,11 +516,11 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     activaCajas(false);
                     btnNuevo.setText("Nuevo");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+                    JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No pudimos agregar al nuevo docente :( " + e.getMessage());
+                System.out.println(" ERROR --> INTERFAZ --> DOCENTE CRUD --> " + e.getMessage());
 
             }
         }
@@ -556,36 +531,29 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
 
-        String id = txtCodigo.getText();
-        String nombre = txtnombre.getText();
-        String apellidoPa = txtapellidoPaterno.getText();
-        String apellidoMa = txtApellidoMaterno.getText();
-        String dni = txtDNI.getText();
-        String telefono = txtTelefono.getText();
-        String movil = txtMovil.getText();
-        String email = txtEmail.getText();
-
-        if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
-                || apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("") || id.equalsIgnoreCase("")) {
+        if (txtnombre.getText().equalsIgnoreCase("")
+                || txtapellidoPaterno.getText().equalsIgnoreCase("")
+                || txtApellidoMaterno.getText().equalsIgnoreCase("")
+                || txtDNI.getText().equalsIgnoreCase("")) {
 
             JOptionPane.showMessageDialog(this, "Debe ingresar los campos requeridos (*)");
 
         } else {
 
             try {
-
-                Docente objDocente = new Docente();
-                objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
-                objDocente.setId(Integer.parseInt(id));
-                objDocente.setNombre(nombre);
-                objDocente.setApellidopaterno(apellidoPa);
-                objDocente.setApellidomaterno(apellidoMa);
-                objDocente.setDni(dni);
-                objDocente.setTelefono(telefono);
-                objDocente.setMovil(movil);
-                objDocente.setEmail(email);
-
                 DocenteDAO dao = new DocenteDAO();
+                Docente objDocente = new Docente();
+
+                objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
+                objDocente.setId(objDocenteSeleccionado.getId());
+                objDocente.setNombre(txtnombre.getText());
+                objDocente.setApellidopaterno(txtapellidoPaterno.getText());
+                objDocente.setApellidomaterno(txtApellidoMaterno.getText());
+                objDocente.setDni(txtDNI.getText());
+                objDocente.setTelefono(txtTelefono.getText());
+                objDocente.setMovil(txtMovil.getText());
+                objDocente.setEmail(txtEmail.getText());
+
                 if (dao.ActualizarDocente(objDocente)) {
                     JOptionPane.showMessageDialog(this, "Se Actualizo correctamente los datos del Docente ");
                     ListarDocente();
@@ -593,10 +561,10 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                     activaBotones(true, false, false, false);
                     activaCajas(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+                    JOptionPane.showMessageDialog(this, "No lo pudimos actualizar por problemas internos :( ");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del docente :(" + e.getMessage());
+                System.out.println(" ERROR --> Interfaz --> Docente --> Actualizar --> " + e.getMessage());
             }
         }
 
@@ -606,26 +574,18 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int fila = tablaListaDocente.getSelectedRow();
         if (fila != -1) {
-            Docente objDocenteSeleccionado = listaDocente.get(fila);
-            /*String id = tablaListaDocente.getValueAt(fila, 0).toString();
-             String nomb = tablaListaDocente.getValueAt(fila, 1).toString();
-             String apePater = tablaListaDocente.getValueAt(fila, 2).toString();
-             String apeMater = tablaListaDocente.getValueAt(fila, 3).toString();
-             String dni = tablaListaDocente.getValueAt(fila, 4).toString();
-             String telef = tablaListaDocente.getValueAt(fila, 5).toString();
-             String movil = tablaListaDocente.getValueAt(fila, 6).toString();
-             String email = tablaListaDocente.getValueAt(fila, 7).toString();
-             String espec = tablaListaDocente.getValueAt(fila, 8).toString();*/
 
-            txtCodigo.setText(String.valueOf(objDocenteSeleccionado.getId()));
-            txtnombre.setText(String.valueOf(objDocenteSeleccionado.getNombre()));
+            objDocenteSeleccionado = listaDocente.get(fila);
+            especialidad = objDocenteSeleccionado.getEspecialidad();
 
-            txtapellidoPaterno.setText(String.valueOf(objDocenteSeleccionado.getApellidopaterno()));
-            txtApellidoMaterno.setText(String.valueOf(objDocenteSeleccionado.getApellidomaterno()));
-            txtDNI.setText(String.valueOf(objDocenteSeleccionado.getDni()));
-            txtTelefono.setText(String.valueOf(objDocenteSeleccionado.getTelefono()));
-            txtMovil.setText(String.valueOf(objDocenteSeleccionado.getMovil()));
-            txtEmail.setText(String.valueOf(objDocenteSeleccionado.getEmail()));
+            txtnombre.setText(objDocenteSeleccionado.getNombre());
+            txtapellidoPaterno.setText(objDocenteSeleccionado.getApellidopaterno());
+            txtApellidoMaterno.setText(objDocenteSeleccionado.getApellidomaterno());
+            txtDNI.setText(objDocenteSeleccionado.getDni());
+            txtTelefono.setText(objDocenteSeleccionado.getTelefono());
+            txtEmail.setText(objDocenteSeleccionado.getEmail());
+            txtMovil.setText(objDocenteSeleccionado.getMovil());
+
             cboEspecialidad.setSelectedItem(String.valueOf(objDocenteSeleccionado.getEspecialidad().getDescripcion()));
 
             btnNuevo.setText("Nuevo");
@@ -655,9 +615,9 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         if (txtnombre.getText().equalsIgnoreCase("") || txtapellidoPaterno.getText().equalsIgnoreCase("")
-                || txtApellidoMaterno.getText().equalsIgnoreCase("") || txtDNI.getText().equalsIgnoreCase("") || txtCodigo.getText().equalsIgnoreCase("")) {
+                || txtApellidoMaterno.getText().equalsIgnoreCase("") || txtDNI.getText().equalsIgnoreCase("") ) {
 
-           JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
+            JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
 
         } else {
 
@@ -668,8 +628,9 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
                 //objDocente.setId(Integer.parseInt(txtCodigo.getText()));
                 //Docente objDocente = new Docente();
+                objDocente.setId(objDocenteSeleccionado.getId());
                 objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
-                objDocente.setId(Integer.parseInt(txtCodigo.getText()));
+                
                 objDocente.setNombre(txtnombre.getText());
                 objDocente.setApellidopaterno(txtapellidoPaterno.getText());
                 objDocente.setApellidomaterno(txtApellidoMaterno.getText());
@@ -679,17 +640,17 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 objDocente.setEmail(txtEmail.getText());
 
                 if (dao.EliminarDocente(objDocente)) {
-                    JOptionPane.showMessageDialog(this, "Se elimino correctamente");
+                    JOptionPane.showMessageDialog(this, "Se elimino correctamente al docente ^^ ");
                     ListarDocente();
                     limpiarCajas();
                     activaBotones(true, false, false, false);
                     activaCajas(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+                    JOptionPane.showMessageDialog(this, "No lo pudimos actualizar por problemas internos =(  ");
                 }
 
             } catch (Exception e) {
-                System.out.println("error --> interfaz --> docente --> eliminar");
+                System.out.println(" ERROR --> Interfaz --> Docente --> Eliminar --> " + e.getMessage());
             }
 
         }
@@ -772,7 +733,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JTable tablaListaDocente;
     private javax.swing.JTextField txtApellidoMaterno;
     private javax.swing.JTextField txtCampoBusqueda;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDNI;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtMovil;

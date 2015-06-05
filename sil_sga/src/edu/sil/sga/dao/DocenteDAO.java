@@ -63,8 +63,6 @@ public class DocenteDAO {
             cstm.setString(5, objDocente.getDni());
             cstm.setDate(6, new Date(objDocente.getFechadenacimiento().getTime()));
             
-            
-            
             cstm.execute();
             
             return true;
@@ -82,14 +80,15 @@ public class DocenteDAO {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?,apellidomaterno=?,dni=?,telefono=?,movil=?,email=?,idespecialidad=?,nombre=?" + "WHERE id=?");
+            PreparedStatement pstm = con.prepareStatement("UPDATE Docente SET apellidopaterno=?, apellidomaterno=?,"
+                    + "dni=?,telefono=?,movil=?,email=?,idespecialidad=?,nombre=? WHERE id=?");
             pstm.setString(1, objDocente.getApellidopaterno());
             pstm.setString(2, objDocente.getApellidomaterno());
             pstm.setString(3, objDocente.getDni());
             pstm.setString(4, objDocente.getTelefono());
             pstm.setString(5, objDocente.getMovil());
             pstm.setString(6, objDocente.getEmail());
-            pstm.setInt(7, objDocente.getEspecialidad().getId());//todo bien
+            pstm.setInt(7, objDocente.getEspecialidad().getId());
             pstm.setString(8, objDocente.getNombre());
             pstm.setInt(9, objDocente.getId());
             pstm.execute();
@@ -97,7 +96,7 @@ public class DocenteDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("ERROR --> DAO --> Docente --> actualizar"+e.getMessage());
+            System.out.println("ERROR --> DAO --> Docente --> actualizar --> "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
