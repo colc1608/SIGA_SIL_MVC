@@ -105,6 +105,32 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             System.out.println("ERROR - CARGAR - GRADO - ACTUALIZARBUSQUEDACOMBO");
         }
     }
+    
+    void ActualizarBusquedaCaja(){
+        try {
+            Grado g = new Grado();
+            Nivel n = new Nivel();
+            n.setNombreLargo(String.valueOf(cboNivel.getSelectedItem()));
+            g.setNivel(n);
+            g.setDescripcion(txtbusqueda.getText());
+            
+            listaGrado = new GradoDAO().buscarGradoCaja(g);
+            DefaultTableModel modelo1 = (DefaultTableModel)tblGrado.getModel();
+            while (modelo1.getRowCount()>0) {                
+                modelo1.removeRow(0);
+            }
+            for (Grado grado : listaGrado) {
+                modelo1.addRow(new String[]{
+                    grado.getId() + "",
+                    grado.getNivel().getNombreCorto() + "",
+                    grado.getDescripcion() + "",
+                    grado.getSeccion().getDescripcion() + ""
+                });
+            }
+        } catch (Exception e) {
+            System.out.println("ERROR - CARGAR - GRADO - ACTUALIZARBUSQUEDACAJA");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -116,7 +142,7 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtbusqueda = new javax.swing.JTextField();
         cboNivel = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGrado = new javax.swing.JTable();
@@ -126,6 +152,12 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Busqueda de Grado"));
+
+        txtbusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtbusquedaKeyReleased(evt);
+            }
+        });
 
         cboNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboNivel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -175,7 +207,7 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
                 .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cboNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(115, 115, 115))
@@ -190,7 +222,7 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cboNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -235,12 +267,21 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
           ActualizarBusquedaCombo();
     }//GEN-LAST:event_cboNivelActionPerformed
 
+    private void txtbusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbusquedaKeyReleased
+        // TODO add your handling code here:
+        if (String.valueOf(txtbusqueda.getText())== "") {
+            listarGrado();
+        }else{
+            ActualizarBusquedaCaja();
+        }
+    }//GEN-LAST:event_txtbusquedaKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
     private javax.swing.JComboBox cboNivel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblGrado;
+    private javax.swing.JTextField txtbusqueda;
     // End of variables declaration//GEN-END:variables
 }
