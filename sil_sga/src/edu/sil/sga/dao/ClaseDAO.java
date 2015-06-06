@@ -27,8 +27,9 @@ public class ClaseDAO {
 
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("insert into clase(id,idCurso,idGrado,idDocente,cantidadAlumnos, observacion)"
-                    + "values (SQ_GRADO.NEXTVAL,?,?,?,?,?)");
+            PreparedStatement pstm = con.prepareStatement("insert into clase "
+                    + " (id,idCurso,idGrado,idDocente,cantidadAlumnos, observacion) "
+                    + " values (SQ_GRADO.NEXTVAL,?,?,?,?,?)");
 
             pstm.setInt(1, clase.getCurso().getId());
             pstm.setInt(2, clase.getGrado().getId());
@@ -41,36 +42,70 @@ public class ClaseDAO {
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println(" error --> DAO --> Clase --> registrar  " + e.getMessage());
+            System.out.println(" ERROR --> DAO --> Clase --> Registrar  --> " + e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
 
-    public boolean ActualizarAlumno(Clase clase) throws SQLException {
+    public boolean ActualizarClase(Clase clase) throws SQLException {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("update ... ");
+            PreparedStatement pstm = con.prepareStatement(" UPDATE clase  SET  idcurso=?, idgrado =?, "
+                    + "iddocente =?, cantidadalumnos=?, observacion =? WHERE id=? ");
 
-            pstm.setInt(1, clase.getId());
-            pstm.setInt(2, clase.getCurso().getId());
+            
+            pstm.setInt(1, clase.getCurso().getId());
+            pstm.setInt(2, clase.getGrado().getId());
             pstm.setInt(3, clase.getDocente().getId());
-            pstm.setInt(4, clase.getGrado().getId());
-            pstm.setInt(5, clase.getCantidadAlumnos());
-            pstm.setString(6, clase.getObservacion());
+            pstm.setInt(4, clase.getCantidadAlumnos());
+            pstm.setString(5, clase.getObservacion());
+            pstm.setInt(6, clase.getId());
 
             pstm.execute();
             pstm.close();
             con.close();
             retornar = true;
         } catch (Exception e) {
-            System.out.println("ERROR - DAO - CLASE - ACTUALIZAR"+e.getMessage());
+            System.out.println("ERROR --> DAO --> CLASE --> ACTUALIZAR --> "+e.getMessage());
             e.printStackTrace();
         }
         return retornar;
     }
 
+    
+    
+    public boolean EliminarClase(Clase clase) throws SQLException {
+        boolean retornar = false;
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement(" UPDATE clase  SET  idcurso=?, idgrado =?, "
+                    + "iddocente =?, cantidadalumnos=?, observacion =?, estado = 0 WHERE id=? ");
+
+            
+            pstm.setInt(1, clase.getCurso().getId());
+            pstm.setInt(2, clase.getGrado().getId());
+            pstm.setInt(3, clase.getDocente().getId());
+            pstm.setInt(4, clase.getCantidadAlumnos());
+            pstm.setString(5, clase.getObservacion());
+            pstm.setInt(6, clase.getId());
+
+            pstm.execute();
+            pstm.close();
+            con.close();
+            retornar = true;
+        } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Clase --> Eliminar --> "+e.getMessage());
+            e.printStackTrace();
+        }
+        return retornar;
+    }
+    
+    
+    
+    
+    
     public List<Clase> ListarClases() throws SQLException {
         List<Clase> listaDeClases = new ArrayList<>();
         try {

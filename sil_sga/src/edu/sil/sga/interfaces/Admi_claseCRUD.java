@@ -24,7 +24,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_claseCRUD
      */
-    //-------------------------------------
     //Variables Globales
     Grado grado;
     Docente docente;
@@ -32,19 +31,19 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     Clase objClaseSeleccionada;
     public List<Clase> listaDeClases;
 
+    //INICIALIZACION
     public Admi_claseCRUD() {
         initComponents();
-        setLocation(150, 100);
-        setSize(850, 700); // X , Y
+        setLocation(200, 100);
+        setSize(880, 490); // X , Y
 
         activaBotones(true, false, false, false);
         ListarClases();
         activaCajas(false);
-        //txtCodigo.setVisible(false);
+
     }
 
     void cargarDatosGrado(Grado objGrado) {
-
         this.grado = objGrado;
         txtGrado.setText(" ' " + objGrado.getDescripcion() + " - " + objGrado.getSeccion().getDescripcion() + " ' de " + objGrado.getNivel().getNombreCorto());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
@@ -52,7 +51,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     }
 
     void cargarDatosDocente(Docente objDocente) {
-
         this.docente = objDocente;
         txtDocente.setText(objDocente.getNombre() + ", " + objDocente.getApellidopaterno());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
@@ -60,7 +58,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     }
 
     void cargarDatosCurso(Curso objCurso) {
-
         this.curso = objCurso;
         txtCurso.setText(objCurso.getNombreLargo());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
@@ -73,32 +70,22 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             listaDeClases = dao.ListarClases();
             DefaultTableModel modelo1 = new DefaultTableModel();
 
-            //modelo1.addColumn("id");
             modelo1.addColumn("Nombre Docente");
             modelo1.addColumn("Curso");
             modelo1.addColumn("Grado");
-            //modelo1.addColumn("Telefono");
-            //modelo1.addColumn("Movil");
-            //modelo1.addColumn("Email");
-            //modelo1.addColumn("Especialidad");
 
             for (Clase clase : listaDeClases) {
                 modelo1.addRow(new String[]{
-                    //objDocente.getId() + "",
                     clase.getDocente().getNombre() + "",
                     clase.getCurso().getNombreLargo() + "",
-                    clase.getGrado().getDescripcion() + "", //clase.getDni() + "",
-                //objDocente.getTelefono() + "",
-                //objDocente.getMovil() + "",
-                //objDocente.getEmail() + "",
-                //objDocente.getEspecialidad().getDescripcion()
+                    clase.getGrado().getDescripcion() + ""
                 });
             }
-
             tblClase.setModel(modelo1);
 
         } catch (Exception e) {
-            System.out.println("error --> interfaz --> docente --> listar");
+            System.out.println("error --> interfaz --> docente --> listar --> " + e.getMessage());
+            e.printStackTrace();
         }
 
     }
@@ -115,7 +102,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     }
 
     void limpiarCajas() {
-        txtCodigo.setText("");
         txtGrado.setText("");
         txtCurso.setText("");
         txtDocente.setText("");
@@ -139,7 +125,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         txtCantidad = new javax.swing.JTextField();
@@ -162,19 +147,12 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
-        btnImprime = new javax.swing.JButton();
-        txtIdDocente = new javax.swing.JTextField();
-        txtIdCurso = new javax.swing.JTextField();
-        txtIdGrado = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setText("Registrar Clase");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de clase"));
 
@@ -241,12 +219,12 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtDocente, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtDocente, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
                             .addComponent(txtCurso, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtGrado, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtGrado))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnBuscarCurso, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnBuscarDocente, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -304,7 +282,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblClase);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 240, 260));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 240, 260));
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -328,81 +306,47 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
-        txtCodigo.setEditable(false);
-        txtCodigo.setText("idClase");
-        txtCodigo.setEnabled(false);
-
-        btnImprime.setText("imprime en consola");
-
-        txtIdDocente.setText("idDocente");
-        txtIdDocente.setEnabled(false);
-
-        txtIdCurso.setText("idCurso");
-        txtIdCurso.setEnabled(false);
-
-        txtIdGrado.setText("iidGrado");
-        txtIdGrado.setEnabled(false);
+        jLabel1.setText("Gestion de Clase");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(280, 280, 280)
-                        .addComponent(jLabel1)
-                        .addGap(51, 51, 51)
-                        .addComponent(txtIdGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtIdDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(btnNuevo)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnGuardar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnActualizar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnEliminar)
-                                        .addGap(39, 39, 39))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(107, 107, 107)
-                                .addComponent(btnImprime)))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                        .addComponent(btnGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)
+                        .addGap(91, 91, 91))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(368, 368, 368)
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel1)
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtIdDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
@@ -410,10 +354,9 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnNuevo)
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
-                            .addComponent(btnEliminar))
-                        .addGap(18, 18, 18)
-                        .addComponent(btnImprime)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(btnEliminar)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -466,8 +409,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
 
-        int cant;
-
         if (txtGrado.getText().equalsIgnoreCase("")
                 || txtDocente.getText().equalsIgnoreCase("")
                 || txtCurso.getText().equalsIgnoreCase("")
@@ -477,13 +418,9 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
         } else {
 
-            int idGrado = 0, idCurso = 0, idDocente = 0;
-            String obser = txtObservacion.getText();
-
-            cant = Integer.parseInt(String.valueOf(txtCantidad.getText()));
-            idGrado = Integer.parseInt(String.valueOf(grado.getId()));
-            idCurso = Integer.parseInt(String.valueOf(curso.getId()));
-            idDocente = Integer.parseInt(String.valueOf(docente.getId()));
+            int idGrado = Integer.parseInt(String.valueOf(grado.getId()));
+            int idCurso = Integer.parseInt(String.valueOf(curso.getId()));
+            int idDocente = Integer.parseInt(String.valueOf(docente.getId()));
 
             try {
                 ClaseDAO dao = new ClaseDAO();
@@ -501,8 +438,8 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                 docente.setId(idDocente);
                 clase.setDocente(docente);
 
-                clase.setCantidadAlumnos(cant);
-                clase.setObservacion(obser);
+                clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
+                clase.setObservacion(txtObservacion.getText());
 
                 if (dao.RegistrarClase(clase)) {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
@@ -513,11 +450,11 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                     activaBotones(true, false, false, false);
 
                 } else {
-                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+                    JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No pudimos registrar la nueva clase:( " + e.getMessage());
+                System.out.println(" ERROR --> INTERFAZ --> CLASE --> Guardar --> " + e.getMessage());
 
             }
         }
@@ -535,16 +472,11 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             docente = objClaseSeleccionada.getDocente();
             grado = objClaseSeleccionada.getGrado();
 
-            txtCodigo.setText(String.valueOf(objClaseSeleccionada.getId()));
             txtGrado.setText(String.valueOf(objClaseSeleccionada.getGrado().getDescripcion()));
             txtDocente.setText(String.valueOf(objClaseSeleccionada.getDocente().getNombre() + ", " + objClaseSeleccionada.getDocente().getApellidopaterno()));
             txtCurso.setText(String.valueOf(objClaseSeleccionada.getCurso().getNombreLargo()));
             txtCantidad.setText(String.valueOf(objClaseSeleccionada.getCantidadAlumnos()));
             txtObservacion.setText(String.valueOf(objClaseSeleccionada.getObservacion()));
-
-            txtIdCurso.setText(String.valueOf(objClaseSeleccionada.getCurso().getId()));
-            txtIdGrado.setText(String.valueOf(objClaseSeleccionada.getGrado().getId()));
-            txtIdDocente.setText(String.valueOf(objClaseSeleccionada.getDocente().getId()));
 
             btnNuevo.setText("Nuevo");
             activaBotones(true, false, true, true);
@@ -571,7 +503,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        int cant;
 
         if (txtGrado.getText().equalsIgnoreCase("")
                 || txtDocente.getText().equalsIgnoreCase("")
@@ -579,47 +510,76 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                 || txtCantidad.getText().equalsIgnoreCase("")) {
 
             JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
-            
+
         } else {
-            
 
             try {
                 ClaseDAO dao = new ClaseDAO();
-                
-                //Grado grado = new Grado();
-                //Curso curso = new Curso();
-                //Docente docente = new Docente();
-                
-                
                 Clase clase = objClaseSeleccionada;
-                
+
                 clase.setCurso(curso);
                 clase.setDocente(docente);
                 clase.setGrado(grado);
-                
                 clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
                 clase.setObservacion(txtObservacion.getText());
-                
 
-                if (dao.ActualizarAlumno(clase)) {
+                if (dao.ActualizarClase(clase)) {
                     JOptionPane.showMessageDialog(this, "Se actualizo correctamente a la Clase :) ");
                     btnNuevo.setText("Nuevo");
                     ListarClases();
                     activaCajas(false);
                     limpiarCajas();
                     activaBotones(true, false, false, false);
-
                 } else {
-                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+                    JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No pudimos registrar la nueva clase:( " + e.getMessage());
+                System.out.println(" ERROR --> INTERFAZ --> CLASE --> Actualizar --> " + e.getMessage());
 
             }
         }
 
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        if (txtGrado.getText().equalsIgnoreCase("")
+                || txtDocente.getText().equalsIgnoreCase("")
+                || txtCurso.getText().equalsIgnoreCase("")
+                || txtCantidad.getText().equalsIgnoreCase("")) {
+
+            JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
+
+        } else {
+
+            try {
+                ClaseDAO dao = new ClaseDAO();
+                Clase clase = objClaseSeleccionada;
+
+                clase.setCurso(curso);
+                clase.setDocente(docente);
+                clase.setGrado(grado);
+                clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
+                clase.setObservacion(txtObservacion.getText());
+
+                if (dao.EliminarClase(clase)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente a la Clase :) ");
+                    btnNuevo.setText("Nuevo");
+                    ListarClases();
+                    activaCajas(false);
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No lo pudimos eliminar por problemas internos :( ");
+                }
+
+            } catch (Exception e) {
+                System.out.println(" ERROR --> INTERFAZ --> CLASE --> Eliminar --> " + e.getMessage());
+
+            }
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -629,7 +589,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnBuscarGrado;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnImprime;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -643,13 +602,9 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblClase;
     private javax.swing.JTextField txtCantidad;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtCurso;
     private javax.swing.JTextField txtDocente;
     private javax.swing.JTextField txtGrado;
-    private javax.swing.JTextField txtIdCurso;
-    private javax.swing.JTextField txtIdDocente;
-    private javax.swing.JTextField txtIdGrado;
     private javax.swing.JTextArea txtObservacion;
     // End of variables declaration//GEN-END:variables
 }
