@@ -22,7 +22,8 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_alumnoCRUD
      */
-    private Grado objGrado;
+    Grado objGrado;
+    Alumno obAlumnoselecionado;
     public List<Alumno> listAlumno;
 
     public Admi_alumnoCRUD() {
@@ -493,10 +494,6 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         String movil = txtMovil.getText();
         String email = txtEmail.getText();
         int idGrado =Integer.parseInt(String.valueOf(objGrado.getId()));
-        System.out.println("EL NOMBRE ES : " + nombre);
-        System.out.println("EL APELLIDO PATERNO ES : " + apellidoPa);
-        System.out.println("EL APEELLIDO MATERNO ES : " + apellidoMa);
-        System.out.println("EL DNI ES : " +dni);
         
         if (nombre.equalsIgnoreCase("") || apellidoPa.equalsIgnoreCase("")
                 && apellidoMa.equalsIgnoreCase("") || dni.equalsIgnoreCase("")) {
@@ -509,7 +506,6 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                 Alumno alumno = new Alumno();
                 Grado grado = new Grado();
                 grado.setId(idGrado);
-                System.out.println("EL CODIGO DEL GRADO ES : "+ idGrado);
                 alumno.setGrado(grado);
 
                 alumno.setNombre(nombre);
@@ -566,19 +562,20 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int fila = tblAlumno.getSelectedRow();
         if (fila != -1) {
-            Alumno obAlumno = listAlumno.get(fila);
+            obAlumnoselecionado = listAlumno.get(fila);
+            objGrado = obAlumnoselecionado.getGrado();
 
-            txtCodigo.setText(String.valueOf(obAlumno.getId()));
-            txtNombre.setText(String.valueOf(obAlumno.getNombre()));
-            txtApePa.setText(String.valueOf(obAlumno.getApellidopaterno()));
-            txtApeMa.setText(String.valueOf(obAlumno.getApellidomaterno()));
-            txtDni.setText(String.valueOf(obAlumno.getDni()));
-            txtTelefono.setText(String.valueOf(obAlumno.getTelefono()));
-            txtMovil.setText(String.valueOf(obAlumno.getMovil()));
-            txtEmail.setText(String.valueOf(obAlumno.getEmail()));
-            txtGrado.setText(String.valueOf(obAlumno.getGrado().getDescripcion()));
-            txtSeccion.setText(String.valueOf(obAlumno.getGrado().getSeccion().getDescripcion()));
-            txtNivel.setText(String.valueOf(obAlumno.getGrado().getNivel().getNombreCorto()));
+            txtCodigo.setText(String.valueOf(obAlumnoselecionado.getId()));
+            txtNombre.setText(String.valueOf(obAlumnoselecionado.getNombre()));
+            txtApePa.setText(String.valueOf(obAlumnoselecionado.getApellidopaterno()));
+            txtApeMa.setText(String.valueOf(obAlumnoselecionado.getApellidomaterno()));
+            txtDni.setText(String.valueOf(obAlumnoselecionado.getDni()));
+            txtTelefono.setText(String.valueOf(obAlumnoselecionado.getTelefono()));
+            txtMovil.setText(String.valueOf(obAlumnoselecionado.getMovil()));
+            txtEmail.setText(String.valueOf(obAlumnoselecionado.getEmail()));
+            txtGrado.setText(String.valueOf(obAlumnoselecionado.getGrado().getDescripcion()));
+            txtSeccion.setText(String.valueOf(obAlumnoselecionado.getGrado().getSeccion().getDescripcion()));
+            txtNivel.setText(String.valueOf(obAlumnoselecionado.getGrado().getNivel().getNombreCorto()));
             btnNuevo.setText("Nuevo");
             activaBotones(true, false, true, true);
             ActivaCajas(true);
@@ -602,10 +599,10 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "debe ingresar todos los campos requeridos", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                Alumno obAlumno = new Alumno();
-                Grado grad = new Grado();
-                grad.setId(Integer.parseInt(idgrado));
-                obAlumno.setGrado(grad);
+                Alumno obAlumno = obAlumnoselecionado;
+                //Grado grad = new Grado();
+                //grad.setId(Integer.parseInt(idgrado));
+                obAlumno.setGrado(objGrado);
                 obAlumno.setId(Integer.parseInt(id));
                 obAlumno.setNombre(nombre);
                 obAlumno.setApellidopaterno(ApePa);

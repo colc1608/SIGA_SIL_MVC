@@ -87,7 +87,11 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
     
     void ActualizarBusquedaCombo(){
         try {
-            listaGrado = new GradoDAO().buscarGradoCombo(String.valueOf(cboNivel.getSelectedItem()));
+            Grado g = new Grado();
+            Nivel n = new Nivel();
+            n.setNombreLargo(String.valueOf(cboNivel.getSelectedItem()));
+            g.setNivel(n);
+            listaGrado = new GradoDAO().buscarGradoCombo(g);
             DefaultTableModel modelo1 = (DefaultTableModel)tblGrado.getModel();
             while (modelo1.getRowCount()>0) {                
                 modelo1.removeRow(0);
