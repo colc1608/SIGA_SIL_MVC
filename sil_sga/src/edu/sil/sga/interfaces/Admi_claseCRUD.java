@@ -45,7 +45,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
     void cargarDatosGrado(Grado objGrado) {
         this.grado = objGrado;
-        txtGrado.setText(" ' " + objGrado.getDescripcion() + " - " + objGrado.getSeccion().getDescripcion() + " ' de " + objGrado.getNivel().getNombreCorto());
+        txtGrado.setText(" ' " + objGrado.getnumeroGrado() + " - " + objGrado.getSeccion().getDescripcion() + " ' de " + objGrado.getNivel().getNombreCorto());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
@@ -78,7 +78,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                 modelo1.addRow(new String[]{
                     clase.getDocente().getNombre() + "",
                     clase.getCurso().getNombreLargo() + "",
-                    clase.getGrado().getDescripcion() + ""
+                    clase.getGrado().getnumeroGrado() + ""
                 });
             }
             tblClase.setModel(modelo1);
@@ -472,7 +472,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             docente = objClaseSeleccionada.getDocente();
             grado = objClaseSeleccionada.getGrado();
 
-            txtGrado.setText(String.valueOf(objClaseSeleccionada.getGrado().getDescripcion()));
+            txtGrado.setText(String.valueOf(objClaseSeleccionada.getGrado().getnumeroGrado()));
             txtDocente.setText(String.valueOf(objClaseSeleccionada.getDocente().getNombre() + ", " + objClaseSeleccionada.getDocente().getApellidopaterno()));
             txtCurso.setText(String.valueOf(objClaseSeleccionada.getCurso().getNombreLargo()));
             txtCantidad.setText(String.valueOf(objClaseSeleccionada.getCantidadAlumnos()));

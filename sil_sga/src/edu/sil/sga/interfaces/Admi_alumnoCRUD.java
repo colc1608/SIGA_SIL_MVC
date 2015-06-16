@@ -37,7 +37,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
     void cargarDatos(Grado objGrado) {
 
         this.objGrado = objGrado;
-        txtGrado.setText(objGrado.getDescripcion());
+        txtGrado.setText(objGrado.getnumeroGrado());
         txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
@@ -573,7 +573,7 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
             txtTelefono.setText(String.valueOf(obAlumnoselecionado.getTelefono()));
             txtMovil.setText(String.valueOf(obAlumnoselecionado.getMovil()));
             txtEmail.setText(String.valueOf(obAlumnoselecionado.getEmail()));
-            txtGrado.setText(String.valueOf(obAlumnoselecionado.getGrado().getDescripcion()));
+            txtGrado.setText(String.valueOf(obAlumnoselecionado.getGrado().getnumeroGrado()));
             txtSeccion.setText(String.valueOf(obAlumnoselecionado.getGrado().getSeccion().getDescripcion()));
             txtNivel.setText(String.valueOf(obAlumnoselecionado.getGrado().getNivel().getNombreCorto()));
             btnNuevo.setText("Nuevo");

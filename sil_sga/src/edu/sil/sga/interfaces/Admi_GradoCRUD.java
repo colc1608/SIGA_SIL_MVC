@@ -99,7 +99,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
                 modelo1.addRow(new String[]{
                     grado.getId() + "",
                     grado.getNivel().getNombreCorto() + "",
-                    grado.getDescripcion() + "",
+                    grado.getnumeroGrado()+ "",
                     grado.getSeccion().getDescripcion() + ""
 
                 });
@@ -369,7 +369,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
                 Seccion seccionSeleccionado = listaSeccion.get(posicionComboSeleccionado2);
                 grado.setSeccion(seccionSeleccionado);
 
-                grado.setDescripcion(gra);
+                grado.setnumeroGrado(gra);
 
                 if (dao.RegistrarGrado(grado)) {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente el grado :) ");
@@ -400,7 +400,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             grado.setId(Integer.parseInt(txtCodigo.getText()));
             grado.setNivel(listaNivel.get(cboNivel.getSelectedIndex()));
             grado.setSeccion(listaSeccion.get(cboSeccion.getSelectedIndex()));
-            grado.setDescripcion(cboGrado.getSelectedItem().toString());
+            grado.setnumeroGrado(cboGrado.getSelectedItem().toString());
 
             if (dao.ActualizarGrado(grado)) {
                 JOptionPane.showMessageDialog(this, "Se Actualizo correctamente los datos del Docente ");
@@ -447,7 +447,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             grado.setId(Integer.parseInt(txtCodigo.getText()));
             grado.setNivel(listaNivel.get(cboNivel.getSelectedIndex()));
             grado.setSeccion(listaSeccion.get(cboSeccion.getSelectedIndex()));
-            grado.setDescripcion(cboGrado.getSelectedItem().toString());
+            grado.setnumeroGrado(cboGrado.getSelectedItem().toString());
 
             if (dao.EliminarGrado(grado)) {
                 JOptionPane.showMessageDialog(this, "Se Actualizo correctamente el grado ^^  ");

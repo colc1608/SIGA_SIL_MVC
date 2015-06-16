@@ -25,9 +25,7 @@ public class Conexion {
     private static String port = "1521";
 
     
-    //private static String dbname = "dbsilsiga";   // CONEXION PARA PAUL
-    private static String dbname = "DBSILSGA";      // CONEXION PARA CESAR 
-
+    private static String dbname = "dbsilsiga";
     
     public static Connection getConnection()throws SQLException{
         Connection con = null;

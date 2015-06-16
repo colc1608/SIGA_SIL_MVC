@@ -134,7 +134,7 @@ public List<Alumno> ListadoAlumno()throws SQLException{
     List<Alumno> listarAlumno = new ArrayList<>();
     try {
         Connection con = Conexion.getConnection();
-        PreparedStatement pstm = con.prepareStatement("SELECT A.ID,A.NOMBRE,A.APELLIDOPATERNO,A.APELLIDOMATERNO,A.DNI,A.TELEFONO,A.MOVIL,A.EMAIL,G.ID,G.DESCRIPCION,S.DESCRIPCION as Seccion,N.NOMBRECORTO \n" +
+        PreparedStatement pstm = con.prepareStatement("SELECT A.ID,A.NOMBRE,A.APELLIDOPATERNO,A.APELLIDOMATERNO,A.DNI,A.TELEFONO,A.MOVIL,A.EMAIL,G.ID,G.numeroGrado,S.DESCRIPCION as Seccion,N.NOMBRECORTO \n" +
                     "FROM ALUMNO A,GRADO G,SECCION S,NIVELEDUCACION N\n" +
                     "WHERE A.IDGRADO = G.ID AND G.IDSECCION=S.ID AND G.IDNIVELEDUCACION=N.ID AND A.ESTADO=1 ORDER BY A.ID ASC");
         ResultSet rst = pstm.executeQuery();
@@ -150,7 +150,7 @@ public List<Alumno> ListadoAlumno()throws SQLException{
             a.setEmail(rst.getString("EMAIL"));
             Grado g = new Grado();
             g.setId(rst.getInt("ID"));
-            g.setDescripcion(rst.getString("DESCRIPCION"));
+            g.setnumeroGrado(rst.getString("numeroGrado"));
             Seccion s = new Seccion();
             s.setDescripcion(rst.getString("Seccion"));
             g.setSeccion(s);
@@ -172,7 +172,7 @@ public List<Alumno> BuscarAlumno(String tipo,String cadena)throws SQLException{
     List<Alumno> listarAlumno = new ArrayList<>();
     try {
         Connection con = Conexion.getConnection();
-        PreparedStatement pstm = con.prepareStatement("SELECT A.ID,A.NOMBRE,A.APELLIDOPATERNO,A.APELLIDOMATERNO,A.DNI,A.TELEFONO,A.MOVIL,A.EMAIL,G.DESCRIPCION,S.DESCRIPCION as Seccion,N.NOMBRECORTO \n" +
+        PreparedStatement pstm = con.prepareStatement("SELECT A.ID,A.NOMBRE,A.APELLIDOPATERNO,A.APELLIDOMATERNO,A.DNI,A.TELEFONO,A.MOVIL,A.EMAIL,G.numeroGrado,S.DESCRIPCION as Seccion,N.NOMBRECORTO \n" +
                     "FROM ALUMNO A,GRADO G,SECCION S,NIVELEDUCACION N\n" +
                     "WHERE A.IDGRADO = G.ID AND G.IDSECCION=S.ID AND G.IDNIVELEDUCACION=N.ID AND A.ESTADO=1 AND A."+tipo+" LIKE '%"+cadena+"%' ORDER BY A.ID ASC");
         ResultSet rst = pstm.executeQuery();
@@ -187,7 +187,7 @@ public List<Alumno> BuscarAlumno(String tipo,String cadena)throws SQLException{
             a.setMovil(rst.getString("MOVIL"));
             a.setEmail(rst.getString("EMAIL"));
             Grado g = new Grado();
-            g.setDescripcion(rst.getString("DESCRIPCION"));
+            g.setnumeroGrado(rst.getString("numeroGrado"));
             Seccion s = new Seccion();
             s.setDescripcion(rst.getString("Seccion"));
             g.setSeccion(s);
@@ -200,7 +200,7 @@ public List<Alumno> BuscarAlumno(String tipo,String cadena)throws SQLException{
         pstm.close();
         con.close();
     } catch (Exception e) {
-        System.out.println("ERROR - ALUMNO - DAO - BUSCAR");
+        System.out.println("ERROR --> ALUMNO --> DAO --> BUSCAR"+e.getMessage());
     }
     return listarAlumno;
 }

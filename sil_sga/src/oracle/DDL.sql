@@ -20,7 +20,7 @@ idnivelEducacion int not null,
 foreign key(idnivelEducacion) references NivelEducacion(id),
 idSeccion int not null,
 foreign key(idSeccion) references Seccion(id),
-descripcion varchar(40)not null,
+numeroGrado varchar(40)not null,
 estado char(1) default '1'  null 
 );
 
@@ -94,8 +94,8 @@ create table HistoricoAcceso(
 id int primary key not null,
 idUsuario varchar(45),
 inicioSession DATE,
-finSession date,
-tiempoSession ,
+finSession TIMESTAMP,
+tiempoSession TIMESTAMP,
 lugar varchar(45)
 );
 
@@ -172,7 +172,7 @@ foreign key(idPeriodo) references Periodo(id),
 idAlumno int not null,
 foreign key(idAlumno) references Alumno(id),
 nota int not null,
-peso numeric(3,2),
+peso numeric(4,2),
 observacion varchar(45)
 );
 

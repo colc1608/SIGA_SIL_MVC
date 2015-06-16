@@ -5,6 +5,8 @@
  */
 package edu.sil.sga.interfaces;
 
+
+
 /**
  *
  * @author Cesar Lopez
@@ -16,6 +18,7 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
      */
     public Docente_menuPrincipal() {
         initComponents();
+        
     }
 
     /**
@@ -60,7 +63,7 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
         jdp_principalDocente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, -1, -1));
 
         jTextField1.setText("Foto");
-        jdp_principalDocente.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 113, 134));
+        jdp_principalDocente.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 113, 134));
 
         jTextField2.setText("Logo Colegio");
         jdp_principalDocente.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 178, 37));

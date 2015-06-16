@@ -14,18 +14,18 @@ public class Grado {
     int id;
     Nivel nivel;
     Seccion seccion;
-    String descripcion;
+    String numeroGrado;
     String estado;
 
     public Grado(){
        this(0,new Nivel(),new Seccion(),"","");
     }
 
-    public Grado(int id, Nivel nivel, Seccion seccion, String descripcion, String estado) {
+    public Grado(int id, Nivel nivel, Seccion seccion, String numeroGrado, String estado) {
         this.id = id;
         this.nivel = nivel;
         this.seccion = seccion;
-        this.descripcion = descripcion;
+        this.numeroGrado = numeroGrado;
         this.estado = estado;
     }
     
@@ -57,12 +57,12 @@ public class Grado {
         this.seccion = seccion;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getnumeroGrado() {
+        return numeroGrado;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setnumeroGrado(String numeroGrado) {
+        this.numeroGrado = numeroGrado;
     }
 
     public String getEstado() {

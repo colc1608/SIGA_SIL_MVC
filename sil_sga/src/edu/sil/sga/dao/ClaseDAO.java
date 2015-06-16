@@ -111,7 +111,7 @@ public class ClaseDAO {
         try {
             Connection con = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement(" select c.CANTIDADALUMNOS as cantidad , c.observacion as observacion ,\n"
-                    + " d.nombre, d.APELLIDOPATERNO , cu.NOMBRELARGO as curso, g.DESCRIPCION as grado,\n"
+                    + " d.nombre, d.APELLIDOPATERNO , cu.NOMBRELARGO as curso, g.numeroGrado as grado,\n"
                     + " c.id as idClase, cu.ID as idCurso, g.id as idGrado, d.id as idDocente\n"
                     + " from clase c, docente d, grado g, curso cu where \n"
                     + " c.IDCURSO = cu.ID and \n"
@@ -135,7 +135,7 @@ public class ClaseDAO {
                 clase.setCurso(curso);
 
                 Grado grado = new Grado();
-                grado.setDescripcion(rst.getString("grado"));
+                grado.setnumeroGrado(rst.getString("grado"));
                 clase.setGrado(grado);
 
                 clase.setId(rst.getInt("idClase"));
