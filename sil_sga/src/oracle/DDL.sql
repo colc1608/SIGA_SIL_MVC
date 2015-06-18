@@ -150,10 +150,8 @@ foreign key(idUsuario) references Usuario(id)
 
 create table Clase(
 id int primary key not null,
-idCurso int not null,
-foreign key(idCurso) references Curso(id),
-idGrado int not null,
-foreign key(idGrado) references Grado(id),
+idCursoPorGrado int not null,
+foreign key(idCursoPorGrado) references CursoPorGrado(id),
 idDocente int not null,
 foreign key(idDocente) references Docente(id),
 cantidadAlumnos int not null,
@@ -176,7 +174,28 @@ peso numeric(4,2),
 observacion varchar(45)
 );
 
+create table Matricula(
+id int primary key not null,
+idAlumno int not null,
+foreign key(idAlumno) references Alumno(id),
+idGrado int not null,
+foreign key(idGrado) references Grado(id),
+fecha date,
+montoPension numeric(3,2),
+observacion varchar(100),
+estado char(1) default '1'  null
+);
 
+
+create table DetalleMatricula(
+id int primary key not null,
+idMatricula int not null,
+foreign key(idMatricula) references Matricula(id),
+idClase int not null,
+foreign key(idClase) references Clase(id),
+estado char(1) default '1'  null
+
+);
 
 
 --SECUENCIAS 
@@ -248,6 +267,17 @@ increment by 1;
 create sequence sq_historicoacceso
 start with 1
 increment by 1;
+
+create sequence sq_matricula
+start with 1
+increment by 1;
+
+create sequence sq_detalleMatricula
+start with 1
+increment by 1;
+
+
+
 
 
 
