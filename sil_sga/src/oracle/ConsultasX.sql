@@ -61,4 +61,22 @@ cpg.ID = cla.IDCURSOPORGRADO and
 cla.IDDOCENTE = d.ID and
 cla.ESTADO = '1';
                
+
+
+
+
+
 --
+--
+--listar cursos por un grado en especifico.
+select c.NOMBRELARGO from CURSOPORGRADO cpg, curso c where
+cpg.IDCURSO = c.ID and
+cpg.IDGRADO = 1;
+
+
+--obtener las clases de un grado para Matricula
+select  cla.id as idClase
+from CURSOPORGRADO cpg, curso c, clase cla where
+cpg.IDCURSO = c.ID and
+cpg.ID = cla.ID and
+cpg.IDGRADO = 1;
