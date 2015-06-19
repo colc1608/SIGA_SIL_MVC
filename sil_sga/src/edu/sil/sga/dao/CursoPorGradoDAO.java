@@ -8,6 +8,8 @@ package edu.sil.sga.dao;
 import edu.sil.sga.entidades.Curso;
 import edu.sil.sga.entidades.CursoPorGrado;
 import edu.sil.sga.entidades.Grado;
+import edu.sil.sga.entidades.Nivel;
+import edu.sil.sga.entidades.Seccion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +51,7 @@ public class CursoPorGradoDAO {
         return retornar;
     }
 
-    public boolean ActualizarCursoPorGrado(CursoPorGrado cursoGrado)  {
+    public boolean ActualizarCursoPorGrado(CursoPorGrado cursoGrado) {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -72,34 +74,39 @@ public class CursoPorGradoDAO {
         return retornar;
     }
 
-    public List<CursoPorGrado> ListarCursoPorGrado() throws SQLException {
+    public List<CursoPorGrado> ListarCursoPorGrado()  {
         List<CursoPorGrado> listaDeCursoPorGrado = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("select cpg.id as idcpg, g.ID as idGrado, c.ID as idCurso, \n"
-                    + "n.NOMBRELARGO, s.DESCRIPCION, g.NUMEROGRADO, c.NOMBRELARGO as nombreCurso\n"
-                    + "from niveleducacion n, seccion s, grado g, curso c, cursoporgrado cpg where\n"
-                    + "g.IDNIVELEDUCACION = n.ID and\n"
-                    + "g.IDSECCION = s.ID and\n"
-                    + "g. ID = cpg.IDGRADO and\n"
-                    + "cpg.IDCURSO = c.ID  ");
+            PreparedStatement pstm = con.prepareStatement(" select g.NUMEROGRADO, s.DESCRIPCION as seccion, n.NOMBRELARGO as nivel, c.NOMBRELARGO as nombreCurso,\n"
+                    + " g.ID as idGrado, cpg.ID as idCPG, c.ID as idCurso \n"
+                    + " from grado g, NIVELEDUCACION n, SECCION s, CURSOPORGRADO cpg, curso c where \n"
+                    + " g.IDSECCION = s.ID and \n"
+                    + " g.IDNIVELEDUCACION = n.ID and \n"
+                    + " g.ID = cpg.IDGRADO and \n"
+                    + " cpg.IDCURSO = c.ID ");
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
                 CursoPorGrado cursoGrado = new CursoPorGrado();
 
-                cursoGrado.setDescripcion(rst.getString("descripcion"));
-
-                Curso curso = new Curso();
-                curso.setNombreLargo(rst.getString("curso"));
-                cursoGrado.setCurso(curso);
-
                 Grado grado = new Grado();
-                grado.setnumeroGrado(rst.getString("grado"));
-                cursoGrado.setGrado(grado);
+                Seccion seccion = new Seccion();
+                Nivel nivel = new Nivel();
+                Curso curso = new Curso();
 
-                cursoGrado.setId(rst.getInt("id"));
-                curso.setId(rst.getInt("idCurso"));
+                grado.setnumeroGrado(rst.getString("NUMEROGRADO"));
+                seccion.setDescripcion(rst.getString("seccion"));
+                nivel.setNombreLargo(rst.getString("nivel"));
+                curso.setNombreLargo(rst.getString("nombreCurso"));
+                
                 grado.setId(rst.getInt("idGrado"));
+                cursoGrado.setId(rst.getInt("idCPG"));
+                curso.setId(rst.getInt("idCurso"));
+                
+                grado.setSeccion(seccion);
+                grado.setNivel(nivel);
+                cursoGrado.setGrado(grado);
+                cursoGrado.setCurso(curso);
 
                 listaDeCursoPorGrado.add(cursoGrado);
             }

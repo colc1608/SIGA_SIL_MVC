@@ -97,7 +97,7 @@ public class GradoDAO {
         return retornar;
     }
 
-    public List<Grado> ListarGrado() throws SQLException {
+    public List<Grado> ListarGrado()  {
         List<Grado> listarGrado = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();

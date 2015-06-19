@@ -8,6 +8,7 @@ package edu.sil.sga.interfaces;
 import edu.sil.sga.dao.ClaseDAO;
 import edu.sil.sga.entidades.Clase;
 import edu.sil.sga.entidades.Curso;
+import edu.sil.sga.entidades.CursoPorGrado;
 import edu.sil.sga.entidades.Docente;
 import edu.sil.sga.entidades.Grado;
 import java.util.ArrayList;
@@ -28,7 +29,10 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     Grado grado;
     Curso curso;
     Docente docente;
+
+    CursoPorGrado cursoGrado;
     Clase objClaseSeleccionada;
+
     public List<Clase> listaDeClases;
 
     //INICIALIZACION
@@ -43,9 +47,12 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
     }
 
-    void cargarDatosGrado(Grado objGrado) {
-        this.grado = objGrado;
-        txtGrado.setText(" ' " + objGrado.getnumeroGrado() + " - " + objGrado.getSeccion().getDescripcion() + " ' de " + objGrado.getNivel().getNombreCorto());
+    void cargarDatosCursoPorGrado(CursoPorGrado objCursoGrado) {
+        this.cursoGrado = objCursoGrado;
+        txtCursoPorGrado.setText(objCursoGrado.getGrado().getnumeroGrado() + " - "
+                + objCursoGrado.getGrado().getSeccion().getDescripcion() + " - "
+                + objCursoGrado.getGrado().getNivel().getNombreLargo() + " - "
+                + objCursoGrado.getCurso().getNombreLargo());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
@@ -57,53 +64,48 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
 
-    void cargarDatosCurso(Curso objCurso) {
-        this.curso = objCurso;
-        //txtCurso.setText(objCurso.getNombreLargo());
-        //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
-        //txtNivel.setText(objGrado.getNivel().getNombreCorto());
-    }
-
     void ListarClases() {
-        try {
-            ClaseDAO dao = new ClaseDAO();
-            listaDeClases = dao.ListarClases();
-            DefaultTableModel modelo1 = new DefaultTableModel();
+        /*
+         try {
+         ClaseDAO dao = new ClaseDAO();
+         listaDeClases = dao.ListarClases();
+         DefaultTableModel modelo1 = new DefaultTableModel();
 
-            modelo1.addColumn("Nombre Docente");
-            modelo1.addColumn("Curso");
-            modelo1.addColumn("Grado");
+         modelo1.addColumn("Nombre Docente");
+         modelo1.addColumn("Curso");
+         modelo1.addColumn("Grado");
 
-            for (Clase clase : listaDeClases) {
-                modelo1.addRow(new String[]{
-                    clase.getDocente().getNombre() + "",
-                    clase.getCurso().getNombreLargo() + "",
-                    clase.getGrado().getnumeroGrado() + ""
-                });
-            }
-            tblClase.setModel(modelo1);
+         for (Clase clase : listaDeClases) {
+         modelo1.addRow(new String[]{
+         clase.getDocente().getNombre() + "",
+         clase.getCurso().getNombreLargo() + "",
+         clase.getGrado().getnumeroGrado() + ""
+         });
+         }
+         tblClase.setModel(modelo1);
 
-        } catch (Exception e) {
-            System.out.println("error --> interfaz --> docente --> listar --> " + e.getMessage());
-            e.printStackTrace();
-        }
+         } catch (Exception e) {
+         System.out.println("error --> interfaz --> docente --> listar --> " + e.getMessage());
+         e.printStackTrace();
+         }
+         */
 
     }
 
     void activaCajas(boolean a) {
         txtCantidad.setEnabled(a);
         txtObservacion.setEnabled(a);
-        txtGrado.setEnabled(a);
-        
+        txtCursoPorGrado.setEnabled(a);
+
         txtDocente.setEnabled(a);
-        
+
         btnBuscarDocente.setEnabled(a);
-        btnBuscarGrado.setEnabled(a);
+        btnBuscarCursoPorGrado.setEnabled(a);
     }
 
     void limpiarCajas() {
-        txtGrado.setText("");
-        
+        txtCursoPorGrado.setText("");
+
         txtDocente.setText("");
         txtObservacion.setText("");
         txtCantidad.setText("");
@@ -131,8 +133,8 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txtDocente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtGrado = new javax.swing.JTextField();
-        btnBuscarGrado = new javax.swing.JButton();
+        txtCursoPorGrado = new javax.swing.JTextField();
+        btnBuscarCursoPorGrado = new javax.swing.JButton();
         btnBuscarDocente = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -162,13 +164,13 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
         jLabel3.setText("* Curso por Grado:");
 
-        txtGrado.setEditable(false);
-        txtGrado.setEnabled(false);
+        txtCursoPorGrado.setEditable(false);
+        txtCursoPorGrado.setEnabled(false);
 
-        btnBuscarGrado.setText("Buscar");
-        btnBuscarGrado.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscarCursoPorGrado.setText("Buscar");
+        btnBuscarCursoPorGrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarGradoActionPerformed(evt);
+                btnBuscarCursoPorGradoActionPerformed(evt);
             }
         });
 
@@ -205,11 +207,11 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtDocente)
-                                    .addComponent(txtGrado))
+                                    .addComponent(txtCursoPorGrado))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnBuscarDocente)
-                                    .addComponent(btnBuscarGrado, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                    .addComponent(btnBuscarCursoPorGrado, javax.swing.GroupLayout.Alignment.TRAILING)))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
                         .addGap(21, 21, 21))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -223,8 +225,8 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscarGrado)
-                    .addComponent(txtGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarCursoPorGrado)
+                    .addComponent(txtCursoPorGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -344,18 +346,18 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBuscarGradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarGradoActionPerformed
+    private void btnBuscarCursoPorGradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCursoPorGradoActionPerformed
         // TODO add your handling code here:
-        List<Grado> lstGrado = new ArrayList<>();
-        Admi_buscarGrado form = new Admi_buscarGrado(null, true, lstGrado);
+        List<CursoPorGrado> lstCursoPorGrado = new ArrayList<>();
+        Admin_buscarCursoPorGrado form = new Admin_buscarCursoPorGrado(null, true, lstCursoPorGrado);
         form.setVisible(true);
-        if (lstGrado.isEmpty()) {
+        if (lstCursoPorGrado.isEmpty()) {
             //Ventana se cerro sin seleccionar
         } else {
-            Grado objGradoElegido = lstGrado.get(0);
-            cargarDatosGrado(objGradoElegido);
+            CursoPorGrado objCursoPorGradoElegido = lstCursoPorGrado.get(0);
+            cargarDatosCursoPorGrado(objCursoPorGradoElegido);
         }
-    }//GEN-LAST:event_btnBuscarGradoActionPerformed
+    }//GEN-LAST:event_btnBuscarCursoPorGradoActionPerformed
 
     private void btnBuscarDocenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarDocenteActionPerformed
         // TODO add your handling code here:
@@ -375,7 +377,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
 
-        if (txtGrado.getText().equalsIgnoreCase("")
+        if (txtCursoPorGrado.getText().equalsIgnoreCase("")
                 || txtDocente.getText().equalsIgnoreCase("")
                 || txtCantidad.getText().equalsIgnoreCase("")) {
 
@@ -383,44 +385,33 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
         } else {
 
-            int idGrado = Integer.parseInt(String.valueOf(grado.getId()));
-            int idCurso = Integer.parseInt(String.valueOf(curso.getId()));
+            int idCursoGrado = Integer.parseInt(String.valueOf(cursoGrado.getId()));
             int idDocente = Integer.parseInt(String.valueOf(docente.getId()));
 
-            try {
-                ClaseDAO dao = new ClaseDAO();
-                Clase clase = new Clase();
-                Grado grado = new Grado();
-                Curso curso = new Curso();
-                Docente docente = new Docente();
+            ClaseDAO dao = new ClaseDAO();
+            Clase clase = new Clase();
+            CursoPorGrado cursoGrado = new CursoPorGrado();
+            Docente docente = new Docente();
 
-                grado.setId(idGrado);
-                clase.setGrado(grado);
+            cursoGrado.setId(idCursoGrado);
+            docente.setId(idDocente);
 
-                curso.setId(idCurso);
-                clase.setCurso(curso);
+            clase.setCursoGrado(cursoGrado);
+            clase.setDocente(docente);
 
-                docente.setId(idDocente);
-                clase.setDocente(docente);
+            clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
+            clase.setObservacion(txtObservacion.getText());
 
-                clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
-                clase.setObservacion(txtObservacion.getText());
+            if (dao.RegistrarClase(clase)) {
+                JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
+                btnNuevo.setText("Nuevo");
+                ListarClases();
+                activaCajas(false);
+                limpiarCajas();
+                activaBotones(true, false, false, false);
 
-                if (dao.RegistrarClase(clase)) {
-                    JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
-                    btnNuevo.setText("Nuevo");
-                    ListarClases();
-                    activaCajas(false);
-                    limpiarCajas();
-                    activaBotones(true, false, false, false);
-
-                } else {
-                    JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
-                }
-
-            } catch (Exception e) {
-                System.out.println(" ERROR --> INTERFAZ --> CLASE --> Guardar --> " + e.getMessage());
-
+            } else {
+                JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
             }
         }
 
@@ -429,26 +420,27 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
     private void tblClaseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClaseMouseClicked
         // TODO add your handling code here:
-        int fila = tblClase.getSelectedRow();
-        if (fila != -1) {
+        /*
+         int fila = tblClase.getSelectedRow();
+         if (fila != -1) {
 
-            objClaseSeleccionada = listaDeClases.get(fila);
-            curso = objClaseSeleccionada.getCurso();
-            docente = objClaseSeleccionada.getDocente();
-            grado = objClaseSeleccionada.getGrado();
+         objClaseSeleccionada = listaDeClases.get(fila);
+         curso = objClaseSeleccionada.getCurso();
+         docente = objClaseSeleccionada.getDocente();
+         grado = objClaseSeleccionada.getGrado();
 
-            txtGrado.setText(String.valueOf(objClaseSeleccionada.getGrado().getnumeroGrado()));
-            txtDocente.setText(String.valueOf(objClaseSeleccionada.getDocente().getNombre() + ", " + objClaseSeleccionada.getDocente().getApellidopaterno()));
-            
-            txtCantidad.setText(String.valueOf(objClaseSeleccionada.getCantidadAlumnos()));
-            txtObservacion.setText(String.valueOf(objClaseSeleccionada.getObservacion()));
+         txtCursoPorGrado.setText(String.valueOf(objClaseSeleccionada.getGrado().getnumeroGrado()));
+         txtDocente.setText(String.valueOf(objClaseSeleccionada.getDocente().getNombre() + ", " + objClaseSeleccionada.getDocente().getApellidopaterno()));
 
-            btnNuevo.setText("Nuevo");
-            activaBotones(true, false, true, true);
-            activaCajas(true);
+         txtCantidad.setText(String.valueOf(objClaseSeleccionada.getCantidadAlumnos()));
+         txtObservacion.setText(String.valueOf(objClaseSeleccionada.getObservacion()));
 
-        }
+         btnNuevo.setText("Nuevo");
+         activaBotones(true, false, true, true);
+         activaCajas(true);
 
+         }
+         */
     }//GEN-LAST:event_tblClaseMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -468,87 +460,89 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+/*
+         if (txtCursoPorGrado.getText().equalsIgnoreCase("")
+         || txtDocente.getText().equalsIgnoreCase("")
+         || txtCantidad.getText().equalsIgnoreCase("")) {
 
-        if (txtGrado.getText().equalsIgnoreCase("")
-                || txtDocente.getText().equalsIgnoreCase("")
-                || txtCantidad.getText().equalsIgnoreCase("")) {
+         JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
 
-            JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
+         } else {
 
-        } else {
+         try {
+         ClaseDAO dao = new ClaseDAO();
+         Clase clase = objClaseSeleccionada;
 
-            try {
-                ClaseDAO dao = new ClaseDAO();
-                Clase clase = objClaseSeleccionada;
+         clase.setCurso(curso);
+         clase.setDocente(docente);
+         clase.setGrado(grado);
+         clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
+         clase.setObservacion(txtObservacion.getText());
 
-                clase.setCurso(curso);
-                clase.setDocente(docente);
-                clase.setGrado(grado);
-                clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
-                clase.setObservacion(txtObservacion.getText());
+         if (dao.ActualizarClase(clase)) {
+         JOptionPane.showMessageDialog(this, "Se actualizo correctamente a la Clase :) ");
+         btnNuevo.setText("Nuevo");
+         ListarClases();
+         activaCajas(false);
+         limpiarCajas();
+         activaBotones(true, false, false, false);
+         } else {
+         JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
+         }
 
-                if (dao.ActualizarClase(clase)) {
-                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente a la Clase :) ");
-                    btnNuevo.setText("Nuevo");
-                    ListarClases();
-                    activaCajas(false);
-                    limpiarCajas();
-                    activaBotones(true, false, false, false);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
-                }
+         } catch (Exception e) {
+         System.out.println(" ERROR --> INTERFAZ --> CLASE --> Actualizar --> " + e.getMessage());
 
-            } catch (Exception e) {
-                System.out.println(" ERROR --> INTERFAZ --> CLASE --> Actualizar --> " + e.getMessage());
-
-            }
-        }
-
+         }
+         }
+         */
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
-        if (txtGrado.getText().equalsIgnoreCase("")
-                || txtDocente.getText().equalsIgnoreCase("")
-                || txtCantidad.getText().equalsIgnoreCase("")) {
+        /*
+         if (txtCursoPorGrado.getText().equalsIgnoreCase("")
+         || txtDocente.getText().equalsIgnoreCase("")
+         || txtCantidad.getText().equalsIgnoreCase("")) {
 
-            JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
+         JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
 
-        } else {
+         } else {
 
-            try {
-                ClaseDAO dao = new ClaseDAO();
-                Clase clase = objClaseSeleccionada;
+         try {
+         ClaseDAO dao = new ClaseDAO();
+         Clase clase = objClaseSeleccionada;
 
-                clase.setCurso(curso);
-                clase.setDocente(docente);
-                clase.setGrado(grado);
-                clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
-                clase.setObservacion(txtObservacion.getText());
+         clase.setCurso(curso);
+         clase.setDocente(docente);
+         clase.setGrado(grado);
+         clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
+         clase.setObservacion(txtObservacion.getText());
 
-                if (dao.EliminarClase(clase)) {
-                    JOptionPane.showMessageDialog(this, "Se actualizo correctamente a la Clase :) ");
-                    btnNuevo.setText("Nuevo");
-                    ListarClases();
-                    activaCajas(false);
-                    limpiarCajas();
-                    activaBotones(true, false, false, false);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No lo pudimos eliminar por problemas internos :( ");
-                }
+         if (dao.EliminarClase(clase)) {
+         JOptionPane.showMessageDialog(this, "Se actualizo correctamente a la Clase :) ");
+         btnNuevo.setText("Nuevo");
+         ListarClases();
+         activaCajas(false);
+         limpiarCajas();
+         activaBotones(true, false, false, false);
+         } else {
+         JOptionPane.showMessageDialog(this, "No lo pudimos eliminar por problemas internos :( ");
+         }
 
-            } catch (Exception e) {
-                System.out.println(" ERROR --> INTERFAZ --> CLASE --> Eliminar --> " + e.getMessage());
+         } catch (Exception e) {
+         System.out.println(" ERROR --> INTERFAZ --> CLASE --> Eliminar --> " + e.getMessage());
 
-            }
-        }
+         }
+         }
+         */
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnBuscarCursoPorGrado;
     private javax.swing.JButton btnBuscarDocente;
-    private javax.swing.JButton btnBuscarGrado;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnNuevo;
@@ -563,8 +557,8 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblClase;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtCursoPorGrado;
     private javax.swing.JTextField txtDocente;
-    private javax.swing.JTextField txtGrado;
     private javax.swing.JTextArea txtObservacion;
     // End of variables declaration//GEN-END:variables
 }

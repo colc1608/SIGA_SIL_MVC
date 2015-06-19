@@ -105,12 +105,12 @@
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtDocente" max="32767" attributes="0"/>
-                                      <Component id="txtGrado" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtCursoPorGrado" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="btnBuscarDocente" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnBuscarGrado" alignment="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="btnBuscarCursoPorGrado" alignment="1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="jScrollPane2" pref="265" max="32767" attributes="0"/>
@@ -132,8 +132,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnBuscarGrado" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtGrado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBuscarCursoPorGrado" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCursoPorGrado" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -181,18 +181,18 @@
             <Property name="text" type="java.lang.String" value="* Curso por Grado:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtGrado">
+        <Component class="javax.swing.JTextField" name="txtCursoPorGrado">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="btnBuscarGrado">
+        <Component class="javax.swing.JButton" name="btnBuscarCursoPorGrado">
           <Properties>
             <Property name="text" type="java.lang.String" value="Buscar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarGradoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarCursoPorGradoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnBuscarDocente">

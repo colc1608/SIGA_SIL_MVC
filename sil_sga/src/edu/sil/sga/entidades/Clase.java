@@ -12,8 +12,7 @@ package edu.sil.sga.entidades;
 public class Clase {
     
     int id;
-    Curso curso;
-    Grado grado;
+    CursoPorGrado cursoGrado;
     Docente docente;
     int cantidadAlumnos;
     String observacion;
@@ -21,19 +20,22 @@ public class Clase {
     
     
     public Clase(){
-       this(0,new Curso(), new Grado(), new Docente(), 0 , "","");
+       this(0,new CursoPorGrado(), new Docente(), 0 , "","");
     }
 
-    public Clase(int id, Curso curso, Grado grado, Docente docente, int cantidadAlumnos, String observacion, String estado) {
+    public Clase(int id, CursoPorGrado cursoGrado, Docente docente, int cantidadAlumnos, String observacion, String estado) {
         this.id = id;
-        this.curso = curso;
-        this.grado = grado;
+        this.cursoGrado = cursoGrado;
         this.docente = docente;
         this.cantidadAlumnos = cantidadAlumnos;
         this.observacion = observacion;
         this.estado = estado;
     }
 
+    
+    
+    
+    
     
     
     
@@ -44,22 +46,13 @@ public class Clase {
     public void setId(int id) {
         this.id = id;
     }
-    
-    
-    public Curso getCurso() {
-        return curso;
+
+    public CursoPorGrado getCursoGrado() {
+        return cursoGrado;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
-    }
-
-    public Grado getGrado() {
-        return grado;
-    }
-
-    public void setGrado(Grado grado) {
-        this.grado = grado;
+    public void setCursoGrado(CursoPorGrado cursoGrado) {
+        this.cursoGrado = cursoGrado;
     }
 
     public Docente getDocente() {
@@ -93,6 +86,10 @@ public class Clase {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    
+
+    
     
     
     

@@ -28,24 +28,25 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
     Curso curso;
     ArrayList<CursoPorGrado> listaDeCursosPorGrado = new ArrayList<CursoPorGrado>();
     //ArrayList<CursoPorGrado> listaDeCursosPorGrado;
-    
-    
-    public Admi_CursoPorGrado() { 
+
+    public Admi_CursoPorGrado() {
         initComponents();
     }
+
     void cargarDatosGrado(Grado objGrado) {
         this.grado = objGrado;
         txtGrado.setText(" ' " + objGrado.getnumeroGrado() + " - " + objGrado.getSeccion().getDescripcion() + " ' de " + objGrado.getNivel().getNombreCorto());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
+
     void cargarDatosCurso(Curso objCurso) {
         this.curso = objCurso;
         txtCurso.setText(objCurso.getNombreLargo());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,9 +108,13 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
             }
         });
 
+        txtCurso.setEditable(false);
+
         jLabel3.setText("Curso:");
 
         jLabel2.setText("Grado:");
+
+        txtGrado.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,12 +176,14 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregarCurso)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminarCurso)))
-                .addGap(98, 98, 98))
+                        .addComponent(btnEliminarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -201,15 +208,15 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminarCurso)
-                    .addComponent(btnAgregarCurso))
+                    .addComponent(btnAgregarCurso)
+                    .addComponent(btnEliminarCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnNuevo)
                     .addComponent(btnGuardar))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -225,12 +232,12 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         } else {
             Grado objGradoElegido = lstGrado.get(0);
             cargarDatosGrado(objGradoElegido);
-            System.out.println("lo que llego es: "+objGradoElegido.getId());
+            System.out.println("lo que llego es: " + objGradoElegido.getId());
         }
     }//GEN-LAST:event_btnBuscarGradoActionPerformed
 
     private void btnBuscarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCursoActionPerformed
-        
+
         List<Curso> lstCurso = new ArrayList<>();
         Admi_buscarCurso form = new Admi_buscarCurso(null, true, lstCurso);
         form.setVisible(true);
@@ -239,45 +246,44 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         } else {
             Curso objCursoElegido = lstCurso.get(0);
             cargarDatosCurso(objCursoElegido);
-            System.out.println("lo que llego es: "+objCursoElegido.getId());
+            System.out.println("lo que llego es: " + objCursoElegido.getId());
         }
     }//GEN-LAST:event_btnBuscarCursoActionPerformed
 
     private void btnAgregarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCursoActionPerformed
-        
+
         CursoPorGrado objCursoPorGrado = new CursoPorGrado();
-        
+
         objCursoPorGrado.setCurso(curso);
         objCursoPorGrado.setGrado(grado);
         listaDeCursosPorGrado.add(objCursoPorGrado);
-        
+
         DefaultTableModel modelo1 = new DefaultTableModel();
 
-            modelo1.addColumn("Grado");
-            modelo1.addColumn("Nombre Curso");
-            
-            for (CursoPorGrado objcursoPorGrado : listaDeCursosPorGrado) {
-                modelo1.addRow(new String[]{
-                    objcursoPorGrado.getGrado().getnumeroGrado() + "",
-                    objcursoPorGrado.getCurso().getNombreLargo() + ""
-                });
-            }
-            tblCursoPorGrado.setModel(modelo1);
+        modelo1.addColumn("Grado");
+        modelo1.addColumn("Nombre Curso");
+
+        for (CursoPorGrado objcursoPorGrado : listaDeCursosPorGrado) {
+            modelo1.addRow(new String[]{
+                objcursoPorGrado.getGrado().getnumeroGrado() + "",
+                objcursoPorGrado.getCurso().getNombreLargo() + ""
+            });
+        }
+        tblCursoPorGrado.setModel(modelo1);
     }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+
         CursoPorGradoDAO dao = new CursoPorGradoDAO();
-        
-        
-        
+
         if (dao.RegistrarCursoPorGrado(listaDeCursosPorGrado)) {
-                    JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
-                    
-                } else {
-                    JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
-                }
-        
-        
+            JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
+        }
+
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 
