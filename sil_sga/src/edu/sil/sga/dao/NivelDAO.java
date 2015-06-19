@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -24,7 +25,7 @@ public class NivelDAO {
         try {
             Connection con = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement("INSERT INTO nivelEducacion (id,nombreCorto,nombreLargo)"
-                    + " values (sq_especialidad.NEXTVAL, ?, ? ) ");
+                    + " values (sq_niveleducacion.NEXTVAL, ?, ? ) ");
             pstm.setString(1, nivel.getNombreCorto());
             pstm.setString(2, nivel.getNombreLargo());
             pstm.execute();

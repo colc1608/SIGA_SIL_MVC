@@ -65,30 +65,24 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     }
 
     void ListarClases() {
-        /*
-         try {
-         ClaseDAO dao = new ClaseDAO();
-         listaDeClases = dao.ListarClases();
-         DefaultTableModel modelo1 = new DefaultTableModel();
 
-         modelo1.addColumn("Nombre Docente");
-         modelo1.addColumn("Curso");
-         modelo1.addColumn("Grado");
+        ClaseDAO dao = new ClaseDAO();
+        listaDeClases = dao.ListarClases();
+        DefaultTableModel modelo1 = new DefaultTableModel();
 
-         for (Clase clase : listaDeClases) {
-         modelo1.addRow(new String[]{
-         clase.getDocente().getNombre() + "",
-         clase.getCurso().getNombreLargo() + "",
-         clase.getGrado().getnumeroGrado() + ""
-         });
-         }
-         tblClase.setModel(modelo1);
+        modelo1.addColumn("Grado");
+        modelo1.addColumn("Curso");
+        modelo1.addColumn("Docente");
 
-         } catch (Exception e) {
-         System.out.println("error --> interfaz --> docente --> listar --> " + e.getMessage());
-         e.printStackTrace();
-         }
-         */
+        for (Clase clase : listaDeClases) {
+            modelo1.addRow(new String[]{
+                clase.getCursoGrado().getGrado().getnumeroGrado() + " "
+                + clase.getCursoGrado().getGrado().getSeccion().getDescripcion() + "",
+                clase.getCursoGrado().getCurso().getNombreLargo() + "",
+                clase.getDocente().getNombre() + " " + clase.getDocente().getApellidopaterno() + ""
+            });
+        }
+        tblClase.setModel(modelo1);
 
     }
 

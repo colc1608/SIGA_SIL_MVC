@@ -24,7 +24,7 @@ public class SeccionDAO {
         try {
             Connection con = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement("INSERT INTO seccion (id,descripcion)"
-                    + " values (sq_especialidad.NEXTVAL, ? ) ");
+                    + " values (sq_seccion.NEXTVAL, ? ) ");
             pstm.setString(1, seccion.getDescripcion());
             pstm.execute();
             pstm.close();

@@ -8,6 +8,8 @@ nombreLargo varchar(45) not null,
 estado char(1) default '1'  null 
 );
 
+
+
 create table Seccion(
 id int primary key not null,
 descripcion varchar(45) not null,
@@ -198,6 +200,29 @@ estado char(1) default '1'  null
 );
 
 
+
+--borrando data
+delete from Alumno;
+delete from Clase;
+delete from CursoPorGrado;
+delete from Grado;
+delete from Parentesco;
+delete from Docente;
+delete from Usuario;
+delete from Nota;
+delete from Matricula;
+delete from DetalleMatricula;
+delete from Apoderado;
+delete from Curso;
+delete from NivelEducacion;
+delete from Seccion;
+delete from Especialidad;
+delete from TipoEvaluacion;
+delete from Periodo;
+
+
+
+
 --SECUENCIAS 
 create sequence sq_docente
 start with 1
@@ -214,8 +239,7 @@ increment by 1;
 
 
 
-
-
+--
 create sequence sq_niveleducacion
 start with 1
 increment by  1;
@@ -228,9 +252,17 @@ create sequence sq_grado
 start with 1
 increment by 1;
 
+
 create sequence sq_curso
 start with 1
 increment by 1;
+
+
+--
+
+
+
+
 
 create sequence sq_cursoporgrado
 start with 1

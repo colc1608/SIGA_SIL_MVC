@@ -98,6 +98,11 @@ public class Admi_SeccionCRUD extends javax.swing.JInternalFrame {
         btnEliminar = new javax.swing.JButton();
         txtCodigo = new javax.swing.JTextField();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Seccion");
 

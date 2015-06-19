@@ -31,7 +31,7 @@ public class GradoDAO {
         try {
             Connection con = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement("insert into grado(id,idNivelEducacion,idSeccion,numeroGrado)"
-                    + "values (sq_docente.NEXTVAL,?,?,?)");
+                    + "values (sq_grado.NEXTVAL,?,?,?)");
 
             pstm.setInt(1, grado.getNivel().getId());
             pstm.setInt(2, grado.getSeccion().getId());

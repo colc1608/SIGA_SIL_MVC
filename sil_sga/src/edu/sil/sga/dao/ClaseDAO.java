@@ -32,7 +32,7 @@ public class ClaseDAO {
             Connection con = Conexion.getConnection();
             PreparedStatement pstm = con.prepareStatement("insert into clase "
                     + " (id, IDCURSOPORGRADO,idDocente,cantidadAlumnos, observacion) "
-                    + " values (SQ_GRADO.NEXTVAL,?,?,?,?)");
+                    + " values (sq_clase.NEXTVAL,?,?,?,?)");
 
             pstm.setInt(1, clase.getCursoGrado().getId());
             pstm.setInt(2, clase.getDocente().getId());
