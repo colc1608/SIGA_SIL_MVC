@@ -17,23 +17,28 @@ import java.util.List;
 
 /**
  *
- * @author Eduardo Lopez
+ * @author Cesar Lopez
  */
 public class CursoPorGradoDAO {
 
-    public boolean RegistrarClase(CursoPorGrado cursoPorGrado) throws SQLException {
+    public boolean RegistrarCursoPorGrado(List<CursoPorGrado> listaDeCursoPorGrado) {
         boolean retornar = false;
 
         try {
             Connection con = Conexion.getConnection();
+
             PreparedStatement pstm = con.prepareStatement("insert into cursoporgrado(id,idgrado,idcurso,descripcion) "
                     + " values(sq_cursoporgrado.nextval, ?, ?, ?) ");
 
-            pstm.setInt(1, cursoPorGrado.getGrado().getId());
-            pstm.setInt(2, cursoPorGrado.getCurso().getId());
-            pstm.setString(3, cursoPorGrado.getDescripcion());
+            for (int i = 0; i < listaDeCursoPorGrado.size(); i++) {
 
-            pstm.execute();
+                pstm.setInt(1, listaDeCursoPorGrado.get(i).getGrado().getId());
+                pstm.setInt(2, listaDeCursoPorGrado.get(i).getCurso().getId());
+                pstm.setString(3, listaDeCursoPorGrado.get(i).getDescripcion());
+
+                pstm.execute();
+
+            }
             pstm.close();
             con.close();
             retornar = true;
@@ -44,7 +49,7 @@ public class CursoPorGradoDAO {
         return retornar;
     }
 
-    public boolean ActualizarClase(CursoPorGrado cursoGrado) throws SQLException {
+    public boolean ActualizarCursoPorGrado(CursoPorGrado cursoGrado)  {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();

@@ -5,10 +5,15 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.CursoPorGradoDAO;
 import edu.sil.sga.entidades.Curso;
+import edu.sil.sga.entidades.CursoPorGrado;
 import edu.sil.sga.entidades.Grado;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,7 +26,11 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
      */
     Grado grado;
     Curso curso;
-    public Admi_CursoPorGrado() {
+    ArrayList<CursoPorGrado> listaDeCursosPorGrado = new ArrayList<CursoPorGrado>();
+    //ArrayList<CursoPorGrado> listaDeCursosPorGrado;
+    
+    
+    public Admi_CursoPorGrado() { 
         initComponents();
     }
     void cargarDatosGrado(Grado objGrado) {
@@ -49,7 +58,7 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCursoPorGrado = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         btnBuscarCurso = new javax.swing.JButton();
         btnBuscarGrado = new javax.swing.JButton();
@@ -57,11 +66,10 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtGrado = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnEliminarCurso = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnAgregarCurso = new javax.swing.JButton();
 
         jRadioButton1.setText("jRadioButton1");
 
@@ -69,12 +77,10 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Curso por Grado");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
+        jLabel1.setText("Asignar cursos por grado");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCursoPorGrado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -85,9 +91,7 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 434, 100));
+        jScrollPane1.setViewportView(tblCursoPorGrado);
 
         btnBuscarCurso.setText("buscar");
         btnBuscarCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -118,13 +122,13 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
+                    .addComponent(txtCurso, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                     .addComponent(txtGrado))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnBuscarGrado)
-                    .addComponent(btnBuscarCurso))
-                .addContainerGap(66, Short.MAX_VALUE))
+                    .addComponent(btnBuscarGrado, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnBuscarCurso, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(41, 41, 41))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,22 +146,71 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
                 .addGap(21, 21, 21))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 340, 110));
+        btnEliminarCurso.setText("-");
 
-        jButton3.setText("Actualizar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 320, -1, -1));
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("-");
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, -1, -1));
+        btnNuevo.setText("Nuevo");
 
-        jButton5.setText("Guardar");
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 320, -1, -1));
+        btnAgregarCurso.setText("+");
+        btnAgregarCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarCursoActionPerformed(evt);
+            }
+        });
 
-        jButton6.setText("Nuevo");
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, -1, -1));
-
-        jButton7.setText("Eliminar");
-        getContentPane().add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 39, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAgregarCurso)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminarCurso)))
+                .addGap(98, 98, 98))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(210, 210, 210)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(btnNuevo)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnGuardar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(16, 16, 16)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminarCurso)
+                    .addComponent(btnAgregarCurso))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNuevo)
+                    .addComponent(btnGuardar))
+                .addContainerGap(44, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -172,11 +225,12 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         } else {
             Grado objGradoElegido = lstGrado.get(0);
             cargarDatosGrado(objGradoElegido);
+            System.out.println("lo que llego es: "+objGradoElegido.getId());
         }
     }//GEN-LAST:event_btnBuscarGradoActionPerformed
 
     private void btnBuscarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCursoActionPerformed
-        // TODO add your handling code here:
+        
         List<Curso> lstCurso = new ArrayList<>();
         Admi_buscarCurso form = new Admi_buscarCurso(null, true, lstCurso);
         form.setVisible(true);
@@ -184,26 +238,63 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
             //Ventana se cerro sin seleccionar
         } else {
             Curso objCursoElegido = lstCurso.get(0);
-            //cargarDatosCurso(objCursoElegido);
+            cargarDatosCurso(objCursoElegido);
+            System.out.println("lo que llego es: "+objCursoElegido.getId());
         }
     }//GEN-LAST:event_btnBuscarCursoActionPerformed
 
+    private void btnAgregarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCursoActionPerformed
+        
+        CursoPorGrado objCursoPorGrado = new CursoPorGrado();
+        
+        objCursoPorGrado.setCurso(curso);
+        objCursoPorGrado.setGrado(grado);
+        listaDeCursosPorGrado.add(objCursoPorGrado);
+        
+        DefaultTableModel modelo1 = new DefaultTableModel();
+
+            modelo1.addColumn("Grado");
+            modelo1.addColumn("Nombre Curso");
+            
+            for (CursoPorGrado objcursoPorGrado : listaDeCursosPorGrado) {
+                modelo1.addRow(new String[]{
+                    objcursoPorGrado.getGrado().getnumeroGrado() + "",
+                    objcursoPorGrado.getCurso().getNombreLargo() + ""
+                });
+            }
+            tblCursoPorGrado.setModel(modelo1);
+    }//GEN-LAST:event_btnAgregarCursoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        CursoPorGradoDAO dao = new CursoPorGradoDAO();
+        
+        
+        
+        if (dao.RegistrarCursoPorGrado(listaDeCursosPorGrado)) {
+                    JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
+                    
+                } else {
+                    JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
+                }
+        
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarCurso;
     private javax.swing.JButton btnBuscarCurso;
     private javax.swing.JButton btnBuscarGrado;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnEliminarCurso;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblCursoPorGrado;
     private javax.swing.JTextField txtCurso;
     private javax.swing.JTextField txtGrado;
     // End of variables declaration//GEN-END:variables

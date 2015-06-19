@@ -26,8 +26,8 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
      */
     //Variables Globales
     Grado grado;
-    Docente docente;
     Curso curso;
+    Docente docente;
     Clase objClaseSeleccionada;
     public List<Clase> listaDeClases;
 

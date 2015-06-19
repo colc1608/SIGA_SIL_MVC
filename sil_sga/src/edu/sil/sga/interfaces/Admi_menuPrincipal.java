@@ -38,6 +38,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         menuItemAlumno = new javax.swing.JMenuItem();
         menuItemApoderado = new javax.swing.JMenuItem();
         menuItemCurso = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuItemClase = new javax.swing.JMenuItem();
         menuItemEspecialidad = new javax.swing.JMenuItem();
         menuItemDocente = new javax.swing.JMenuItem();
@@ -114,6 +115,14 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuItemCurso);
+
+        jMenuItem1.setText("Cursos por Grado");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
 
         menuItemClase.setText("Clase");
         menuItemClase.addActionListener(new java.awt.event.ActionListener() {
@@ -332,6 +341,13 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_MenuItemUsuarioActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        Admi_CursoPorGrado frm = new Admi_CursoPorGrado();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -374,6 +390,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
