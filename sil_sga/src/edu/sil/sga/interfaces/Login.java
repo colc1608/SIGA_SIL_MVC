@@ -125,14 +125,14 @@ public class Login extends javax.swing.JDialog {
                 
                 if (objUsuario.getTipo().equalsIgnoreCase("1")) {
                     this.dispose();
-                    Docente_menuPrincipal frm = new Docente_menuPrincipal();
+                    Docente_Principal frm = new Docente_Principal();
                     frm.setVisible(true);
                 }
                 
                 
                 else if(objUsuario.getTipo().equalsIgnoreCase("2")){
                     this.dispose();
-                    Alumno_menuPrincipal frm = new Alumno_menuPrincipal();
+                    Alumno_Principal frm = new Alumno_Principal();
                     frm.setVisible(true);
                 }
                 
