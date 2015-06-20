@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ClaseDAO {
 
-    public boolean RegistrarClase(Clase clase)  {
+    public boolean RegistrarClase(Clase clase) {
         boolean retornar = false;
 
         try {
@@ -50,7 +50,7 @@ public class ClaseDAO {
         return retornar;
     }
 
-    public boolean ActualizarClase(Clase clase)  {
+    public boolean ActualizarClase(Clase clase) {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -74,7 +74,7 @@ public class ClaseDAO {
         return retornar;
     }
 
-    public boolean EliminarClase(Clase clase)  {
+    public boolean EliminarClase(Clase clase) {
         boolean retornar = false;
         try {
             Connection con = Conexion.getConnection();
@@ -98,7 +98,7 @@ public class ClaseDAO {
         return retornar;
     }
 
-    public List<Clase> ListarClases()  {
+    public List<Clase> ListarClases() {
         List<Clase> listaDeClases = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
@@ -112,10 +112,10 @@ public class ClaseDAO {
                     + " cpg.ID = cla.IDCURSOPORGRADO and\n"
                     + " cla.IDDOCENTE = d.ID and\n"
                     + " cla.ESTADO = '1' ");
-            
+
             ResultSet rst = pstm.executeQuery();
             while (rst.next()) {
-                
+
                 Seccion seccion = new Seccion();
                 Nivel nivel = new Nivel();
                 Grado grado = new Grado();
@@ -123,17 +123,17 @@ public class ClaseDAO {
                 Curso curso = new Curso();
                 Clase clase = new Clase();
                 Docente docente = new Docente();
-                
+
                 //capturando campos
                 grado.setnumeroGrado(rst.getString("numeroGrado"));
                 seccion.setDescripcion(rst.getString("seccion"));
                 nivel.setNombreLargo(rst.getString("nivel"));
-                
+
                 curso.setNombreLargo(rst.getString("nombreCurso"));
-                
+
                 docente.setNombre(rst.getString("nombre"));
                 docente.setApellidopaterno(rst.getString("apellidoPaterno"));
-                
+
                 clase.setCantidadAlumnos(rst.getInt("cantidadAlumnos"));
                 clase.setObservacion(rst.getString("observacion"));
 
@@ -143,16 +143,16 @@ public class ClaseDAO {
                 curso.setId(rst.getInt("idCurso"));
                 clase.setId(rst.getInt("idClase"));
                 docente.setId(rst.getInt("idDocente"));
-                
+
                 //uniendo Objetos
                 grado.setNivel(nivel);
                 grado.setSeccion(seccion);
                 cursoGrado.setGrado(grado);
                 cursoGrado.setCurso(curso);
-                
+
                 clase.setDocente(docente);
                 clase.setCursoGrado(cursoGrado);
-                
+
                 listaDeClases.add(clase);
             }
             pstm.close();
@@ -164,4 +164,41 @@ public class ClaseDAO {
         return listaDeClases;
     }
 
+    public List<Clase> ListarClasesPorGrado(Grado grado) {
+        List<Clase> listaDeClases = new ArrayList<>();
+        try {
+            Connection con = Conexion.getConnection();
+            PreparedStatement pstm = con.prepareStatement("select  cla.id as idClase, c.NOMBRELARGO, d.NOMBRE\n"
+                    + "from CURSOPORGRADO cpg, curso c, clase cla, docente d where\n"
+                    + "cpg.IDCURSO = c.ID and\n"
+                    + "cpg.ID = cla.ID and\n"
+                    + "cla.IDDOCENTE = d.ID and\n"
+                    + "cpg.IDGRADO = ? ");
+            
+            pstm.setInt(1, grado.getId());
+            //pstm.execute();
+            
+            ResultSet rst = pstm.executeQuery();
+            while (rst.next()) {
+
+                CursoPorGrado cursoGrado = new CursoPorGrado();
+                Curso curso = new Curso();
+                Clase clase = new Clase();
+                Docente docente = new Docente();
+
+                //capturando campos
+                clase.setId(rst.getInt("idClase"));
+                curso.setNombreLargo(rst.getString("NOMBRELARGO"));
+                docente.setNombre(rst.getString("nombre"));
+
+                listaDeClases.add(clase);
+            }
+            pstm.close();
+            con.close();
+        } catch (Exception e) {
+            System.out.println("ERROR --> DAO --> Clase --> ListarClasesPorGrado(); --> " + e.getMessage());
+            e.printStackTrace();
+        }
+        return listaDeClases;
+    }
 }

@@ -43,6 +43,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         menuItemEspecialidad = new javax.swing.JMenuItem();
         menuItemDocente = new javax.swing.JMenuItem();
         menuItemGrado = new javax.swing.JMenuItem();
+        menuItemMatricula = new javax.swing.JMenuItem();
         menuItemNivel = new javax.swing.JMenuItem();
         menuItemPeriodo = new javax.swing.JMenuItem();
         menuItemSeccion = new javax.swing.JMenuItem();
@@ -157,6 +158,14 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuItemGrado);
+
+        menuItemMatricula.setText("Matricula");
+        menuItemMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMatriculaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemMatricula);
 
         menuItemNivel.setText("Nivel");
         menuItemNivel.addActionListener(new java.awt.event.ActionListener() {
@@ -348,6 +357,13 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void menuItemMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMatriculaActionPerformed
+        // TODO add your handling code here:
+        Admi_Matricula frm = new Admi_Matricula();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+    }//GEN-LAST:event_menuItemMatriculaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -404,6 +420,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemDocente;
     private javax.swing.JMenuItem menuItemEspecialidad;
     private javax.swing.JMenuItem menuItemGrado;
+    private javax.swing.JMenuItem menuItemMatricula;
     private javax.swing.JMenuItem menuItemNivel;
     private javax.swing.JMenuItem menuItemPeriodo;
     private javax.swing.JMenuItem menuItemPrincipal;

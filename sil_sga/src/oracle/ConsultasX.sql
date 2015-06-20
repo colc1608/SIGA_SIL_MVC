@@ -11,6 +11,8 @@ FROM   dual;
 
 --CONSULTA PARA DEVOLVER ULTIMOS REGISTROS
 select max(usuario)+1 from usuario;
+select usuario from usuario where id = (select max(id) from usuario);
+
 
 
 ---MOSTRAR LOS CURSOS POR ID de docente
@@ -80,3 +82,19 @@ from CURSOPORGRADO cpg, curso c, clase cla where
 cpg.IDCURSO = c.ID and
 cpg.ID = cla.ID and
 cpg.IDGRADO = 1;
+
+
+--obtener las clases de un grado para Matricula
+select  cla.id as idClase, c.NOMBRELARGO, d.NOMBRE
+from CURSOPORGRADO cpg, curso c, clase cla, docente d where
+cpg.IDCURSO = c.ID and
+cpg.ID = cla.ID and
+cla.IDDOCENTE = d.ID and
+cpg.IDGRADO = 1;
+
+
+
+
+
+
+
