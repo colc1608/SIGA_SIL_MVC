@@ -18,6 +18,7 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
      */
     public Docente_menuPrincipal() {
         initComponents();
+        this.setExtendedState(this.MAXIMIZED_BOTH);
         
     }
 
@@ -31,12 +32,6 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jdp_principalDocente = new javax.swing.JDesktopPane();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -44,6 +39,7 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         menuItemNotas = new javax.swing.JMenuItem();
+        menuItemAlgo = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -52,24 +48,6 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
 
         jdp_principalDocente.setBackground(new java.awt.Color(204, 204, 204));
         jdp_principalDocente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setText("Pepito Zapata Gonzales");
-        jdp_principalDocente.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 215, -1));
-
-        jLabel3.setText("28/04/2015");
-        jdp_principalDocente.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, -1, -1));
-
-        jLabel4.setText("15:26");
-        jdp_principalDocente.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, -1, -1));
-
-        jTextField1.setText("Foto");
-        jdp_principalDocente.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 113, 134));
-
-        jTextField2.setText("Logo Colegio");
-        jdp_principalDocente.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 178, 37));
-
-        jLabel6.setText("Bienvenido:");
-        jdp_principalDocente.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jMenu1.setText("Inicio");
 
@@ -99,6 +77,14 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(menuItemNotas);
+
+        menuItemAlgo.setText("algo");
+        menuItemAlgo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAlgoActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuItemAlgo);
 
         jMenuBar1.add(jMenu2);
 
@@ -137,10 +123,15 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
 
     private void menuItemNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemNotasActionPerformed
         // TODO add your handling code here:
-        Docente_gestionarNotaPorCurso frm = new Docente_gestionarNotaPorCurso();
+        Docente_seleccionarClase frm = new Docente_seleccionarClase();
         jdp_principalDocente.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_menuItemNotasActionPerformed
+
+    private void menuItemAlgoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAlgoActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_menuItemAlgoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,10 +170,6 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
@@ -192,9 +179,8 @@ public class Docente_menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     public javax.swing.JDesktopPane jdp_principalDocente;
+    private javax.swing.JMenuItem menuItemAlgo;
     private javax.swing.JMenuItem menuItemNotas;
     // End of variables declaration//GEN-END:variables
 }

@@ -31,7 +31,6 @@ g.IDSECCION = s.ID and
 g. ID = cpg.IDGRADO and
 cpg.IDCURSO = c.ID;
 
-select * from cursoPorGrado;
 
 insert into cursoporgrado(id,idgrado,idcurso,descripcion) values(sq_cursoporgrado.nextval, 21, 3, 'aa');
 
@@ -93,6 +92,12 @@ cla.IDDOCENTE = d.ID and
 cpg.IDGRADO = 1;
 
 
+--mostrar los cursos por docente
+select c.NOMBRELARGO from docente d, clase cla, curso c, CURSOPORGRADO cpg where
+c.ID = cpg.IDCURSO and
+cpg.id = cla.IDCURSOPORGRADO and
+cla.IDDOCENTE = d.ID and
+d.id = 6;
 
 
 

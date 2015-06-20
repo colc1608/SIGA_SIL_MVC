@@ -5,19 +5,74 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.ClaseDAO;
+import edu.sil.sga.entidades.Clase;
+import edu.sil.sga.entidades.Docente;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Cesar Lopez
  */
-public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
+public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form GestionarNotaPorCurso
      */
-    public Docente_gestionarNotaPorCurso() {
+    
+    //VARIABLES GLOBALES
+    Docente docente = new Docente();
+    public List<Clase> listaDeClasesPorDocente;
+    
+    //inicializacion del J INTERNAL FRAMA
+    public Docente_seleccionarClase() {
+        //ListarClasesPorDocente();
         initComponents();
     }
+    
+    
+    /*
+    void ListarClasesPorDocente() {
+        try {
+            ClaseDAO dao = new ClaseDAO();
+            docente.setId(Integer.parseInt(txtIdDocente.getText()));
+            
+            listaDeClasesPorDocente = dao.ListarClasesPorDocente(docente);
+            DefaultTableModel modelo1 = new DefaultTableModel();
 
+            //modelo1.addColumn("id");
+            modelo1.addColumn("Curso");
+            modelo1.addColumn("Grado");
+            modelo1.addColumn("Seccion");
+
+            for (Clase clase : listaDeClasesPorDocente) {
+                modelo1.addRow(new String[]{
+                    //objDocente.getId() + "",
+                    clase.getCursoGrado().getCurso().getNombreLargo()+ "",
+                    clase.getCursoGrado().getGrado().getnumeroGrado()+ "",
+                    clase.getCursoGrado().getGrado().getSeccion().getDescripcion()+ ""
+                    //objDocente.getDni() + "", //objDocente.getTelefono() + "",
+                //objDocente.getMovil() + "",
+                //objDocente.getEmail() + "",
+                //objDocente.getEspecialidad().getDescripcion()
+                });
+            }
+
+            tblClases.setModel(modelo1);
+
+        } catch (Exception e) {
+            System.out.println("error --> interfaz --> docente --> listar");
+        }
+
+    }
+    
+    
+    */
+    
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,7 +85,7 @@ public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblClases = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jComboBox3 = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
@@ -47,6 +102,8 @@ public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        txtIdDocente = new javax.swing.JTextField();
+        btnCargar = new javax.swing.JButton();
 
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -56,7 +113,7 @@ public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Clase"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblClases.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Alex Chavez", "10"},
                 {"Sandra Marin", "12"},
@@ -81,7 +138,7 @@ public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
                 "curso", "grado"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblClases);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Curso", "Grado" }));
 
@@ -208,11 +265,28 @@ public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 280, 340));
 
+        txtIdDocente.setText("id docente");
+        getContentPane().add(txtIdDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 80, -1));
+
+        btnCargar.setText("cargar");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+        //ListarClasesPorDocente();
+    }//GEN-LAST:event_btnCargarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCargar;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -227,11 +301,12 @@ public class Docente_gestionarNotaPorCurso extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tblClases;
+    private javax.swing.JTextField txtIdDocente;
     // End of variables declaration//GEN-END:variables
 }
