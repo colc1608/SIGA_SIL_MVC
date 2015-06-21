@@ -127,3 +127,41 @@ select u.id as idUsuario, d.ID, d.NOMBRE, d.APELLIDOPATERNO, d.APELLIDOMATERNO, 
 from docente d, usuario u where
 u.ID = d.IDUSUARIO and
 u.id = 4;
+
+
+
+
+
+--mostrar las NOTAS de los alumnos por CLASE con tipoNota y Periodo
+--(PROBLEMA DE QUE SE DEBE INGRESAR DESDE ANTES)
+
+select a.id, a.NOMBRE, a.APELLIDOPATERNO, a.APELLIDOMATERNO, n.NOTA
+from alumno a, matricula m, detalleMatricula dm, clase c, nota n, TIPOEVALUACION te, PERIODO p 
+where
+a.ID = m.IDALUMNO and
+m.id = dm.IDMATRICULA and
+dm.IDCLASE = c.ID and
+c.id = 1 and
+te.id = 2 and
+p.ID = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
