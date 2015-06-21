@@ -51,7 +51,7 @@
                       <Component id="txtCodigo" min="-2" pref="79" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="54" max="32767" attributes="0"/>
+              <EmptySpace pref="46" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -162,7 +162,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="* Peso"/>
+            <Property name="text" type="java.lang.String" value="* Peso (0-100)"/>
           </Properties>
         </Component>
       </SubComponents>

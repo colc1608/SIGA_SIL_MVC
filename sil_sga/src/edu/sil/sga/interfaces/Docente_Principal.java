@@ -17,6 +17,7 @@ public class Docente_Principal extends javax.swing.JFrame {
     public Docente_Principal() {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
+        
     }
 
     /**
@@ -131,6 +132,6 @@ public class Docente_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JDesktopPane jdPrincipal;
+    public javax.swing.JDesktopPane jdPrincipal;
     // End of variables declaration//GEN-END:variables
 }

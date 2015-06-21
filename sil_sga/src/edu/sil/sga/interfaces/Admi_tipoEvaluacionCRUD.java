@@ -28,7 +28,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
         activaBotones(true, false, false, false);
         ListarTipoEvaluacion();
         activaCajas(false);
-        txtCodigo.setVisible(false);
+        //txtCodigo.setVisible(false);
     }
 
     void activaCajas(boolean a) {
@@ -124,7 +124,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Observacion");
 
-        jLabel4.setText("* Peso");
+        jLabel4.setText("* Peso (0-100)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,7 +254,7 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)
                         .addGap(129, 129, 129)
                         .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

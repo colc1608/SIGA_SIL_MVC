@@ -103,3 +103,20 @@ d.id = 6;
 
 
 
+--mostrar los cursos por docente
+select c.NOMBRELARGO, g.NUMEROGRADO, s.DESCRIPCION, n.NOMBRELARGO as nivel
+from docente d, clase cla, curso c, CURSOPORGRADO cpg, grado g, seccion s, NIVELEDUCACION n where
+c.ID = cpg.IDCURSO and
+cpg.id = cla.IDCURSOPORGRADO and
+cla.IDDOCENTE = d.ID and
+cpg.IDGRADO = g.ID and
+g.IDSECCION = s.ID and
+g.IDNIVELEDUCACION = n.ID and
+d.id = 6;
+
+--algo
+select c.NOMBRELARGO from docente d, clase cla, curso c, CURSOPORGRADO cpg where
+c.ID = cpg.IDCURSO and
+cpg.id = cla.IDCURSOPORGRADO and
+cla.IDDOCENTE = d.ID and
+d.id = 6;

@@ -6,38 +6,81 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.ClaseDAO;
+import edu.sil.sga.dao.PeriodoDAO;
+import edu.sil.sga.dao.TipoEvaluacionDAO;
 import edu.sil.sga.entidades.Clase;
 import edu.sil.sga.entidades.Docente;
+import edu.sil.sga.entidades.Periodo;
+import edu.sil.sga.entidades.TipoEvaluacion;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Cesar Lopez
+ * @author Eduardo Lopez
  */
 public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form GestionarNotaPorCurso
+     * Creates new form Docente_seleccionarClase
      */
     
-    //VARIABLES GLOBALES
     Docente docente = new Docente();
     public List<Clase> listaDeClasesPorDocente;
+    public List<Periodo> listaDePeriodos;
+    public List<TipoEvaluacion> listaDeTipoEvaluacion;
+    Clase objClaseSeleccionada;
     
-    //inicializacion del J INTERNAL FRAMA
+    
+    
     public Docente_seleccionarClase() {
-        //ListarClasesPorDocente();
         initComponents();
+        CargarPeriodo();
+        CargarTipoNota();
     }
     
     
-    /*
+    
+    void CargarPeriodo() {
+        try {
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            listaDePeriodos = new PeriodoDAO().ListarPeriodo();
+            for (Periodo objEspecialidad : listaDePeriodos) {
+                model.addElement(objEspecialidad.getDescripcion());
+            }
+            cboPeriodo.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de base de datos");
+            System.out.println("Error:  Cargar Periodo"+e.getMessage());
+            e.printStackTrace();
+            
+        }
+    }
+    
+    void CargarTipoNota() {
+        try {
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            listaDeTipoEvaluacion = new TipoEvaluacionDAO().ListarTipoEvaluacion();
+            for (TipoEvaluacion objTipoEvaluacion : listaDeTipoEvaluacion) {
+                model.addElement(objTipoEvaluacion.getDescripcion());
+            }
+            cboTipoNota.setModel(model);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de base de datos");
+            System.out.println("Error: Carga TipoEvaluacion"+e.getMessage());
+            e.printStackTrace();
+            
+        }
+    }
+    
+    
     void ListarClasesPorDocente() {
         try {
             ClaseDAO dao = new ClaseDAO();
             docente.setId(Integer.parseInt(txtIdDocente.getText()));
-            
+
             listaDeClasesPorDocente = dao.ListarClasesPorDocente(docente);
             DefaultTableModel modelo1 = new DefaultTableModel();
 
@@ -49,10 +92,10 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
             for (Clase clase : listaDeClasesPorDocente) {
                 modelo1.addRow(new String[]{
                     //objDocente.getId() + "",
-                    clase.getCursoGrado().getCurso().getNombreLargo()+ "",
-                    clase.getCursoGrado().getGrado().getnumeroGrado()+ "",
-                    clase.getCursoGrado().getGrado().getSeccion().getDescripcion()+ ""
-                    //objDocente.getDni() + "", //objDocente.getTelefono() + "",
+                    clase.getCursoGrado().getCurso().getNombreLargo() + "",
+                    clase.getCursoGrado().getGrado().getnumeroGrado() + "",
+                    clase.getCursoGrado().getGrado().getSeccion().getDescripcion() + ""
+                //objDocente.getDni() + "", //objDocente.getTelefono() + "",
                 //objDocente.getMovil() + "",
                 //objDocente.getEmail() + "",
                 //objDocente.getEspecialidad().getDescripcion()
@@ -66,13 +109,6 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
         }
 
     }
-    
-    
-    */
-    
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,34 +118,33 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblClases = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jComboBox3 = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox2 = new javax.swing.JComboBox();
-        jButton2 = new javax.swing.JButton();
-        jComboBox4 = new javax.swing.JComboBox();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        cboTipoNota = new javax.swing.JComboBox();
+        btnIngresarNota = new javax.swing.JButton();
+        txtGrado = new javax.swing.JTextField();
+        txtNivel = new javax.swing.JTextField();
+        txtCurso = new javax.swing.JTextField();
+        txtSeccion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        cboPeriodo = new javax.swing.JComboBox();
         txtIdDocente = new javax.swing.JTextField();
         btnCargar = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
 
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setText("Gestionar Nota");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, -1, -1));
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Buscar Clase"));
 
@@ -138,6 +173,11 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
                 "curso", "grado"
             }
         ));
+        tblClases.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClasesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblClases);
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Curso", "Grado" }));
@@ -170,23 +210,22 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 350, 340));
-
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de Clase"));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "P1", "P2", "P3", "EP", "EF" }));
+        btnIngresarNota.setText("Ingresar Notas");
+        btnIngresarNota.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarNotaActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Ingresar Notas");
+        txtGrado.setEditable(false);
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I", "II", "II", "IV" }));
+        txtNivel.setEditable(false);
 
-        jTextField2.setEditable(false);
+        txtCurso.setEditable(false);
 
-        jTextField3.setEditable(false);
-
-        jTextField4.setEditable(false);
-
-        jTextField5.setEditable(false);
+        txtSeccion.setEditable(false);
 
         jLabel5.setText("Nivel:");
 
@@ -199,6 +238,9 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
         jLabel3.setText("Trimestre: ");
 
         jLabel8.setText("Tipo Nota:");
+
+        cboPeriodo.setEditable(true);
+        cboPeriodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -215,20 +257,20 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8))
                         .addGap(34, 34, 34)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
+                            .addComponent(cboTipoNota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCurso)
+                            .addComponent(txtSeccion)
+                            .addComponent(btnIngresarNota, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                            .addComponent(cboPeriodo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel6)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addComponent(jLabel5)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -236,37 +278,34 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(cboPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTipoNota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addGap(42, 42, 42)
-                .addComponent(jButton2)
+                .addComponent(btnIngresarNota)
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, 280, 340));
-
         txtIdDocente.setText("id docente");
-        getContentPane().add(txtIdDocente, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 80, -1));
 
         btnCargar.setText("cargar");
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -274,23 +313,84 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
                 btnCargarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 60, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setText("Gestionar Nota");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(txtIdDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCargar)
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel4)))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel4))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtIdDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCargar)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblClasesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClasesMouseClicked
+        // TODO add your handling code here:
+        int fila = tblClases.getSelectedRow();
+        if (fila != -1) {
+
+            objClaseSeleccionada = listaDeClasesPorDocente.get(fila);
+
+            txtNivel.setText(objClaseSeleccionada.getCursoGrado().getGrado().getNivel().getNombreLargo());
+            txtGrado.setText(objClaseSeleccionada.getCursoGrado().getGrado().getnumeroGrado());
+            txtSeccion.setText(objClaseSeleccionada.getCursoGrado().getGrado().getSeccion().getDescripcion());
+            txtCurso.setText(objClaseSeleccionada.getCursoGrado().getCurso().getNombreLargo());
+
+        }
+    }//GEN-LAST:event_tblClasesMouseClicked
+
     private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
         // TODO add your handling code here:
-        //ListarClasesPorDocente();
+        
+        ListarClasesPorDocente();
     }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnIngresarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarNotaActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnIngresarNotaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCargar;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JButton btnIngresarNota;
+    private javax.swing.JComboBox cboPeriodo;
+    private javax.swing.JComboBox cboTipoNota;
     private javax.swing.JComboBox jComboBox3;
-    private javax.swing.JComboBox jComboBox4;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -302,11 +402,11 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTable tblClases;
+    private javax.swing.JTextField txtCurso;
+    private javax.swing.JTextField txtGrado;
     private javax.swing.JTextField txtIdDocente;
+    private javax.swing.JTextField txtNivel;
+    private javax.swing.JTextField txtSeccion;
     // End of variables declaration//GEN-END:variables
 }

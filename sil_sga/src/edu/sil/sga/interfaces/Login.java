@@ -124,6 +124,7 @@ public class Login extends javax.swing.JDialog {
 
                 
                 if (objUsuario.getTipo().equalsIgnoreCase("1")) {
+                    System.out.println("es docente =D ");
                     this.dispose();
                     Docente_Principal frm = new Docente_Principal();
                     frm.setVisible(true);
@@ -131,6 +132,7 @@ public class Login extends javax.swing.JDialog {
                 
                 
                 else if(objUsuario.getTipo().equalsIgnoreCase("2")){
+                    System.out.println("es ALUMNO =) ");
                     this.dispose();
                     Alumno_Principal frm = new Alumno_Principal();
                     frm.setVisible(true);
@@ -138,6 +140,7 @@ public class Login extends javax.swing.JDialog {
                 
                 
                 else{
+                    System.out.println("es admin =D ");
                     this.dispose();
                     Admi_menuPrincipal frm = new Admi_menuPrincipal();
                     frm.setVisible(true);
