@@ -206,7 +206,7 @@ public class ClaseDAO {
         List<Clase> listaDeClases = new ArrayList<>();
         try {
             Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement(" select c.NOMBRELARGO, g.NUMEROGRADO, s.DESCRIPCION, n.NOMBRELARGO as nivel\n"
+            PreparedStatement pstm = con.prepareStatement(" select cla.id as idClase, c.NOMBRELARGO, g.NUMEROGRADO, s.DESCRIPCION, n.NOMBRELARGO as nivel\n"
                     + " from docente d, clase cla, curso c, CURSOPORGRADO cpg, grado g, seccion s, NIVELEDUCACION n where\n"
                     + " c.ID = cpg.IDCURSO and\n"
                     + " cpg.id = cla.IDCURSOPORGRADO and\n"
@@ -230,6 +230,7 @@ public class ClaseDAO {
                 Docente docente = new Docente();
 
                 //capturando campos
+                clase.setId(rst.getInt("idClase"));
                 curso.setNombreLargo(rst.getString("NOMBRELARGO"));
                 grado.setnumeroGrado(rst.getString("numeroGrado"));
                 seccion.setDescripcion(rst.getString("descripcion"));

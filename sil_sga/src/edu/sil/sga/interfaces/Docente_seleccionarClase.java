@@ -359,15 +359,9 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         TipoEvaluacion tipoEval = new TipoEvaluacion();
         Periodo periodo = new Periodo();
-
-        System.out.println("lo que obtubo del combo TIPO NOTA es: " + cboTipoNota.getSelectedIndex());
-        System.out.println("lo que obtubo del combo PERIODO es: " + cboPeriodo.getSelectedIndex());
         
         tipoEval = listaDeTipoEvaluacion.get(cboTipoNota.getSelectedIndex());
-        periodo = listaDePeriodos.get(cboTipoNota.getSelectedIndex());
-        
-        System.out.println("ahora los el ID de BaseDatos en tipoEval es: "+tipoEval.getId());
-        System.out.println("ahora los el ID de BaseDatos en PERIODO eval es: "+periodo.getId());
+        periodo = listaDePeriodos.get(cboPeriodo.getSelectedIndex());
         
         //
         Docente_IngresarNotaClase ventana = new Docente_IngresarNotaClase(objClaseSeleccionada, tipoEval, periodo);
