@@ -5,7 +5,9 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.DocenteDAO;
 import edu.sil.sga.dao.UsuarioDAO;
+import edu.sil.sga.entidades.Docente;
 import edu.sil.sga.entidades.Usuario;
 import javax.swing.JOptionPane;
 
@@ -22,7 +24,7 @@ public class Login extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocation(500, 200);
-        
+
     }
 
     /**
@@ -107,50 +109,45 @@ public class Login extends javax.swing.JDialog {
         // TODO add your handling code here:
         String usuario = txtUsuario.getText();
         String clave = txtClave.getText();
-        int tipo = 0;
+        
 
         try {
             Usuario objUsuario = new Usuario();
             UsuarioDAO dao = new UsuarioDAO();
             objUsuario = dao.validaLogin(usuario, clave);
-            
+
             if (objUsuario.getId() == 0) {
                 JOptionPane.showMessageDialog(this, "Datos incorrectos, logueese nuevamente");
-            }
+            } 
             
             
             else {
-                System.out.println("es un usuario del sistema. pero de que tipo? uhmm");
 
-                
                 if (objUsuario.getTipo().equalsIgnoreCase("1")) {
-                    System.out.println("es docente =D ");
                     this.dispose();
-                    Docente_Principal frm = new Docente_Principal();
+                    Docente docente = new Docente();
+                    docente = new DocenteDAO().devolverDocente(objUsuario);
+                    
+                    Docente_Principal frm = new Docente_Principal(docente);
                     frm.setVisible(true);
-                }
-                
-                
-                else if(objUsuario.getTipo().equalsIgnoreCase("2")){
-                    System.out.println("es ALUMNO =) ");
+                    
+                    
+                } else if (objUsuario.getTipo().equalsIgnoreCase("2")) {
                     this.dispose();
                     Alumno_Principal frm = new Alumno_Principal();
                     frm.setVisible(true);
-                }
-                
-                
-                else{
-                    System.out.println("es admin =D ");
+                    
+                    
+                } else {
                     this.dispose();
                     Admi_menuPrincipal frm = new Admi_menuPrincipal();
                     frm.setVisible(true);
-                
+
                 }
-                    
-                    
+
             }
         } catch (Exception e) {
-            System.out.println("error interno del sistema "+e.getMessage());
+            System.out.println("error interno del sistema " + e.getMessage());
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnEntrarActionPerformed

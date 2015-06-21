@@ -42,24 +42,7 @@ public class UsuarioDAO {
     //select u.id from usuario u where usuario = ? and clave = ? 
     
     
-    public int tipoUsuario(int idUsu){
-        int tipo = 0;
-        try {
-            Connection con = Conexion.getConnection();
-            PreparedStatement pstm = con.prepareStatement("select count(*) as id from docente where idusuario = '"+idUsu+"' ");
-            ResultSet rst = pstm.executeQuery();
-            while (rst.next()) {
-                tipo = rst.getInt("id");
-                System.out.println("el valor del tipo es : "+tipo);
-            }
-            pstm.close();
-            con.close();
-        } catch (Exception e) {
-            System.out.println(" error --> DAO --> Usuario --> tipoUsuario ");
-            e.printStackTrace();
-        }
-        return tipo;
-    }
+   
     
     public List<Usuario> ListarUsuario()throws  Exception{
         List<Usuario> listarUsuario = new ArrayList<>();

@@ -120,3 +120,10 @@ c.ID = cpg.IDCURSO and
 cpg.id = cla.IDCURSOPORGRADO and
 cla.IDDOCENTE = d.ID and
 d.id = 6;
+
+
+--consulta que dado un USUARIO te devuelve los datos del docente
+select u.id as idUsuario, d.ID, d.NOMBRE, d.APELLIDOPATERNO, d.APELLIDOMATERNO, d.DNI
+from docente d, usuario u where
+u.ID = d.IDUSUARIO and
+u.id = 4;

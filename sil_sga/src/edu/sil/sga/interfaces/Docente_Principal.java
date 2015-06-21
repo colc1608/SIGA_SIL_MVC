@@ -5,6 +5,9 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.entidades.Docente;
+import edu.sil.sga.entidades.Usuario;
+
 /**
  *
  * @author Paul
@@ -14,10 +17,15 @@ public class Docente_Principal extends javax.swing.JFrame {
     /**
      * Creates new form Docente_Principal
      */
-    public Docente_Principal() {
+    Docente docente = new Docente();
+    
+    public Docente_Principal(Docente objDocente) {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
-        
+        docente = objDocente;
+        System.out.println("lo que llego ES :"+docente.getId());
+        System.out.println("lo que llego ES :"+docente.getNombre());
+        System.out.println("lo que llego ES :"+docente.getApellidopaterno());
     }
 
     /**
@@ -121,7 +129,7 @@ public class Docente_Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Docente_Principal().setVisible(true);
+                new Docente_Principal( new Docente() ).setVisible(true);
             }
         });
     }
