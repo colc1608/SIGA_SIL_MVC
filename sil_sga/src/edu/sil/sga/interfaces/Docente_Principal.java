@@ -37,7 +37,7 @@ public class Docente_Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jdPrincipal = new javax.swing.JDesktopPane();
+        jdPrincipalDocente = new javax.swing.JDesktopPane();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -46,14 +46,14 @@ public class Docente_Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jdPrincipalLayout = new javax.swing.GroupLayout(jdPrincipal);
-        jdPrincipal.setLayout(jdPrincipalLayout);
-        jdPrincipalLayout.setHorizontalGroup(
-            jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jdPrincipalDocenteLayout = new javax.swing.GroupLayout(jdPrincipalDocente);
+        jdPrincipalDocente.setLayout(jdPrincipalDocenteLayout);
+        jdPrincipalDocenteLayout.setHorizontalGroup(
+            jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 575, Short.MAX_VALUE)
         );
-        jdPrincipalLayout.setVerticalGroup(
-            jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jdPrincipalDocenteLayout.setVerticalGroup(
+            jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 484, Short.MAX_VALUE)
         );
 
@@ -81,11 +81,11 @@ public class Docente_Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdPrincipal)
+            .addComponent(jdPrincipalDocente)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdPrincipal)
+            .addComponent(jdPrincipalDocente)
         );
 
         pack();
@@ -93,8 +93,8 @@ public class Docente_Principal extends javax.swing.JFrame {
 
     private void jGestionarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGestionarNotaActionPerformed
         // TODO add your handling code here:
-        Docente_seleccionarClase frm = new Docente_seleccionarClase();
-        jdPrincipal.add(frm);
+        Docente_seleccionarClase frm = new Docente_seleccionarClase(docente);
+        jdPrincipalDocente.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_jGestionarNotaActionPerformed
 
@@ -140,6 +140,6 @@ public class Docente_Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
-    public javax.swing.JDesktopPane jdPrincipal;
+    public javax.swing.JDesktopPane jdPrincipalDocente;
     // End of variables declaration//GEN-END:variables
 }
