@@ -6,8 +6,10 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.AlumnoDAO;
+import edu.sil.sga.dao.NotaDAO;
 import edu.sil.sga.entidades.Alumno;
 import edu.sil.sga.entidades.Clase;
+import edu.sil.sga.entidades.Nota;
 import edu.sil.sga.entidades.Periodo;
 import edu.sil.sga.entidades.TipoEvaluacion;
 import java.util.List;
@@ -26,7 +28,7 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
     Clase clase = new Clase();
     Periodo periodo = new Periodo();
     TipoEvaluacion tipoEval = new TipoEvaluacion();
-    public List<Alumno> listaDeAlumnos;
+    public List<Nota> listaDeNotas;
     
     
     
@@ -41,25 +43,28 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         lblPeriodo.setText(periodo.getDescripcion());
         lblTipoEvaluacion.setText(tipoEval.getDescripcion());
 
-        ListarALumno();
+        ListarNotas();
 
         
         
     }//fin del INIT COMPONENTS
     
     
-    void ListarALumno() {
+    void ListarNotas() {
         try {
-            AlumnoDAO dao = new AlumnoDAO();
-            listaDeAlumnos = dao.ListadoAlumno();
+            NotaDAO dao = new NotaDAO();
+            listaDeNotas = dao.ListarNotas(clase, periodo, tipoEval);
             DefaultTableModel modelo1 = new DefaultTableModel();
 
             modelo1.addColumn("Nombre Completo");
             modelo1.addColumn("NOTA");
 
-            for (Alumno obAlumno : listaDeAlumnos) {
+            for (Nota objNota : listaDeNotas) {
                 modelo1.addRow(new String[]{
-                     obAlumno.getApellidopaterno()+" "+obAlumno.getApellidomaterno() +", "+obAlumno.getNombre(),
+                     objNota.getAlumno().getNombre()+" "
+                             +objNota.getAlumno().getApellidopaterno()+", "+
+                             objNota.getAlumno().getApellidomaterno(),
+                    objNota.getNota()+ "", 
                     
                     });
             }
@@ -81,7 +86,7 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlumnoNota = new javax.swing.JTable();
         lblCurso = new javax.swing.JLabel();
@@ -96,9 +101,15 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
+        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
         jLabel1.setText("Ingresar Notas");
 
-        jButton1.setText("Guardar");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         tblAlumnoNota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -113,16 +124,22 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tblAlumnoNota);
 
+        lblCurso.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblCurso.setText("Cu");
 
+        lblTipoEvaluacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTipoEvaluacion.setText("tipo eval");
 
+        lblPeriodo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblPeriodo.setText("periodo");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Curso:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Tipo de Nota:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Bimestre:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -130,59 +147,62 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(70, 70, 70)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblCurso)
-                            .addGap(62, 62, 62)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblTipoEvaluacion)
-                            .addGap(67, 67, 67)
-                            .addComponent(jLabel4)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(lblPeriodo))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(38, 38, 38)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(218, 218, 218)
-                            .addComponent(jLabel1))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(196, 196, 196)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel2)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblCurso)
+                        .addGap(56, 56, 56)
+                        .addComponent(jLabel3)
+                        .addGap(6, 6, 6)
+                        .addComponent(lblTipoEvaluacion)
+                        .addGap(67, 67, 67)
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblPeriodo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(475, 475, 475)
+                        .addComponent(btnGuardar)))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCurso)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblTipoEvaluacion)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(lblPeriodo)))
-                .addGap(22, 22, 22)
+                    .addComponent(jLabel2)
+                    .addComponent(lblCurso)
+                    .addComponent(jLabel3)
+                    .addComponent(lblTipoEvaluacion)
+                    .addComponent(jLabel4)
+                    .addComponent(lblPeriodo))
+                .addGap(26, 26, 26)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(jButton1)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(btnGuardar)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

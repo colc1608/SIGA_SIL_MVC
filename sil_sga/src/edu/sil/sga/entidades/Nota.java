@@ -12,6 +12,7 @@ import java.util.Date;
  * @author Eduardo Lopez
  */
 public class Nota {
+    int id;
     Alumno alumno;
     Clase clase;
     Periodo periodo;
@@ -20,11 +21,13 @@ public class Nota {
     Double peso; //en el BEAN siempre es UTIL
     Date fecha;
 
-    public Nota(){
-       this(new Alumno(), new Clase(), new Periodo(), new TipoEvaluacion(), 0 , 0.0, new Date());
-    }
     
-    public Nota(Alumno alumno, Clase clase, Periodo periodo, TipoEvaluacion tipoEvaluacion, int nota, Double peso, Date fecha) {
+    public Nota(){
+       this(0, new Alumno(), new Clase(), new Periodo(), new TipoEvaluacion(), 0 , 0.0, new Date());
+    }
+
+    public Nota(int id, Alumno alumno, Clase clase, Periodo periodo, TipoEvaluacion tipoEvaluacion, int nota, Double peso, Date fecha) {
+        this.id = id;
         this.alumno = alumno;
         this.clase = clase;
         this.periodo = periodo;
@@ -33,10 +36,26 @@ public class Nota {
         this.peso = peso;
         this.fecha = fecha;
     }
+
     
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     
 
     public Alumno getAlumno() {
