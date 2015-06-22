@@ -147,13 +147,36 @@ p.ID = 1;
 
 
 
+--consulta para listar alumnos por clase
+select a.id, c.id from alumno a, matricula m, detalleMatricula dm, clase c where
+a.id = m.idalumno and
+m.id = dm.idmatricula and
+dm.idclase = c.id and
+c.id = 1;
 
 
 
+--consulta para listar alumnos por una clase, tipo nota y periodo
+
+select a.NOMBRE, a.APELLIDOPATERNO, a.APELLIDOMATERNO, n.NOTA, 
+n.id, n.IDALUMNO, n.IDCLASE, n.IDPERIODO, n.IDTIPOEVALUACION
+from nota n, periodo p, TIPOEVALUACION te, alumno a , clase c where
+n.IDPERIODO = p.id and
+n.IDTIPOEVALUACION = te.id and
+n.IDALUMNO = a.id and
+n.IDCLASE = c.id and
+n.IDCLASE = 1 and
+n.IDPERIODO = 1 and
+n.IDTIPOEVALUACION = 1;
 
 
-
-
+--actualizar notas
+update nota set NOTA = 10 where
+IDCLASE = 1 and
+IDALUMNO = 1 and
+IDTIPOEVALUACION = 2 and
+IDPERIODO = 1 and 
+id = 182 ;
 
 
 

@@ -13,7 +13,9 @@ import edu.sil.sga.entidades.Nota;
 import edu.sil.sga.entidades.Periodo;
 import edu.sil.sga.entidades.TipoEvaluacion;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -24,32 +26,26 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
     /**
      * Creates new form Docente_IngresarNotaClase
      */
-    
     Clase clase = new Clase();
     Periodo periodo = new Periodo();
     TipoEvaluacion tipoEval = new TipoEvaluacion();
     public List<Nota> listaDeNotas;
-    
-    
-    
+
     public Docente_IngresarNotaClase(Clase objClase, TipoEvaluacion objTipoEval, Periodo objPeriodo) {
         initComponents();
-        
+
         clase = objClase;
         periodo = objPeriodo;
         tipoEval = objTipoEval;
-        
+
         lblCurso.setText(clase.getCursoGrado().getCurso().getNombreLargo());
         lblPeriodo.setText(periodo.getDescripcion());
         lblTipoEvaluacion.setText(tipoEval.getDescripcion());
 
         ListarNotas();
 
-        
-        
     }//fin del INIT COMPONENTS
-    
-    
+
     void ListarNotas() {
         try {
             NotaDAO dao = new NotaDAO();
@@ -61,21 +57,17 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
 
             for (Nota objNota : listaDeNotas) {
                 modelo1.addRow(new String[]{
-                     objNota.getAlumno().getNombre()+" "
-                             +objNota.getAlumno().getApellidopaterno()+", "+
-                             objNota.getAlumno().getApellidomaterno(),
-                    objNota.getNota()+ "", 
-                    
-                    });
+                    objNota.getAlumno().getNombre() + " "
+                    + objNota.getAlumno().getApellidopaterno() + ", "
+                    + objNota.getAlumno().getApellidomaterno(),
+                    objNota.getNota() + "",});
             }
             tblAlumnoNota.setModel(modelo1);
         } catch (Exception e) {
             System.out.println("ERROR - INTERFAZ - ALUMNO - LISTAR");
         }
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -197,7 +189,22 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        Nota nota = new Nota();
+        NotaDAO dao = new NotaDAO();
+
+        TableModel model = tblAlumnoNota.getModel();
         
+        for (int i = 0; i < listaDeNotas.size(); i++) {
+            listaDeNotas.get(i).setNota(Integer.parseInt(model.getValueAt(i, 1).toString()));
+            
+        }
+
+        if (dao.ActualizarNotas(listaDeNotas)) {
+            JOptionPane.showMessageDialog(this, "Se Actualizaron correctamente las notas  =D  ");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Problemas para actualizar las notas =(  ");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
 
