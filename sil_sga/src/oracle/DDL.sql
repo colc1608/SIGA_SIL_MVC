@@ -171,7 +171,7 @@ idPeriodo int not null,
 foreign key(idPeriodo) references Periodo(id),
 idAlumno int not null,
 foreign key(idAlumno) references Alumno(id),
-nota int not null,
+nota int default '0' ,
 peso numeric(4,2),
 observacion varchar(45)
 );

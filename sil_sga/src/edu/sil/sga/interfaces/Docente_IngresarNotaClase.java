@@ -5,9 +5,13 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.AlumnoDAO;
+import edu.sil.sga.entidades.Alumno;
 import edu.sil.sga.entidades.Clase;
 import edu.sil.sga.entidades.Periodo;
 import edu.sil.sga.entidades.TipoEvaluacion;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,9 +26,13 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
     Clase clase = new Clase();
     Periodo periodo = new Periodo();
     TipoEvaluacion tipoEval = new TipoEvaluacion();
+    public List<Alumno> listaDeAlumnos;
+    
+    
     
     public Docente_IngresarNotaClase(Clase objClase, TipoEvaluacion objTipoEval, Periodo objPeriodo) {
         initComponents();
+        
         clase = objClase;
         periodo = objPeriodo;
         tipoEval = objTipoEval;
@@ -32,17 +40,37 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         lblCurso.setText(clase.getCursoGrado().getCurso().getNombreLargo());
         lblPeriodo.setText(periodo.getDescripcion());
         lblTipoEvaluacion.setText(tipoEval.getDescripcion());
-        
-        
-        
-        
-//        System.out.println("la clase es:"+clase.getCursoGrado().getCurso().getNombreLargo());
-//        System.out.println("el periodo es: "+periodo.getDescripcion());
-//        System.out.println("el tipo de evaluacion es: "+tipoEval.getDescripcion());
-        
-        
-    }
 
+        ListarALumno();
+
+        
+        
+    }//fin del INIT COMPONENTS
+    
+    
+    void ListarALumno() {
+        try {
+            AlumnoDAO dao = new AlumnoDAO();
+            listaDeAlumnos = dao.ListadoAlumno();
+            DefaultTableModel modelo1 = new DefaultTableModel();
+
+            modelo1.addColumn("Nombre Completo");
+            modelo1.addColumn("NOTA");
+
+            for (Alumno obAlumno : listaDeAlumnos) {
+                modelo1.addRow(new String[]{
+                     obAlumno.getApellidopaterno()+" "+obAlumno.getApellidomaterno() +", "+obAlumno.getNombre(),
+                    
+                    });
+            }
+            tblAlumnoNota.setModel(modelo1);
+        } catch (Exception e) {
+            System.out.println("ERROR - INTERFAZ - ALUMNO - LISTAR");
+        }
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,7 +83,7 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAlumnoNota = new javax.swing.JTable();
         lblCurso = new javax.swing.JLabel();
         lblTipoEvaluacion = new javax.swing.JLabel();
         lblPeriodo = new javax.swing.JLabel();
@@ -72,7 +100,7 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
 
         jButton1.setText("Guardar");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAlumnoNota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -83,7 +111,7 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblAlumnoNota);
 
         lblCurso.setText("Cu");
 
@@ -160,9 +188,9 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCurso;
     private javax.swing.JLabel lblPeriodo;
     private javax.swing.JLabel lblTipoEvaluacion;
+    private javax.swing.JTable tblAlumnoNota;
     // End of variables declaration//GEN-END:variables
 }
