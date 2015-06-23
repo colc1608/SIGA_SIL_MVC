@@ -21,17 +21,16 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
      * Creates new form Admi_especialidadCRUD
      */
     public List<Especialidad> listaEspecialidad;
-    public Especialidad objEspecialidad;
+    public Especialidad objEspecialidadSeleccinada;
 
     public Admi_especialidadCRUD() {
 
         initComponents();
-        setSize(740, 460); // X , Y
         setLocation(350, 200);
         activaBotones(true, false, false, false);
         ListarEspecialidad();
         activaCajas(false);
-        txtcodigo.setVisible(false);
+        
 
     }
 
@@ -41,7 +40,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
     }
 
     void limpiarCajas() {
-        txtcodigo.setText("");
         txtdescripcion.setText("");
     }
 
@@ -61,10 +59,12 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             listaEspecialidad = dao.ListarEspecialidad();
 
             DefaultTableModel modelo = new DefaultTableModel();
-            modelo.addColumn("ID");
+            
             modelo.addColumn("Descripcion");
             for (Especialidad objEspecialidad : listaEspecialidad) {
-                modelo.addRow(new String[]{objEspecialidad.getId() + "", objEspecialidad.getDescripcion()});
+                modelo.addRow(new String[]{
+                     
+                    objEspecialidad.getDescripcion()});
             }
             tablaLista.setModel(modelo);
         } catch (Exception e) {
@@ -92,7 +92,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtcodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -153,9 +152,9 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,8 +192,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             }
         });
 
-        txtcodigo.setEditable(false);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -219,19 +216,13 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jLabel2)
-                .addGap(9, 9, 9)
-                .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,7 +233,7 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -252,17 +243,20 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         int fila = tablaLista.getSelectedRow();
-        String codigo = tablaLista.getValueAt(fila, 0).toString();
-        String descripcion = tablaLista.getValueAt(fila, 1).toString();
-        if (descripcion.equals("")) {
-            descripcion = "";
+        
+        if (fila != -1) {
+            objEspecialidadSeleccinada = listaEspecialidad.get(fila);
+            txtdescripcion.setText(objEspecialidadSeleccinada.getDescripcion());
+
+            btnNuevo.setText("Nuevo");
+            activaBotones(true, false, true, true);
+            activaCajas(true);
         }
-        txtdescripcion.setText(descripcion);
-        txtcodigo.setText(codigo);
+        
         activaCajas(true);
         btnNuevo.setText("Nuevo");
-
         activaBotones(true, false, true, true);
+        
     }//GEN-LAST:event_tablaListaMouseClicked
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -311,21 +305,22 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        String codigo = txtcodigo.getText();
-        String descripcion = txtdescripcion.getText();
-        if (codigo.equalsIgnoreCase("") && descripcion.equalsIgnoreCase("")) {
+        
+        
+        if (txtdescripcion.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
-        } else {
+        } 
+        
+        else {
             try {
-                Especialidad objEspecialidad = new Especialidad();
+                Especialidad especialidad = new Especialidad();
                 EspecialidadDAO dao = new EspecialidadDAO();
                 
-                objEspecialidad.setId(Integer.parseInt(codigo));
-                objEspecialidad.setDescripcion(descripcion);
+                especialidad.setId(objEspecialidadSeleccinada.getId());
+                especialidad.setDescripcion(txtdescripcion.getText());
                 
-                if (dao.ActualizarEspecialidad(objEspecialidad)) {
+                if (dao.ActualizarEspecialidad(especialidad)) {
                     JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
-                    txtcodigo.setText("");
                     limpiarCajas();
                     activaBotones(true, false, false, false);
                     activaCajas(false);
@@ -344,14 +339,17 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
 
-        if (txtcodigo.getText().equals("")) {
+        if (txtdescripcion.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
         } else {
             try {
-                Especialidad especialidad = new Especialidad();
-                especialidad.setId(Integer.parseInt(txtcodigo.getText()));
-                especialidad.setDescripcion(txtdescripcion.getText());
                 EspecialidadDAO dao = new EspecialidadDAO();
+                Especialidad especialidad = new Especialidad();
+                
+                especialidad.setId(objEspecialidadSeleccinada.getId());
+                especialidad.setDescripcion(objEspecialidadSeleccinada.getDescripcion());
+                
+                
                 if (dao.EliminarEspecialidad(especialidad)) {
                     JOptionPane.showMessageDialog(this, "Se elimino correctamente");
                     limpiarCajas();
@@ -362,6 +360,7 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
                 }
             } catch (Exception e) {
+                System.out.println("error en : "+e.getMessage());
                 e.printStackTrace();
             }
         }
@@ -379,7 +378,6 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelEspecialidad;
     private javax.swing.JTable tablaLista;
-    private javax.swing.JTextField txtcodigo;
     private javax.swing.JTextField txtdescripcion;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,91 +20,92 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form admi_cursoCRUD
      */
-    
     public List<Curso> listaCurso;
+    Curso objCursoSeleccionado;
+
     public Admi_cursoCRUD() {
         initComponents();
-        
-        setSize(740, 460); // X , Y
-        setLocation(350,200);
+
+        setLocation(200, 25);
         activaBotones(true, false, false, false);
         ListarCurso();
         activaCajas(false);
 
     }
-    
-     void activaCajas(boolean a){
-         txtNombreCorto.setEnabled(a);
-         txtNombreLargo.setEnabled(a);
-         txtHorasTeoricas.setEnabled(a);
-         txtHorasPracticas.setEnabled(a);
-         txtDescripcion.setEnabled(a);
-     }
-     
-     void activaBotones(boolean a, boolean b, boolean c,boolean d){
+
+    void activaCajas(boolean a) {
+        txtNombreCorto.setEnabled(a);
+        txtNombreLargo.setEnabled(a);
+        txtHorasTeoricas.setEnabled(a);
+        txtHorasPracticas.setEnabled(a);
+        txtDescripcion.setEnabled(a);
+    }
+
+    void activaBotones(boolean a, boolean b, boolean c, boolean d) {
         btnNuevo.setEnabled(a);
         btnGuardar.setEnabled(b);
         btnActualizar.setEnabled(c);
         btnEliminar.setEnabled(d);
-     }
-     
-     void limpiarCajas(){
-         txtId.setText("");
-         txtNombreCorto.setText("");
-         txtNombreLargo.setText("");
-         txtHorasTeoricas.setText("");
-         txtHorasPracticas.setText("");
-         txtDescripcion.setText("");
-         txtNombreCorto.requestFocus();
-     }
-     public void ListarCurso(){
-         CursoDAO dao = new CursoDAO();
-         listaCurso = dao.ListarCurso();
-         
-         DefaultTableModel modelo1 = new DefaultTableModel();
-         modelo1.addColumn("id");
-         modelo1.addColumn("Nombre Corto");
-         modelo1.addColumn("Nombre Largo");
-         modelo1.addColumn("Horas Teoricas");
-         modelo1.addColumn("Horas Practicas");
-         modelo1.addColumn("Descripcion");
-         
-         for (Curso obcurso : listaCurso) {
-             modelo1.addRow(new String[]{
-                 obcurso.getId()+"",
-                 obcurso.getNombreCorto()+"",
-                 obcurso.getNombreLargo()+"",
-                 obcurso.getHorasTecnicas()+"",
-                 obcurso.getHorasPracticas()+"",
-                 obcurso.getDescripcion()+""
-             });
-         }
-         tablaListaCurso.setModel(modelo1);
-     }
-     
-     void actualizarBusqueda(){
-         listaCurso = new CursoDAO().BuscarCurso(String.valueOf(txtCampoBusqueda.getText()));
-         DefaultTableModel modelo1 = new DefaultTableModel();
-         
-         modelo1.addColumn("id");
-         modelo1.addColumn("Nombre Corto");
-         modelo1.addColumn("Nombre Largo");
-         modelo1.addColumn("Horas Teoricas");
-         modelo1.addColumn("Horas Practicas");
-         modelo1.addColumn("Descripcion");
-         
-         for (Curso curso : listaCurso) {
-             modelo1.addRow(new String[]{
-                 curso.getId()+"",
-                 curso.getNombreCorto()+"",
-                 curso.getNombreLargo()+"",
-                 curso.getHorasTecnicas()+"",
-                 curso.getHorasPracticas()+"",
-                 curso.getDescripcion()+""
-             });
-         }
-         tablaListaCurso.setModel(modelo1);
-     }
+    }
+
+    void limpiarCajas() {
+
+        txtNombreCorto.setText("");
+        txtNombreLargo.setText("");
+        txtHorasTeoricas.setText("");
+        txtHorasPracticas.setText("");
+        txtDescripcion.setText("");
+        txtNombreCorto.requestFocus();
+    }
+
+    public void ListarCurso() {
+        CursoDAO dao = new CursoDAO();
+        listaCurso = dao.ListarCurso();
+
+        DefaultTableModel modelo1 = new DefaultTableModel();
+        modelo1.addColumn("id");
+        modelo1.addColumn("Nombre Corto");
+        modelo1.addColumn("Nombre Largo");
+        modelo1.addColumn("Horas Teoricas");
+        modelo1.addColumn("Horas Practicas");
+        modelo1.addColumn("Descripcion");
+
+        for (Curso obcurso : listaCurso) {
+            modelo1.addRow(new String[]{
+                obcurso.getId() + "",
+                obcurso.getNombreCorto() + "",
+                obcurso.getNombreLargo() + "",
+                obcurso.getHorasTecnicas() + "",
+                obcurso.getHorasPracticas() + "",
+                obcurso.getDescripcion() + ""
+            });
+        }
+        tablaListaCurso.setModel(modelo1);
+    }
+
+    void actualizarBusqueda() {
+        listaCurso = new CursoDAO().BuscarCurso(String.valueOf(txtCampoBusqueda.getText()));
+        DefaultTableModel modelo1 = new DefaultTableModel();
+
+        modelo1.addColumn("id");
+        modelo1.addColumn("Nombre Corto");
+        modelo1.addColumn("Nombre Largo");
+        modelo1.addColumn("Horas Teoricas");
+        modelo1.addColumn("Horas Practicas");
+        modelo1.addColumn("Descripcion");
+
+        for (Curso curso : listaCurso) {
+            modelo1.addRow(new String[]{
+                curso.getId() + "",
+                curso.getNombreCorto() + "",
+                curso.getNombreLargo() + "",
+                curso.getHorasTecnicas() + "",
+                curso.getHorasPracticas() + "",
+                curso.getDescripcion() + ""
+            });
+        }
+        tablaListaCurso.setModel(modelo1);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -139,7 +140,6 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaListaCurso = new javax.swing.JTable();
@@ -257,37 +257,31 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
 
         jLabel14.setText("Descripcion:");
 
-        txtId.setEnabled(false);
-
         javax.swing.GroupLayout panelEspecialidad1Layout = new javax.swing.GroupLayout(panelEspecialidad1);
         panelEspecialidad1.setLayout(panelEspecialidad1Layout);
         panelEspecialidad1Layout.setHorizontalGroup(
             panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelEspecialidad1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEspecialidad1Layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
                 .addGroup(panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEspecialidad1Layout.createSequentialGroup()
-                        .addGroup(panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel14))
-                        .addGap(52, 52, 52)
-                        .addGroup(panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtHorasPracticas, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtHorasTeoricas, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombreLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addGap(52, 52, 52)
+                .addGroup(panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtHorasPracticas, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHorasTeoricas, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19))
         );
         panelEspecialidad1Layout.setVerticalGroup(
             panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelEspecialidad1Layout.createSequentialGroup()
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+            .addGroup(panelEspecialidad1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelEspecialidad1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -309,7 +303,7 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
                 .addGroup(panelEspecialidad1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
-                .addGap(22, 22, 22))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar Cursos:"));
@@ -363,9 +357,9 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtCampoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(56, 56, 56)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         btnNuevo.setText("Nuevo");
@@ -401,43 +395,46 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(22, 22, 22)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelEspecialidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(panelEspecialidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
                         .addComponent(btnGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(btnActualizar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)
-                        .addGap(11, 11, 11)))
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar)))
+                .addContainerGap(50, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(330, 330, 330)
                 .addComponent(jLabel7)
-                .addGap(335, 335, 335))
+                .addGap(165, 419, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(22, 22, 22)
                 .addComponent(jLabel7)
-                .addGap(24, 24, 24)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(panelEspecialidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnNuevo)
+                            .addComponent(btnEliminar)
                             .addComponent(btnGuardar)
-                            .addComponent(btnActualizar)
-                            .addComponent(btnEliminar))))
-                .addGap(20, 20, 20))
+                            .addComponent(btnActualizar))
+                        .addContainerGap(93, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(28, 28, 28))))
         );
 
         pack();
@@ -449,7 +446,7 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
             activaBotones(true, true, false, false);
             btnNuevo.setText("Cancelar");
             activaCajas(true);
-        }else{
+        } else {
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
             limpiarCajas();
@@ -458,171 +455,167 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-         String nomCo = txtNombreCorto.getText();
-         String nomLa = txtNombreLargo.getText();
-         String horaTe =txtHorasTeoricas.getText();
-         String horaPr = txtHorasPracticas.getText();
-         String desc = txtDescripcion.getText();
-         
-         if (nomCo.equalsIgnoreCase("")|| nomLa.equalsIgnoreCase("") || horaTe.equalsIgnoreCase("")) {
-             JOptionPane.showMessageDialog(null,"Debe llenar los campos requeridos(*) ","ERROR",JOptionPane.ERROR_MESSAGE);
-        }else{
-             try {
-                 Curso curso = new Curso();
-                 CursoDAO dao = new CursoDAO();
-                 
-                 curso.setNombreCorto(nomCo);
-                 curso.setNombreLargo(nomLa);
-                 curso.setHorasTecnicas(Integer.parseInt(horaTe));
-                 curso.setHorasPracticas(Integer.parseInt(horaPr));
-                 curso.setDescripcion(desc);
-                 if (dao.RegistrarCurso(curso)) {
-                     JOptionPane.showMessageDialog(null, "Se registro correctamente el curso","Operacion Exitosa",JOptionPane.INFORMATION_MESSAGE);
-                     activaBotones(true, false, false, false);
-                     btnNuevo.setText("Nuevo");
-                     limpiarCajas();
-                     ListarCurso();
-                     activaCajas(false);
-                 }else{
-                     JOptionPane.showMessageDialog(this, "Ocurrio un problema interno.. Lo lamentamos");
-                 }                
-             } catch (Exception e) {
-                 e.printStackTrace();
-             }
-         }
+
+        if (txtNombreCorto.getText().equalsIgnoreCase("")
+                || txtNombreLargo.getText().equalsIgnoreCase("")
+                || txtHorasTeoricas.getText().equalsIgnoreCase("")
+                || txtHorasPracticas.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe llenar los campos requeridos(*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Curso curso = new Curso();
+                CursoDAO dao = new CursoDAO();
+
+                curso.setNombreCorto(txtNombreCorto.getText());
+                curso.setNombreLargo(txtNombreLargo.getText());
+                curso.setHorasTecnicas(Integer.parseInt(txtHorasTeoricas.getText()));
+                curso.setHorasPracticas(Integer.parseInt(txtHorasPracticas.getText()));
+                curso.setDescripcion(txtDescripcion.getText());
+
+                if (dao.RegistrarCurso(curso)) {
+                    JOptionPane.showMessageDialog(null, "Se registro correctamente el curso", "Operacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    activaBotones(true, false, false, false);
+                    btnNuevo.setText("Nuevo");
+                    limpiarCajas();
+                    ListarCurso();
+                    activaCajas(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Ocurrio un problema interno.. Lo lamentamos");
+                }
+
+            } catch (Exception e) {
+                System.out.println("ERROR --> XXX -->> " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtCampoBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCampoBusquedaKeyReleased
-        if (String.valueOf(txtCampoBusqueda.getText())=="") {
+        if (String.valueOf(txtCampoBusqueda.getText()) == "") {
             ListarCurso();
-        }
-        else{
+        } else {
             actualizarBusqueda();
         }
     }//GEN-LAST:event_txtCampoBusquedaKeyReleased
 
     private void tablaListaCursoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaListaCursoMouseClicked
-       int fila = tablaListaCurso.getSelectedRow();
-       String id = tablaListaCurso.getValueAt(fila, 0).toString();
-       String nomCo = tablaListaCurso.getValueAt(fila, 1).toString();
-       String nomLa = tablaListaCurso.getValueAt(fila, 2).toString();
-       String horaTe = tablaListaCurso.getValueAt(fila, 3).toString();
-       String horaPr = tablaListaCurso.getValueAt(fila, 4).toString();
-       String desc = tablaListaCurso.getValueAt(fila, 5).toString();
-       
-       txtId.setText(id);
-       txtNombreCorto.setText(nomCo);
-       txtNombreLargo.setText(nomLa);
-       txtHorasTeoricas.setText(horaTe);
-       txtHorasPracticas.setText(horaPr);
-       txtDescripcion.setText(desc);
-       
-       btnNuevo.setText("Nuevo");
-        activaBotones(true, false, true, true);
-        activaCajas(true);
+
+        int fila = tablaListaCurso.getSelectedRow();
+        if (fila != -1) {
+
+            objCursoSeleccionado = listaCurso.get(fila);
+
+            txtNombreCorto.setText(objCursoSeleccionado.getNombreCorto());
+            txtNombreLargo.setText(objCursoSeleccionado.getNombreLargo());
+            txtHorasTeoricas.setText(String.valueOf(objCursoSeleccionado.getHorasTecnicas()));
+            txtHorasPracticas.setText(String.valueOf(objCursoSeleccionado.getHorasPracticas()));
+            txtDescripcion.setText(objCursoSeleccionado.getDescripcion());
+
+            btnNuevo.setText("Nuevo");
+            activaBotones(true, false, true, true);
+            activaCajas(true);
+        }
     }//GEN-LAST:event_tablaListaCursoMouseClicked
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        String id = txtId.getText();
-        String nomCo = txtNombreCorto.getText();
-        String nomLa = txtNombreLargo.getText();
-        String horaTe = txtHorasTeoricas.getText();
-        String horaPr = txtHorasPracticas.getText();
-        String desc = txtDescripcion.getText();
-        
-        if(nomCo.equalsIgnoreCase("")||nomLa.equalsIgnoreCase("")||horaTe.equalsIgnoreCase("")){
-            JOptionPane.showMessageDialog(null, "Debe ingresar los campos Requeridos(*) y debe existir el codigo","ERROR",JOptionPane.ERROR_MESSAGE);
-        }else{
-            try {
-                Curso objCurso = new Curso();
-                objCurso.setNombreCorto(nomCo);
-                objCurso.setNombreLargo(nomLa);
-                objCurso.setHorasTecnicas(Integer.parseInt(horaTe));
-                objCurso.setHorasPracticas(Integer.parseInt(horaPr));
-                objCurso.setDescripcion(desc);
-                objCurso.setId(Integer.parseInt(id));
-                
-                CursoDAO dao = new CursoDAO();
-                
-                if (dao.ActualizarCurso(objCurso)) {
-                    JOptionPane.showMessageDialog(this, "Se actualizo Correctamente el Registro","CONFIRMACION",JOptionPane.INFORMATION_MESSAGE);
-                    ListarCurso();
-                    limpiarCajas();
-                    activaBotones(true, false, false, false);
-                    activaCajas(false);
-                }else{
-                    JOptionPane.showMessageDialog(this, "Verifique que los Datos ingresados son Correctos","ERROR",JOptionPane.ERROR_MESSAGE);
-                }     
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        
-    }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-/*      String id = txtId.getText();
-        String nomCo = txtNombreCorto.getText();
-        String nomLa = txtNombreLargo.getText();
-        String horaTe = txtHorasTeoricas.getText();
-        String horaPr = txtHorasPracticas.getText();
-        String desc = txtDescripcion.getText();
-        
-         if(nomCo.equalsIgnoreCase("")||nomLa.equalsIgnoreCase("")||horaTe.equalsIgnoreCase("")){
-            JOptionPane.showMessageDialog(null, "No borre los campos Requeridos por favor: (*) ","ERROR",JOptionPane.ERROR_MESSAGE);
-        }else{
-             try {
-                Curso objCurso = new Curso();
-                CursoDAO dao = new CursoDAO();
-
-                objCurso.setId(Integer.parseInt(id));
-                objCurso.setNombreCorto(nomCo);
-                objCurso.setNombreLargo(nomLa);
-                objCurso.setHorasTecnicas(Integer.parseInt(horaTe));
-                objCurso.setHorasPracticas(Integer.parseInt(horaPr));
-                objCurso.setDescripcion(desc);
-                  if (dao.EliminarCurso(objCurso)) {
-                    JOptionPane.showMessageDialog(this, "Se elimino Correctamente","CONFIRMACION",JOptionPane.INFORMATION_MESSAGE);
-                    ListarCurso();
-                    limpiarCajas();
-                    activaBotones(true, false, false, false);
-                    activaCajas(false);
-                 }else{
-                     JOptionPane.showMessageDialog(this, "No se pudo eliminar ","ERROR",JOptionPane.ERROR_MESSAGE);
-                 }
-             } catch (Exception e) {
-                 System.out.println("error --> interfaz --> docente --> eliminar");
-             }
-         }*/
-        
-        if(txtNombreCorto.getText().equalsIgnoreCase("") || txtNombreLargo.getText().equalsIgnoreCase("") 
-                || txtHorasTeoricas.getText().equalsIgnoreCase("") || txtId.getText().equalsIgnoreCase("")){
-            
-            JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
-            
-        }else{
+        if (txtNombreCorto.getText().equalsIgnoreCase("")
+                || txtNombreLargo.getText().equalsIgnoreCase("")
+                || txtHorasTeoricas.getText().equalsIgnoreCase("")
+                || txtHorasPracticas.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar los campos Requeridos(*) y debe existir el codigo", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
             try {
                 Curso objCurso = new Curso();
                 CursoDAO dao = new CursoDAO();
-                
-                objCurso.setId(Integer.parseInt(txtId.getText()));
+
                 objCurso.setNombreCorto(txtNombreCorto.getText());
                 objCurso.setNombreLargo(txtNombreLargo.getText());
                 objCurso.setHorasTecnicas(Integer.parseInt(txtHorasTeoricas.getText()));
                 objCurso.setHorasPracticas(Integer.parseInt(txtHorasPracticas.getText()));
                 objCurso.setDescripcion(txtDescripcion.getText());
-                
+                objCurso.setId(objCursoSeleccionado.getId());
+
+                if (dao.ActualizarCurso(objCurso)) {
+                    JOptionPane.showMessageDialog(this, "Se actualizo Correctamente el Registro", "CONFIRMACION", JOptionPane.INFORMATION_MESSAGE);
+                    ListarCurso();
+                    limpiarCajas();
+                    activaBotones(true, false, false, false);
+                    activaCajas(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Verifique que los Datos ingresados son Correctos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                System.out.println("el error es: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        /*      String id = txtId.getText();
+         String nomCo = txtNombreCorto.getText();
+         String nomLa = txtNombreLargo.getText();
+         String horaTe = txtHorasTeoricas.getText();
+         String horaPr = txtHorasPracticas.getText();
+         String desc = txtDescripcion.getText();
+        
+         if(nomCo.equalsIgnoreCase("")||nomLa.equalsIgnoreCase("")||horaTe.equalsIgnoreCase("")){
+         JOptionPane.showMessageDialog(null, "No borre los campos Requeridos por favor: (*) ","ERROR",JOptionPane.ERROR_MESSAGE);
+         }else{
+         try {
+         Curso objCurso = new Curso();
+         CursoDAO dao = new CursoDAO();
+
+         objCurso.setId(Integer.parseInt(id));
+         objCurso.setNombreCorto(nomCo);
+         objCurso.setNombreLargo(nomLa);
+         objCurso.setHorasTecnicas(Integer.parseInt(horaTe));
+         objCurso.setHorasPracticas(Integer.parseInt(horaPr));
+         objCurso.setDescripcion(desc);
+         if (dao.EliminarCurso(objCurso)) {
+         JOptionPane.showMessageDialog(this, "Se elimino Correctamente","CONFIRMACION",JOptionPane.INFORMATION_MESSAGE);
+         ListarCurso();
+         limpiarCajas();
+         activaBotones(true, false, false, false);
+         activaCajas(false);
+         }else{
+         JOptionPane.showMessageDialog(this, "No se pudo eliminar ","ERROR",JOptionPane.ERROR_MESSAGE);
+         }
+         } catch (Exception e) {
+         System.out.println("error --> interfaz --> docente --> eliminar");
+         }
+         }*/
+
+        if (txtNombreCorto.getText().equalsIgnoreCase("")
+                || txtNombreLargo.getText().equalsIgnoreCase("")
+                || txtHorasTeoricas.getText().equalsIgnoreCase("")
+                || txtHorasPracticas.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar los campos Requeridos(*) y debe existir el codigo", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                Curso objCurso = new Curso();
+                CursoDAO dao = new CursoDAO();
+
+                objCurso.setNombreCorto(txtNombreCorto.getText());
+                objCurso.setNombreLargo(txtNombreLargo.getText());
+                objCurso.setHorasTecnicas(Integer.parseInt(txtHorasTeoricas.getText()));
+                objCurso.setHorasPracticas(Integer.parseInt(txtHorasPracticas.getText()));
+                objCurso.setDescripcion(txtDescripcion.getText());
+                objCurso.setId(objCursoSeleccionado.getId());
+
                 if (dao.EliminarCurso(objCurso)) {
                     JOptionPane.showMessageDialog(this, "Se Elimino Correctamente");
                     ListarCurso();
                     limpiarCajas();
                     activaBotones(true, false, false, false);
                     activaCajas(false);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
                 }
             } catch (Exception e) {
-                System.out.println("error --> interfaz --> docente --> eliminar");
+                System.out.println("error --> interfaz --> docente --> eliminar"+e.getMessage());
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -660,7 +653,6 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtHorasPracticas;
     private javax.swing.JTextField txtHorasTeoricas;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombreCorto;
     private javax.swing.JTextField txtNombreLargo;
     // End of variables declaration//GEN-END:variables

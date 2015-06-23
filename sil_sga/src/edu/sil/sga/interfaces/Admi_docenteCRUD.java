@@ -40,13 +40,13 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     public Admi_docenteCRUD() {
         initComponents();
 
-        setLocation(200, 20); 
-        setSize(850, 630); 
+        setLocation(200, 20);
+
         CargarEspecialidad();
         activaBotones(true, false, false, false);
         ListarDocente();
         activaCajas(false);
-        
+
     }
 
     //metodos a utulizar 
@@ -93,9 +93,9 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             DefaultTableModel modelo1 = new DefaultTableModel();
 
             //modelo1.addColumn("id");
-            modelo1.addColumn("Nombre");
-            modelo1.addColumn("Apellido Paterno");
-            modelo1.addColumn("Apellido Materno");
+            modelo1.addColumn("Nombre Completo");
+            //modelo1.addColumn("Apellido Paterno");
+            //modelo1.addColumn("Apellido Materno");
             modelo1.addColumn("DNI");
             //modelo1.addColumn("Telefono");
             //modelo1.addColumn("Movil");
@@ -105,10 +105,10 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             for (Docente objDocente : listaDocente) {
                 modelo1.addRow(new String[]{
                     //objDocente.getId() + "",
-                    objDocente.getNombre() + "",
-                    objDocente.getApellidopaterno() + "",
-                    objDocente.getApellidomaterno() + "",
-                    objDocente.getDni() + "", //objDocente.getTelefono() + "",
+                    objDocente.getApellidopaterno() + " " + objDocente.getApellidomaterno() + ", " + objDocente.getNombre() + "",
+                    objDocente.getDni() + ""
+                    //objDocente.getEspecialidad().getDescripcion()
+                //objDocente.getTelefono() + "",
                 //objDocente.getMovil() + "",
                 //objDocente.getEmail() + "",
                 //objDocente.getEspecialidad().getDescripcion()
@@ -150,7 +150,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
     }
 
     void limpiarCajas() {
-        
+
         txtnombre.setText("");
         txtapellidoPaterno.setText("");
         txtApellidoMaterno.setText("");
@@ -272,35 +272,32 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel12))
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(spnFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(txtEmail)
+                            .addComponent(txtMovil))
+                        .addContainerGap(35, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtapellidoPaterno, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtDNI, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTelefono))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spnFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                            .addComponent(txtEmail)
-                            .addComponent(txtMovil)
-                            .addComponent(cboEspecialidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtapellidoPaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(txtnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(txtApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(txtDNI, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(cboEspecialidad, 0, 137, Short.MAX_VALUE)
+                            .addComponent(txtTelefono))
+                        .addGap(35, 35, 35))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,9 +432,6 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -452,15 +446,18 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btnActualizar)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                                .addComponent(btnEliminar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(331, 331, 331)
+                        .addComponent(jLabel1)))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -471,7 +468,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -617,7 +614,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         if (txtnombre.getText().equalsIgnoreCase("") || txtapellidoPaterno.getText().equalsIgnoreCase("")
-                || txtApellidoMaterno.getText().equalsIgnoreCase("") || txtDNI.getText().equalsIgnoreCase("") ) {
+                || txtApellidoMaterno.getText().equalsIgnoreCase("") || txtDNI.getText().equalsIgnoreCase("")) {
 
             JOptionPane.showMessageDialog(this, "no borre los campos requeridos porfavor (*)");
 
@@ -632,7 +629,7 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
                 //Docente objDocente = new Docente();
                 objDocente.setId(objDocenteSeleccionado.getId());
                 objDocente.setEspecialidad(listaEspecialidad.get(cboEspecialidad.getSelectedIndex()));
-                
+
                 objDocente.setNombre(txtnombre.getText());
                 objDocente.setApellidopaterno(txtapellidoPaterno.getText());
                 objDocente.setApellidomaterno(txtApellidoMaterno.getText());
@@ -680,8 +677,13 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
 
     private void txtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDNIKeyTyped
         // TODO add your handling code here:
+
         char c = evt.getKeyChar();
         if (c < '0' || c > '9') {
+            evt.consume();
+        }
+
+        if (txtDNI.getText().length() == 8) {
             evt.consume();
         }
     }//GEN-LAST:event_txtDNIKeyTyped
@@ -692,6 +694,11 @@ public class Admi_docenteCRUD extends javax.swing.JInternalFrame {
         if (c < '0' || c > '9') {
             evt.consume();
         }
+
+        if (txtDNI.getText().length() == 8) {
+            evt.consume();
+        }
+
     }//GEN-LAST:event_txtMovilKeyTyped
 
     private void txtapellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoPaternoKeyTyped
