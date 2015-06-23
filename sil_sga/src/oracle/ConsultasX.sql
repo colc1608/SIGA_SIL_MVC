@@ -1,4 +1,4 @@
-
+--cesar lopez
 
 --seleccionar el ULTIMO id
 select max(id) from ESPECIALIDAD;
