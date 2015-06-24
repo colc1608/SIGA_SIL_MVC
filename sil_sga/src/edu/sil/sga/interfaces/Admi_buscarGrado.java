@@ -34,7 +34,7 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
     public Admi_buscarGrado(java.awt.Frame parent, boolean modal, List<Grado> lstGrado) {
         super(parent, modal);
         initComponents();
-        
+        setLocation(20, 200);
         CargarNivel();
         listarGrado();
         ActivaSeleccionar(false);

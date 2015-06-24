@@ -28,6 +28,7 @@ public class Admin_buscarCursoPorGrado extends javax.swing.JDialog {
         btnSeleccionar.setEnabled(false);
         listarCursoPorGrado();
         this.lstCursoPorGrado = lstCursoPorGrado;
+        setLocation(20, 200);
     }
 
     void listarCursoPorGrado() {

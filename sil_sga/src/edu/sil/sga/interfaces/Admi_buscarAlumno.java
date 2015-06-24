@@ -31,7 +31,7 @@ public class Admi_buscarAlumno extends javax.swing.JDialog {
         btnSeleccionar.setEnabled(false);
         this.lstAlumno = lstAlumno;
         ListarALumno();
-        
+        setLocation(20, 200);
         
     }
     

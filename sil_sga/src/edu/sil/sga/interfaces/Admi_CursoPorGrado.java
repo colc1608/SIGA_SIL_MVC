@@ -29,10 +29,10 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
     Curso curso;
     ArrayList<CursoPorGrado> listaDeCursosPorGrado = new ArrayList<CursoPorGrado>();
     CursoPorGrado objCursoGradoSeleccionado;
-    
+
     public Admi_CursoPorGrado() {
         initComponents();
-        setLocation(300, 20); 
+        setLocation(300, 20);
     }
 
     void cargarDatosGrado(Grado objGrado) {
@@ -47,6 +47,29 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         txtCurso.setText(objCurso.getNombreLargo());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
+    }
+
+    void recargarJTABLE(CursoPorGrado objCursoPorGrado, int tipo) {
+
+        if (tipo == 0) {
+            listaDeCursosPorGrado.add(objCursoPorGrado);
+        } else {
+            listaDeCursosPorGrado.remove(objCursoPorGrado);
+        }
+        DefaultTableModel modelo1 = new DefaultTableModel();
+
+        //modelo1.addColumn("Grado");
+        modelo1.addColumn("Nombre Curso");
+
+        for (CursoPorGrado objcursoPorGrado : listaDeCursosPorGrado) {
+            modelo1.addRow(new String[]{
+                //objcursoPorGrado.getGrado().getnumeroGrado() + "",
+                objcursoPorGrado.getCurso().getNombreLargo() + ""
+            });
+        }
+        tblCursoPorGrado.setModel(modelo1);
+
+        txtCurso.setText("");
     }
 
     /**
@@ -85,13 +108,10 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
 
         tblCursoPorGrado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre del Curso"
             }
         ));
         jScrollPane1.setViewportView(tblCursoPorGrado);
@@ -266,22 +286,8 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
 
         objCursoPorGrado.setCurso(curso);
         objCursoPorGrado.setGrado(grado);
-        listaDeCursosPorGrado.add(objCursoPorGrado);
 
-        DefaultTableModel modelo1 = new DefaultTableModel();
-
-        modelo1.addColumn("Grado");
-        modelo1.addColumn("Nombre Curso");
-
-        for (CursoPorGrado objcursoPorGrado : listaDeCursosPorGrado) {
-            modelo1.addRow(new String[]{
-                objcursoPorGrado.getGrado().getnumeroGrado() + "",
-                objcursoPorGrado.getCurso().getNombreLargo() + ""
-            });
-        }
-        tblCursoPorGrado.setModel(modelo1);
-        
-        txtCurso.setText("");
+        recargarJTABLE(objCursoPorGrado, 0);
     }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -300,21 +306,21 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        
+
         listaDeCursosPorGrado.clear();
-        
+
         txtGrado.setText("");
         txtCurso.setText("");
         btnBuscarGrado.setEnabled(true);
-        
+
         DefaultTableModel modelo1 = new DefaultTableModel();
 
-        modelo1.addColumn("Grado");
-        modelo1.addColumn("Nombre Curso");
+        //modelo1.addColumn("Grado");
+        modelo1.addColumn("Nombre del Curso");
 
         for (CursoPorGrado objcursoPorGrado : listaDeCursosPorGrado) {
             modelo1.addRow(new String[]{
-                objcursoPorGrado.getGrado().getnumeroGrado() + "",
+                //objcursoPorGrado.getGrado().getnumeroGrado() + "",
                 objcursoPorGrado.getCurso().getNombreLargo() + ""
             });
         }
@@ -326,7 +332,8 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         int fila = tblCursoPorGrado.getSelectedRow();
         if (fila != -1) {
             objCursoGradoSeleccionado = listaDeCursosPorGrado.get(fila);
-            listaDeCursosPorGrado.remove(objCursoGradoSeleccionado);
+
+            recargarJTABLE(objCursoGradoSeleccionado, 1);
         }
     }//GEN-LAST:event_btnEliminarCursoActionPerformed
 

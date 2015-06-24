@@ -31,7 +31,7 @@ public class Admi_buscarDocente extends javax.swing.JDialog {
         initComponents();
         btnSeleccionar.setEnabled(false);
         this.lstDocente = lstDocente;
-        
+        setLocation(20, 200);
         
         ListarDocente();
     }

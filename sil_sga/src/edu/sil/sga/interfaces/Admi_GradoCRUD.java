@@ -101,7 +101,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
                     //grado.getId() + "",
-                    grado.getNivel().getNombreCorto() + "",
+                    grado.getNivel().getNombreLargo()+ "",
                     grado.getnumeroGrado() + "",
                     grado.getSeccion().getDescripcion() + ""
 
@@ -418,7 +418,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         if (fila != -1) {
             objGradoSeleccionado = listaGrado.get(fila);
 
-            cboNivel.setSelectedItem(objGradoSeleccionado.getNivel().getNombreCorto());
+            cboNivel.setSelectedItem(objGradoSeleccionado.getNivel().getNombreLargo());
             cboGrado.setSelectedItem(objGradoSeleccionado.getnumeroGrado());
             cboSeccion.setSelectedItem(objGradoSeleccionado.getSeccion().getDescripcion());
 

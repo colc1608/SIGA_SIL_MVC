@@ -87,6 +87,8 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
 
         jLabel3.setText("* Nombre Completo");
 
+        txtDatosAlumno.setEditable(false);
+
         btnBuscarAlumno.setText("Buscar");
         btnBuscarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,6 +121,8 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de Grado"));
+
+        txtGrado.setEditable(false);
 
         jLabel7.setText("* Grado Completo");
 
