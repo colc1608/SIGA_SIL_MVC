@@ -33,6 +33,7 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
     public Admi_CursoPorGrado() {
         initComponents();
         setLocation(300, 20);
+        btnBuscarCurso.setEnabled(false);
     }
 
     void cargarDatosGrado(Grado objGrado) {
@@ -53,9 +54,13 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
 
         if (tipo == 0) {
             listaDeCursosPorGrado.add(objCursoPorGrado);
-        } else {
+        } else if (tipo == 1) {
             listaDeCursosPorGrado.remove(objCursoPorGrado);
+        } else {
+            listaDeCursosPorGrado.clear();
         }
+        
+        
         DefaultTableModel modelo1 = new DefaultTableModel();
 
         //modelo1.addColumn("Grado");
@@ -70,6 +75,7 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         tblCursoPorGrado.setModel(modelo1);
 
         txtCurso.setText("");
+
     }
 
     /**
@@ -262,7 +268,8 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
             Grado objGradoElegido = lstGrado.get(0);
             cargarDatosGrado(objGradoElegido);
             btnBuscarGrado.setEnabled(false);
-            System.out.println("lo que llego es: " + objGradoElegido.getId());
+            System.out.println("el ID del Grado que llego es: " + objGradoElegido.getId());
+            btnBuscarCurso.setEnabled(true);
         }
     }//GEN-LAST:event_btnBuscarGradoActionPerformed
 
@@ -276,7 +283,8 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         } else {
             Curso objCursoElegido = lstCurso.get(0);
             cargarDatosCurso(objCursoElegido);
-            System.out.println("lo que llego es: " + objCursoElegido.getId());
+            System.out.println("el ID del curso que llego es: " + objCursoElegido.getId());
+            btnAgregarCurso.setEnabled(true);
         }
     }//GEN-LAST:event_btnBuscarCursoActionPerformed
 
@@ -288,6 +296,9 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         objCursoPorGrado.setGrado(grado);
 
         recargarJTABLE(objCursoPorGrado, 0);
+
+        btnAgregarCurso.setEnabled(false);
+
     }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -296,7 +307,10 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
 
         if (dao.RegistrarCursoPorGrado(listaDeCursosPorGrado)) {
             JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
-
+            txtGrado.setText("");
+            btnBuscarGrado.setEnabled(true);
+            btnBuscarCurso.setEnabled(false);
+            recargarJTABLE(objCursoGradoSeleccionado, 2);
         } else {
             JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
         }

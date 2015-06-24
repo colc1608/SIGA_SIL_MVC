@@ -30,25 +30,25 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
     Alumno objAlumno;
     ArrayList<DetalleMatricula> listaDetalleMatricula = new ArrayList<DetalleMatricula>();
     public List<Clase> listaDeClases;
-
+    
     public Admi_Matricula() {
         setLocation(250, 50);
         initComponents();
     }
-
+    
     void cargarDatosAlumno(Alumno objAlumno) {
-
+        
         this.objAlumno = objAlumno;
-        txtDatosAlumno.setText(objAlumno.getApellidopaterno() + " " + objAlumno.getApellidomaterno() + ", " + objAlumno.getNombre());
+        txtAlumno.setText(objAlumno.getApellidopaterno() + " " + objAlumno.getApellidomaterno() + ", " + objAlumno.getNombre());
         
     }
-
+    
     void cargarDatosGrado(Grado objGrado) {
-
+        
         this.objGrado = objGrado;
-        txtGrado.setText("Grado: "+objGrado.getnumeroGrado()+
-                " - Seccion: "+objGrado.getSeccion().getDescripcion()+
-                " - Nivel: "+objGrado.getNivel().getNombreCorto());
+        txtGrado.setText("Grado: " + objGrado.getnumeroGrado()
+                + " - Seccion: " + objGrado.getSeccion().getDescripcion()
+                + " - Nivel: " + objGrado.getNivel().getNombreCorto());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
@@ -65,7 +65,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        txtDatosAlumno = new javax.swing.JTextField();
+        txtAlumno = new javax.swing.JTextField();
         btnBuscarAlumno = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         txtGrado = new javax.swing.JTextField();
@@ -87,7 +87,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
 
         jLabel3.setText("* Nombre Completo");
 
-        txtDatosAlumno.setEditable(false);
+        txtAlumno.setEditable(false);
 
         btnBuscarAlumno.setText("Buscar");
         btnBuscarAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +104,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel3)
                 .addGap(24, 24, 24)
-                .addComponent(txtDatosAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addComponent(txtAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscarAlumno)
                 .addGap(23, 23, 23))
@@ -115,7 +115,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 .addGap(7, 7, 7)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtDatosAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarAlumno))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -228,32 +228,30 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
             //ahora debo cargar la lista las clases de ESE grado
             ClaseDAO dao = new ClaseDAO();
             listaDeClases = dao.ListarClasesPorGrado(objGradoElegido);
-            
+
             //probando que clases llegaron:
             for (int i = 0; i < listaDeClases.size(); i++) {
-                System.out.println("el codigo de clase que llego es: "+listaDeClases.get(i).getId());
-                System.out.println("el nombre LARGO del curso es: "+listaDeClases.get(i).getCursoGrado().getCurso().getNombreLargo());
-                System.out.println("el nombre del DOCENTE es: "+listaDeClases.get(i).getDocente().getNombre());
-                System.out.println("el Apellido Paterno del DOCENTE es: "+listaDeClases.get(i).getDocente().getApellidopaterno());
-                System.out.println("el Apelido Materno del DOCENTE es: "+listaDeClases.get(i).getDocente().getApellidomaterno());
+                System.out.println("el codigo de clase que llego es: " + listaDeClases.get(i).getId());
+                System.out.println("el nombre LARGO del curso es: " + listaDeClases.get(i).getCursoGrado().getCurso().getNombreLargo());
+                System.out.println("el nombre del DOCENTE es: " + listaDeClases.get(i).getDocente().getNombre());
+                System.out.println("el Apellido Paterno del DOCENTE es: " + listaDeClases.get(i).getDocente().getApellidopaterno());
+                System.out.println("el Apelido Materno del DOCENTE es: " + listaDeClases.get(i).getDocente().getApellidomaterno());
             }
-            
-            
+
             //debo llenar el JTABLE CURDO DOCENTE
-            
             DefaultTableModel modelo1 = new DefaultTableModel();
 
             //modelo1.addColumn("id");
             modelo1.addColumn("Curso");
             modelo1.addColumn("Docente");
-
+            
             for (Clase clase : listaDeClases) {
                 modelo1.addRow(new String[]{
                     //nivel.getId() + "",
                     clase.getCursoGrado().getCurso().getNombreLargo() + "",
-                    clase.getDocente().getApellidopaterno()+" "+
-                            clase.getDocente().getApellidopaterno()+", "+
-                            clase.getDocente().getNombre()
+                    clase.getDocente().getApellidopaterno() + " "
+                    + clase.getDocente().getApellidopaterno() + ", "
+                    + clase.getDocente().getNombre()
                 });
             }
             tblCursoDocente.setModel(modelo1);
@@ -279,17 +277,29 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         //PRIMERO ----> insetar la cabecera de Matriculas
-        Matricula matricula = new Matricula();
-        MatriculaDAO dao = new MatriculaDAO();
-
-        matricula.setGrado(objGrado);
-        matricula.setAlumno(objAlumno);
-
-        if (dao.RegistrarMatricula(matricula,listaDeClases )) {
-            JOptionPane.showMessageDialog(this, "Se registro la matricula para el alumno "+objAlumno.getNombre());
-
+        if (txtAlumno.getText().equals("") || txtGrado.equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe los campos requeridos con (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "No pudimos registrar la MATRICULA por problemas internos =( ");
+            Matricula matricula = new Matricula();
+            MatriculaDAO dao = new MatriculaDAO();
+            
+            matricula.setGrado(objGrado);
+            matricula.setAlumno(objAlumno);
+            
+            if (dao.RegistrarMatricula(matricula, listaDeClases)) {
+                txtAlumno.setText("");
+                txtGrado.setText("");
+                DefaultTableModel modelo1 = new DefaultTableModel();
+
+                //modelo1.addColumn("id");
+                modelo1.addColumn("Curso");
+                modelo1.addColumn("Docente");
+                tblCursoDocente.setModel(modelo1);
+                //JOptionPane.showMessageDialog(this, "Se registro la matricula para el alumno " + objAlumno.getNombre());
+                JOptionPane.showMessageDialog(null, "Se registro la matricula para el alumno " + objAlumno.getNombre(), "CORRECTO", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No pudimos registrar la MATRICULA por problemas internos =( ");
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -305,7 +315,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCursoDocente;
-    private javax.swing.JTextField txtDatosAlumno;
+    private javax.swing.JTextField txtAlumno;
     private javax.swing.JTextField txtGrado;
     // End of variables declaration//GEN-END:variables
 }

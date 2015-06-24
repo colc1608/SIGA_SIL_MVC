@@ -46,8 +46,8 @@ public class Admi_buscarCurso extends javax.swing.JDialog {
         listaCurso = dao.ListarCurso();
 
         DefaultTableModel modelo1 = new DefaultTableModel();
-        modelo1.addColumn("id");
-        modelo1.addColumn("Nombre Corto");
+        //modelo1.addColumn("id");
+        //modelo1.addColumn("Nombre Corto");
         modelo1.addColumn("Nombre Largo");
         modelo1.addColumn("Horas Teoricas");
         modelo1.addColumn("Horas Practicas");
@@ -55,8 +55,8 @@ public class Admi_buscarCurso extends javax.swing.JDialog {
 
         for (Curso obcurso : listaCurso) {
             modelo1.addRow(new String[]{
-                obcurso.getId() + "",
-                obcurso.getNombreCorto() + "",
+                //obcurso.getId() + "",
+                //obcurso.getNombreCorto() + "",
                 obcurso.getNombreLargo() + "",
                 obcurso.getHorasTecnicas() + "",
                 obcurso.getHorasPracticas() + "",
@@ -71,8 +71,8 @@ public class Admi_buscarCurso extends javax.swing.JDialog {
          listaCurso = new CursoDAO().BuscarCurso(String.valueOf(txtCampoBusqueda.getText()));
          DefaultTableModel modelo1 = new DefaultTableModel();
          
-         modelo1.addColumn("id");
-         modelo1.addColumn("Nombre Corto");
+         //modelo1.addColumn("id");
+         //modelo1.addColumn("Nombre Corto");
          modelo1.addColumn("Nombre Largo");
          modelo1.addColumn("Horas Teoricas");
          modelo1.addColumn("Horas Practicas");
@@ -80,8 +80,8 @@ public class Admi_buscarCurso extends javax.swing.JDialog {
          
          for (Curso curso : listaCurso) {
              modelo1.addRow(new String[]{
-                 curso.getId()+"",
-                 curso.getNombreCorto()+"",
+                 //curso.getId()+"",
+                 //curso.getNombreCorto()+"",
                  curso.getNombreLargo()+"",
                  curso.getHorasTecnicas()+"",
                  curso.getHorasPracticas()+"",

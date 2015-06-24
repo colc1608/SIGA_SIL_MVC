@@ -90,7 +90,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="txtDatosAlumno" pref="212" max="32767" attributes="0"/>
+                  <Component id="txtAlumno" pref="212" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnBuscarAlumno" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
@@ -103,7 +103,7 @@
                   <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtDatosAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnBuscarAlumno" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -117,7 +117,7 @@
             <Property name="text" type="java.lang.String" value="* Nombre Completo"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtDatosAlumno">
+        <Component class="javax.swing.JTextField" name="txtAlumno">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>

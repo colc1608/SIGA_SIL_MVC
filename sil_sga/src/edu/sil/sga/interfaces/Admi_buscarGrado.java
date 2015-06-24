@@ -66,15 +66,15 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             GradoDAO dao = new GradoDAO();
             listaGrado = dao.ListarGrado();
             DefaultTableModel modelo1 = new DefaultTableModel();
-            modelo1.addColumn("id");
+            //modelo1.addColumn("id");
             modelo1.addColumn("Nivel");
             modelo1.addColumn("Grado");
             modelo1.addColumn("Seccion");
 
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
-                    grado.getId() + "",
-                    grado.getNivel().getNombreCorto() + "",
+                    //grado.getId() + "",
+                    grado.getNivel().getNombreLargo()+ "",
                     grado.getnumeroGrado() + "",
                     grado.getSeccion().getDescripcion() + ""
                 });
@@ -98,8 +98,8 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             }
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
-                    grado.getId() + "",
-                    grado.getNivel().getNombreCorto() + "",
+                    //grado.getId() + "",
+                    grado.getNivel().getNombreLargo()+ "",
                     grado.getnumeroGrado() + "",
                     grado.getSeccion().getDescripcion() + ""
                 });
@@ -125,8 +125,8 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             }
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
-                    grado.getId() + "",
-                    grado.getNivel().getNombreCorto() + "",
+                    //grado.getId() + "",
+                    grado.getNivel().getNombreLargo()+ "",
                     grado.getnumeroGrado() + "",
                     grado.getSeccion().getDescripcion() + ""
                 });
