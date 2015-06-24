@@ -117,6 +117,12 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
 
         jLabel3.setText("* Nombre largo:");
 
+        txtNombreLargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreLargoKeyTyped(evt);
+            }
+        });
+
         txtNombreCorto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreCortoKeyTyped(evt);
@@ -399,6 +405,10 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreCortoKeyTyped
+
+    private void txtNombreLargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreLargoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreLargoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

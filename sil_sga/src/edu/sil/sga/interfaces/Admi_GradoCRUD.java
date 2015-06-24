@@ -368,13 +368,14 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Se registro correctamente el grado :) ");
                     ListarGrados();
                     activaBotones(true, false, false, false);
+                    activaCombos(false);
                     btnNuevo.setText("Nuevo");
                 } else {
-                    JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
+                    JOptionPane.showMessageDialog(this, "ESTAMOS EN EL ELSE ");
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No pudimos agregar al nuevo docente :( " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "POR PROBLEMAS INTERNOS NO SE PUEDO AGREGAR  :( " + e.getMessage());
 
             }
         }
@@ -396,7 +397,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             grado.setnumeroGrado(cboGrado.getSelectedItem().toString());
 
             if (dao.ActualizarGrado(grado)) {
-                JOptionPane.showMessageDialog(this, "Se Actualizo correctamente los datos del Docente ");
+                JOptionPane.showMessageDialog(this, "Se Actualizo correctamente los datos del Grado ");
                 ListarGrados();
                 activaBotones(true, false, false, false);
                 activaCombos(false);
@@ -404,7 +405,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del docente :(" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del grado  :(" + e.getMessage());
         }
 
 
@@ -441,7 +442,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             grado.setnumeroGrado(cboGrado.getSelectedItem().toString());
 
             if (dao.EliminarGrado(grado)) {
-                JOptionPane.showMessageDialog(this, "Se Actualizo correctamente el grado ^^  ");
+                JOptionPane.showMessageDialog(this, "Se ELIMINO correctamente el grado ^^  ");
                 ListarGrados();
                 activaBotones(true, false, false, false);
                 activaCombos(false);
@@ -449,7 +450,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del docente :(" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "No pudimos actualizar datos del grado :(" + e.getMessage());
         }
 
 

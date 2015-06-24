@@ -113,6 +113,9 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="txtdescripcion">
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtdescripcionKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>

@@ -63,21 +63,21 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
         listaCurso = dao.ListarCurso();
 
         DefaultTableModel modelo1 = new DefaultTableModel();
-        modelo1.addColumn("id");
+        //modelo1.addColumn("id");
         modelo1.addColumn("Nombre Corto");
         modelo1.addColumn("Nombre Largo");
         modelo1.addColumn("Horas Teoricas");
         modelo1.addColumn("Horas Practicas");
-        modelo1.addColumn("Descripcion");
+        //modelo1.addColumn("Descripcion");
 
         for (Curso obcurso : listaCurso) {
             modelo1.addRow(new String[]{
-                obcurso.getId() + "",
+                //obcurso.getId() + "",
                 obcurso.getNombreCorto() + "",
                 obcurso.getNombreLargo() + "",
                 obcurso.getHorasTecnicas() + "",
-                obcurso.getHorasPracticas() + "",
-                obcurso.getDescripcion() + ""
+                obcurso.getHorasPracticas() + ""
+            //obcurso.getDescripcion() + ""
             });
         }
         tablaListaCurso.setModel(modelo1);
@@ -87,21 +87,21 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
         listaCurso = new CursoDAO().BuscarCurso(String.valueOf(txtCampoBusqueda.getText()));
         DefaultTableModel modelo1 = new DefaultTableModel();
 
-        modelo1.addColumn("id");
+        //modelo1.addColumn("id");
         modelo1.addColumn("Nombre Corto");
         modelo1.addColumn("Nombre Largo");
         modelo1.addColumn("Horas Teoricas");
         modelo1.addColumn("Horas Practicas");
-        modelo1.addColumn("Descripcion");
+        //modelo1.addColumn("Descripcion");
 
         for (Curso curso : listaCurso) {
             modelo1.addRow(new String[]{
-                curso.getId() + "",
+                //curso.getId() + "",
                 curso.getNombreCorto() + "",
                 curso.getNombreLargo() + "",
                 curso.getHorasTecnicas() + "",
-                curso.getHorasPracticas() + "",
-                curso.getDescripcion() + ""
+                curso.getHorasPracticas() + ""
+            //curso.getDescripcion() + ""
             });
         }
         tablaListaCurso.setModel(modelo1);
@@ -247,13 +247,37 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
 
         panelEspecialidad1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Curso"));
 
+        txtNombreLargo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreLargoKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("* Nombre Corto:");
 
         jLabel9.setText("* Nombre Largo");
 
+        txtHorasTeoricas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorasTeoricasKeyTyped(evt);
+            }
+        });
+
+        txtHorasPracticas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtHorasPracticasKeyTyped(evt);
+            }
+        });
+
+        txtNombreCorto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreCortoKeyTyped(evt);
+            }
+        });
+
         jLabel12.setText("* Horas Teoricas:");
 
-        jLabel13.setText("Horas Practicas:");
+        jLabel13.setText("* Horas Practicas:");
 
         jLabel14.setText("Descripcion:");
 
@@ -395,26 +419,27 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(panelEspecialidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(panelEspecialidad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(btnNuevo)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnNuevo)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnActualizar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnEliminar)))
-                .addContainerGap(50, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(330, 330, 330)
-                .addComponent(jLabel7)
-                .addGap(165, 419, Short.MAX_VALUE))
+                        .addGap(330, 330, 330)
+                        .addComponent(jLabel7)))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,12 +505,11 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
                     ListarCurso();
                     activaCajas(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "Ocurrio un problema interno.. Lo lamentamos");
+                    JOptionPane.showMessageDialog(this, "Verifique que los datos e intentelo nuevamente", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-
             } catch (Exception e) {
-                System.out.println("ERROR --> XXX -->> " + e.getMessage());
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Ocurrio un problema interno.. Acuda al area de SOPORTE");
+                System.out.println("ERROR --> INTERFAZ --> CURSO --> GUARDAR --> " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -523,7 +547,7 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
                 || txtNombreLargo.getText().equalsIgnoreCase("")
                 || txtHorasTeoricas.getText().equalsIgnoreCase("")
                 || txtHorasPracticas.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar los campos Requeridos(*) y debe existir el codigo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe ingresar los campos Requeridos(*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
                 Curso objCurso = new Curso();
@@ -546,8 +570,8 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(this, "Verifique que los Datos ingresados son Correctos", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
-                System.out.println("el error es: " + e.getMessage());
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Ocurrio un problema interno.. Acuda al area de SOPORTE");
+                System.out.println("ERROR --> INTERFAZ --> CURSO --> ACTUALIZAR --> " + e.getMessage());
             }
         }
 
@@ -592,7 +616,7 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
                 || txtNombreLargo.getText().equalsIgnoreCase("")
                 || txtHorasTeoricas.getText().equalsIgnoreCase("")
                 || txtHorasPracticas.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe ingresar los campos Requeridos(*) y debe existir el codigo", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe ingresar los campos Requeridos(*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
                 Curso objCurso = new Curso();
@@ -612,13 +636,54 @@ public class Admi_cursoCRUD extends javax.swing.JInternalFrame {
                     activaBotones(true, false, false, false);
                     activaCajas(false);
                 } else {
-                    JOptionPane.showMessageDialog(this, "No se pudo eliminar ");
+                    JOptionPane.showMessageDialog(this, "Verifique que los datos ingresados e intentelo nuevamente", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             } catch (Exception e) {
-                System.out.println("error --> interfaz --> docente --> eliminar"+e.getMessage());
+                JOptionPane.showMessageDialog(this, "Ocurrio un problema interno.. Acuda al area de SOPORTE");
+                System.out.println("ERROR --> INTERFAZ --> CURSO --> ELIMINAR --> " + e.getMessage());
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtNombreCortoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCortoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreCortoKeyTyped
+
+    private void txtNombreLargoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreLargoKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreLargoKeyTyped
+
+    private void txtHorasTeoricasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasTeoricasKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+
+        if (txtHorasTeoricas.getText().length() == 1) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtHorasTeoricasKeyTyped
+
+    private void txtHorasPracticasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHorasPracticasKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (c < '0' || c > '9') {
+            evt.consume();
+        }
+
+        if (txtHorasPracticas.getText().length() == 8) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtHorasPracticasKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

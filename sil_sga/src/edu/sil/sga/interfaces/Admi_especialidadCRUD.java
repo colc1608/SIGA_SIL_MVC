@@ -100,6 +100,12 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
 
         panelEspecialidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de Especialidad"));
 
+        txtdescripcion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtdescripcionKeyTyped(evt);
+            }
+        });
+
         jLabel1.setText("* Nombre:");
 
         javax.swing.GroupLayout panelEspecialidadLayout = new javax.swing.GroupLayout(panelEspecialidad);
@@ -365,6 +371,14 @@ public class Admi_especialidadCRUD extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtdescripcionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdescripcionKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if ((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtdescripcionKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

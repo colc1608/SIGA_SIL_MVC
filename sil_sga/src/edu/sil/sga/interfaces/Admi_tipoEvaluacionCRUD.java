@@ -440,7 +440,9 @@ public class Admi_tipoEvaluacionCRUD extends javax.swing.JInternalFrame {
         if (c < '0' || c > '9') {
             evt.consume();
         }
-
+        if (txtPeso.getText().length() == 3) {
+            evt.consume();
+        }
     }//GEN-LAST:event_txtPesoKeyTyped
 
 
