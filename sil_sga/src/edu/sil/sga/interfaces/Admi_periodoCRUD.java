@@ -23,16 +23,17 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
     
     
     public List<Periodo> listaDePeriodos;
-    public Periodo periodo;
     
+    Periodo objPeriodoSeleccionado;
     
     public Admi_periodoCRUD() {
+        setLocation(270, 50);
         initComponents();
         initComponents();
         activaBotones(true, false, false, false);
         ListarPeriodos();
         activaCajas(false);
-        txtCodigo.setVisible(false);
+        
     }
     
     
@@ -42,7 +43,7 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
     }
 
     void limpiarCajas() {
-        txtCodigo.setText("");
+        
         txtDescripcion.setText("");
         txtObservacion.setText("");
     }
@@ -104,7 +105,6 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
         btnNuevo = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -129,10 +129,10 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDescripcion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtObservacion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(63, 63, 63))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                    .addComponent(txtObservacion))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,16 +173,16 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnGuardar.setText("Guardar");
@@ -213,9 +213,6 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
             }
         });
 
-        txtCodigo.setEditable(false);
-        txtCodigo.setText("codigo oculto");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -238,24 +235,16 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
                             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(199, 199, 199)
-                        .addComponent(jLabel1)
-                        .addGap(90, 90, 90)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                        .addComponent(jLabel1)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel1)
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(31, 31, 31)
@@ -264,8 +253,8 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnNuevo)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -282,6 +271,7 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
             activaCajas(false);
+            limpiarCajas();
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -289,10 +279,8 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
 
-        String desc = txtDescripcion.getText();
-        String obs = txtObservacion.getText();
-
-        if (desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("")) {
+        if (txtDescripcion.getText().equalsIgnoreCase("") || 
+                txtObservacion.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Debe completar los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } else {
@@ -300,8 +288,8 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
                 Periodo periodo = new Periodo();
                 PeriodoDAO dao = new PeriodoDAO();
 
-                periodo.setDescripcion(desc);
-                periodo.setObservacion(obs);
+                periodo.setDescripcion(txtDescripcion.getText());
+                periodo.setObservacion(txtObservacion.getText());
 
                 if (dao.RegistrarPeriodo(periodo)) {
                     JOptionPane.showMessageDialog(null, "Se registro correctamente", "Operacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
@@ -323,11 +311,9 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         
-        String cod = txtCodigo.getText();
-        String desc = txtDescripcion.getText();
-        String obs = txtObservacion.getText();
 
-        if (desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("")) {
+        if (txtDescripcion.getText().equalsIgnoreCase("") || 
+                txtObservacion.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Debe completar los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } else {
@@ -336,9 +322,9 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
                 Periodo periodo = new Periodo();
                 PeriodoDAO dao = new PeriodoDAO();
 
-                periodo.setId(Integer.parseInt(cod));
-                periodo.setDescripcion(desc);
-                periodo.setObservacion(obs);
+                periodo.setId(objPeriodoSeleccionado.getId());
+                periodo.setDescripcion(txtDescripcion.getText());
+                periodo.setObservacion(txtObservacion.getText());
 
                 if (dao.ActualizarPeriodo(periodo)) {
                     JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
@@ -361,12 +347,10 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
         
-        
-        String cod = txtCodigo.getText();
-        String desc = txtDescripcion.getText();
-        String obs = txtObservacion.getText();
 
-        if (desc.equalsIgnoreCase("") || obs.equalsIgnoreCase("")) {
+
+        if (txtDescripcion.getText().equalsIgnoreCase("") || 
+                txtObservacion.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Debe completar los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
 
         } else {
@@ -375,9 +359,9 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
                 Periodo periodo = new Periodo();
                 PeriodoDAO dao = new PeriodoDAO();
 
-                periodo.setId(Integer.parseInt(cod));
-                periodo.setDescripcion(desc);
-                periodo.setObservacion(obs);
+                periodo.setId(objPeriodoSeleccionado.getId());
+                periodo.setDescripcion(txtDescripcion.getText());
+                periodo.setObservacion(txtObservacion.getText());
 
                 if (dao.EliminarPeriodo(periodo)) {
                     JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
@@ -400,11 +384,11 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
         
         int fila = tblPeriodos.getSelectedRow();
         if (fila != -1) {
-            Periodo tipoEvalSeleccionado = listaDePeriodos.get(fila);
+            
+            objPeriodoSeleccionado = listaDePeriodos.get(fila);
 
-            txtCodigo.setText(String.valueOf(tipoEvalSeleccionado.getId()));
-            txtDescripcion.setText(String.valueOf(tipoEvalSeleccionado.getDescripcion()));
-            txtObservacion.setText(String.valueOf(tipoEvalSeleccionado.getObservacion()));
+            txtDescripcion.setText(objPeriodoSeleccionado.getDescripcion());
+            txtObservacion.setText(objPeriodoSeleccionado.getObservacion());
 
             btnNuevo.setText("Nuevo");
             activaBotones(true, false, true, true);
@@ -426,7 +410,6 @@ public class Admi_periodoCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPeriodos;
-    private javax.swing.JTextField txtCodigo;
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtObservacion;
     // End of variables declaration//GEN-END:variables

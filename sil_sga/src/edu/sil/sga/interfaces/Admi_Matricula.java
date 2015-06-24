@@ -15,6 +15,7 @@ import edu.sil.sga.entidades.Matricula;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,22 +32,23 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
     public List<Clase> listaDeClases;
 
     public Admi_Matricula() {
+        setLocation(250, 50);
         initComponents();
     }
 
     void cargarDatosAlumno(Alumno objAlumno) {
 
         this.objAlumno = objAlumno;
-        //txtNombre.setText(objAlumno.getNombre());
-        txtDatosAlumno.setText(objAlumno.getApellidopaterno() + " " + objAlumno.getApellidomaterno() + ", " + objAlumno.getNombre() + " - " + objAlumno.getDni());
-        //txtApellidoMaterno.setText(objAlumno.getApellidomaterno());
-        //txtDNI.setText(objAlumno.getDni());
+        txtDatosAlumno.setText(objAlumno.getApellidopaterno() + " " + objAlumno.getApellidomaterno() + ", " + objAlumno.getNombre());
+        
     }
 
     void cargarDatosGrado(Grado objGrado) {
 
         this.objGrado = objGrado;
-        txtGrado.setText("'"+objGrado.getnumeroGrado()+" "+objGrado.getSeccion().getDescripcion()+"' -"+objGrado.getNivel().getNombreCorto());
+        txtGrado.setText("Grado: "+objGrado.getnumeroGrado()+
+                " - Seccion: "+objGrado.getSeccion().getDescripcion()+
+                " - Nivel: "+objGrado.getNivel().getNombreCorto());
         //txtSeccion.setText(objGrado.getSeccion().getDescripcion());
         //txtNivel.setText(objGrado.getNivel().getNombreCorto());
     }
@@ -70,7 +72,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         btnBuscarGrado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCursoDocente = new javax.swing.JTable();
         btnGuardar = new javax.swing.JButton();
 
         setClosable(true);
@@ -82,11 +84,8 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         jLabel1.setText("Registrar Matricula");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de Alumno"));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setText("* Alumno:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
-        jPanel1.add(txtDatosAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 270, -1));
+        jLabel3.setText("* Nombre Completo");
 
         btnBuscarAlumno.setText("Buscar");
         btnBuscarAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -94,14 +93,34 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 btnBuscarAlumnoActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscarAlumno, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(24, 24, 24)
+                .addComponent(txtDatosAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscarAlumno)
+                .addGap(23, 23, 23))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtDatosAlumno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarAlumno))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de Grado"));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel2.add(txtGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 220, -1));
 
         jLabel7.setText("* Grado Completo");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         btnBuscarGrado.setText("Buscar");
         btnBuscarGrado.addActionListener(new java.awt.event.ActionListener() {
@@ -109,9 +128,32 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 btnBuscarGradoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnBuscarGrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, -1, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addGap(34, 34, 34)
+                .addComponent(txtGrado, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscarGrado)
+                .addGap(23, 23, 23))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txtGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarGrado))
+                .addGap(12, 12, 12))
+        );
+
+        tblCursoDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null}
@@ -120,9 +162,9 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 "Curso", "Docente"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCursoDocente);
 
-        btnGuardar.setText("Guardar");
+        btnGuardar.setText("Matricular");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -134,22 +176,19 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(290, 290, 290)
-                            .addComponent(jLabel1))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,14 +196,14 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,17 +219,40 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         } else {
             Grado objGradoElegido = lstGrado.get(0);
             cargarDatosGrado(objGradoElegido);
-            System.out.println("lo que llego es: " + objGradoElegido.getId());
+            System.out.println("El codigo del grado que llego es ---->  " + objGradoElegido.getId());
 
-            //ahora debo cargar la lista las clases
+            //ahora debo cargar la lista las clases de ESE grado
             ClaseDAO dao = new ClaseDAO();
             listaDeClases = dao.ListarClasesPorGrado(objGradoElegido);
             
             //probando que clases llegaron:
             for (int i = 0; i < listaDeClases.size(); i++) {
                 System.out.println("el codigo de clase que llego es: "+listaDeClases.get(i).getId());
+                System.out.println("el nombre LARGO del curso es: "+listaDeClases.get(i).getCursoGrado().getCurso().getNombreLargo());
+                System.out.println("el nombre del DOCENTE es: "+listaDeClases.get(i).getDocente().getNombre());
+                System.out.println("el Apellido Paterno del DOCENTE es: "+listaDeClases.get(i).getDocente().getApellidopaterno());
+                System.out.println("el Apelido Materno del DOCENTE es: "+listaDeClases.get(i).getDocente().getApellidomaterno());
             }
             
+            
+            //debo llenar el JTABLE CURDO DOCENTE
+            
+            DefaultTableModel modelo1 = new DefaultTableModel();
+
+            //modelo1.addColumn("id");
+            modelo1.addColumn("Curso");
+            modelo1.addColumn("Docente");
+
+            for (Clase clase : listaDeClases) {
+                modelo1.addRow(new String[]{
+                    //nivel.getId() + "",
+                    clase.getCursoGrado().getCurso().getNombreLargo() + "",
+                    clase.getDocente().getApellidopaterno()+" "+
+                            clase.getDocente().getApellidopaterno()+", "+
+                            clase.getDocente().getNombre()
+                });
+            }
+            tblCursoDocente.setModel(modelo1);
             
         }
     }//GEN-LAST:event_btnBuscarGradoActionPerformed
@@ -220,7 +282,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         matricula.setAlumno(objAlumno);
 
         if (dao.RegistrarMatricula(matricula,listaDeClases )) {
-            JOptionPane.showMessageDialog(this, "Se registro correctamente la Matricula con todo =D  ");
+            JOptionPane.showMessageDialog(this, "Se registro la matricula para el alumno "+objAlumno.getNombre());
 
         } else {
             JOptionPane.showMessageDialog(this, "No pudimos registrar la MATRICULA por problemas internos =( ");
@@ -238,7 +300,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblCursoDocente;
     private javax.swing.JTextField txtDatosAlumno;
     private javax.swing.JTextField txtGrado;
     // End of variables declaration//GEN-END:variables

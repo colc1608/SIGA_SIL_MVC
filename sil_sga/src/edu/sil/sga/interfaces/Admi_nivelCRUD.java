@@ -21,16 +21,16 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
      * Creates new form Admi_nivelCRUD
      */
     public List<Nivel> listaNivel;
-    public Nivel objNivel;
+    public Nivel objNivelSeleccionado;
 
     public Admi_nivelCRUD() {
         initComponents();
-        setSize(740, 460); // X , Y
-        setLocation(350, 200);
+        
+        setLocation(280, 50);
         activaBotones(true, false, false, false);
         ListarNiveles();
         activaCajas(false);
-        txtCodigo.setVisible(false);
+
     }
 
     //METODOS A REUTILIZAR EN EL FORMULARIO =D  -------------------------------
@@ -40,7 +40,7 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
     }
 
     void limpiarCajas() {
-        txtCodigo.setText("");
+
         txtNombreCorto.setText("");
         txtNombreLargo.setText("");
     }
@@ -52,8 +52,6 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         btnEliminar.setEnabled(d);
     }
 
-    
-    
     public void ListarNiveles() {
 
         try {
@@ -63,18 +61,18 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
 
             DefaultTableModel modelo1 = new DefaultTableModel();
 
-            modelo1.addColumn("id");
+            //modelo1.addColumn("id");
             modelo1.addColumn("Nombre Corto");
             modelo1.addColumn("Nombre Largo");
 
             for (Nivel nivel : listaNivel) {
                 modelo1.addRow(new String[]{
-                    nivel.getId() + "",
+                    //nivel.getId() + "",
                     nivel.getNombreCorto() + "",
                     nivel.getNombreLargo() + ""
                 });
             }
-            tablaNivel.setModel(modelo1);
+            tblNivel.setModel(modelo1);
 
         } catch (Exception e) {
             System.out.println("Ups.. error interno :( ");
@@ -98,29 +96,32 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         txtNombreCorto = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaNivel = new javax.swing.JTable();
+        tblNivel = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Nivel de eduacacion - SIL");
         setVisible(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Nivel de educacion");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del Nivel"));
 
-        jLabel2.setText("Nombre corto:");
+        jLabel2.setText("* Nombre corto:");
 
-        jLabel3.setText("Nombre largo:");
+        jLabel3.setText("* Nombre largo:");
+
+        txtNombreCorto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreCortoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,11 +132,11 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(69, 69, 69)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombreLargo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombreCorto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addComponent(txtNombreCorto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombreLargo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,11 +152,9 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, -1, 130));
-
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar niveles"));
 
-        tablaNivel.setModel(new javax.swing.table.DefaultTableModel(
+        tblNivel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -166,12 +165,12 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2"
             }
         ));
-        tablaNivel.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblNivel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaNivelMouseClicked(evt);
+                tblNivelMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaNivel);
+        jScrollPane1.setViewportView(tblNivel);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -179,18 +178,16 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 230, 270));
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +195,6 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, -1));
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +202,6 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 260, -1, -1));
 
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -214,7 +209,6 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, -1, -1));
 
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -222,10 +216,50 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 260, -1, -1));
 
-        txtCodigo.setEditable(false);
-        getContentPane().add(txtCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 70, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNuevo)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnActualizar)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnEliminar))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(jLabel1)))
+                .addContainerGap(39, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnNuevo)
+                            .addComponent(btnGuardar)
+                            .addComponent(btnActualizar)
+                            .addComponent(btnEliminar)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -242,23 +276,24 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
             activaBotones(true, false, false, false);
             btnNuevo.setText("Nuevo");
             activaCajas(false);
+            limpiarCajas();
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String nomCorto = txtNombreCorto.getText();
-        String nomLargo = txtNombreLargo.getText();
 
-        if (nomCorto.equalsIgnoreCase("") || nomLargo.equalsIgnoreCase("")) {
+        if (txtNombreCorto.getText().equalsIgnoreCase("")
+                || txtNombreLargo.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(null, "Debe los campos requeridos (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+
         } else {
             try {
                 Nivel nivel = new Nivel();
                 NivelDAO dao = new NivelDAO();
 
-                nivel.setNombreCorto(nomCorto);
-                nivel.setNombreLargo(nomLargo);
+                nivel.setNombreCorto(txtNombreCorto.getText());
+                nivel.setNombreLargo(txtNombreLargo.getText());
 
                 if (dao.RegistrarNivel(nivel)) {
                     JOptionPane.showMessageDialog(null, "Se registro correctamente", "Operacion Exitosa", JOptionPane.INFORMATION_MESSAGE);
@@ -279,11 +314,10 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
-        String codigo = txtCodigo.getText();
-        String nomCorto = txtNombreCorto.getText();
-        String nomLargo = txtNombreLargo.getText();
 
-        if (codigo.equalsIgnoreCase("") || nomCorto.equalsIgnoreCase("") || nomLargo.equalsIgnoreCase("")) {
+
+        if (txtNombreCorto.getText().equals("")
+                || txtNombreLargo.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un registro e ingresar los campos requeridos (*) ");
         } else {
 
@@ -291,9 +325,9 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
                 Nivel nivel = new Nivel();
                 NivelDAO dao = new NivelDAO();
 
-                nivel.setId(Integer.parseInt(codigo));
-                nivel.setNombreCorto(nomCorto);
-                nivel.setNombreLargo(nomLargo);
+                nivel.setId(objNivelSeleccionado.getId());
+                nivel.setNombreCorto(txtNombreCorto.getText());
+                nivel.setNombreLargo(txtNombreLargo.getText());
 
                 if (dao.ActualizarNivel(nivel)) {
                     JOptionPane.showMessageDialog(this, "Se actualizo correctamente");
@@ -314,15 +348,16 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
 
-        if (txtCodigo.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro");
+        if (txtNombreCorto.getText().equals("")
+                || txtNombreLargo.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un registro e ingresar los campos requeridos (*) ");
         } else {
 
             try {
                 Nivel nivel = new Nivel();
                 NivelDAO dao = new NivelDAO();
 
-                nivel.setId(Integer.parseInt(txtCodigo.getText()));
+                nivel.setId(objNivelSeleccionado.getId());
                 nivel.setNombreCorto(txtNombreCorto.getText());
                 nivel.setNombreLargo(txtNombreLargo.getText());
 
@@ -341,21 +376,29 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void tablaNivelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaNivelMouseClicked
+    private void tblNivelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNivelMouseClicked
         // TODO add your handling code here:
-        int fila = tablaNivel.getSelectedRow();
+        int fila = tblNivel.getSelectedRow();
+        if (fila != -1) {
+            
+            objNivelSeleccionado = listaNivel.get(fila);
 
-        String cod = tablaNivel.getValueAt(fila, 0).toString();
-        String nomCor = tablaNivel.getValueAt(fila, 1).toString();
-        String nomLar = tablaNivel.getValueAt(fila, 2).toString();
+            txtNombreCorto.setText(objNivelSeleccionado.getNombreCorto());
+            txtNombreLargo.setText(objNivelSeleccionado.getNombreLargo());
 
-        txtCodigo.setText(cod);
-        txtNombreCorto.setText(nomCor);
-        txtNombreLargo.setText(nomLar);
+        
         activaCajas(true);
         btnNuevo.setText("Nuevo");
         activaBotones(true, false, true, true);
-    }//GEN-LAST:event_tablaNivelMouseClicked
+        }
+    }//GEN-LAST:event_tblNivelMouseClicked
+
+    private void txtNombreCortoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCortoKeyTyped
+        // TODO add your handling code here:
+        if (txtNombreCorto.getText().length() == 3) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNombreCortoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -369,8 +412,7 @@ public class Admi_nivelCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaNivel;
-    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTable tblNivel;
     private javax.swing.JTextField txtNombreCorto;
     private javax.swing.JTextField txtNombreLargo;
     // End of variables declaration//GEN-END:variables
