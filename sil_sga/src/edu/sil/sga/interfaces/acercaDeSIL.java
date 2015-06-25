@@ -17,6 +17,7 @@ public class acercaDeSIL extends javax.swing.JDialog {
     public acercaDeSIL(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocation(400, 100);
     }
 
     /**
@@ -36,14 +37,19 @@ public class acercaDeSIL extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Acerca de los grupo de desarrollo");
 
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Farfan Altuna, Paul");
 
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setText("Lopez Castillo, Cesar");
 
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Integrantes:");
 
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel5.setText("Ramos Mendoza, Walter");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -53,9 +59,6 @@ public class acercaDeSIL extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
@@ -64,7 +67,11 @@ public class acercaDeSIL extends javax.swing.JDialog {
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel5))))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,7 +86,7 @@ public class acercaDeSIL extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         pack();

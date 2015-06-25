@@ -34,6 +34,7 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
         initComponents();
         setLocation(300, 20);
         btnBuscarCurso.setEnabled(false);
+        btnAgregarCurso.setEnabled(false);
     }
 
     void cargarDatosGrado(Grado objGrado) {
@@ -52,15 +53,18 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
 
     void recargarJTABLE(CursoPorGrado objCursoPorGrado, int tipo) {
 
-        if (tipo == 0) {
+        if (tipo == 0)//para agregar 
+        {
             listaDeCursosPorGrado.add(objCursoPorGrado);
-        } else if (tipo == 1) {
+
+        } else if (tipo == 1) //para aliminar
+        {
             listaDeCursosPorGrado.remove(objCursoPorGrado);
-        } else {
+        } else //para resetear 
+        {
             listaDeCursosPorGrado.clear();
         }
-        
-        
+
         DefaultTableModel modelo1 = new DefaultTableModel();
 
         //modelo1.addColumn("Grado");
@@ -302,17 +306,21 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAgregarCursoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-        CursoPorGradoDAO dao = new CursoPorGradoDAO();
-
-        if (dao.RegistrarCursoPorGrado(listaDeCursosPorGrado)) {
-            JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
-            txtGrado.setText("");
-            btnBuscarGrado.setEnabled(true);
-            btnBuscarCurso.setEnabled(false);
-            recargarJTABLE(objCursoGradoSeleccionado, 2);
+        if (listaDeCursosPorGrado.isEmpty() || txtGrado.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar los campos requeridos con (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
+
+            CursoPorGradoDAO dao = new CursoPorGradoDAO();
+
+            if (dao.RegistrarCursoPorGrado(listaDeCursosPorGrado)) {
+                JOptionPane.showMessageDialog(this, "Se registro correctamente a la Clase :) ");
+                txtGrado.setText("");
+                btnBuscarGrado.setEnabled(true);
+                btnBuscarCurso.setEnabled(false);
+                recargarJTABLE(objCursoGradoSeleccionado, 2);
+            } else {
+                JOptionPane.showMessageDialog(this, "No lo pudimos registrar por problemas internos :( ");
+            }
         }
 
 
@@ -320,6 +328,9 @@ public class Admi_CursoPorGrado extends javax.swing.JInternalFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+
+        btnBuscarCurso.setEnabled(false);
+        btnAgregarCurso.setEnabled(false);
 
         listaDeCursosPorGrado.clear();
 
