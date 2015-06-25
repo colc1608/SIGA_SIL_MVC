@@ -134,6 +134,7 @@ public class Login extends javax.swing.JDialog {
                     
                 } else if (objUsuario.getTipo().equalsIgnoreCase("2")) {
                     this.dispose();
+                    
                     Alumno_Principal frm = new Alumno_Principal();
                     frm.setVisible(true);
                     

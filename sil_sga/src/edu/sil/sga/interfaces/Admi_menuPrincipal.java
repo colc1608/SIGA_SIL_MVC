@@ -31,31 +31,32 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
         jdPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        menuInicio = new javax.swing.JMenu();
         menuItemPrincipal = new javax.swing.JMenuItem();
         menuItemSalir = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuGestionar = new javax.swing.JMenu();
         menuItemAlumno = new javax.swing.JMenuItem();
         menuItemApoderado = new javax.swing.JMenuItem();
         menuItemCurso = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        menuItemClase = new javax.swing.JMenuItem();
         menuItemEspecialidad = new javax.swing.JMenuItem();
         menuItemDocente = new javax.swing.JMenuItem();
         menuItemGrado = new javax.swing.JMenuItem();
-        menuItemMatricula = new javax.swing.JMenuItem();
         menuItemNivel = new javax.swing.JMenuItem();
         menuItemPeriodo = new javax.swing.JMenuItem();
         menuItemSeccion = new javax.swing.JMenuItem();
         menuItemTipoEvaluacion = new javax.swing.JMenuItem();
+        menuMatricula = new javax.swing.JMenu();
+        menuItemMatricula = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuItemClase = new javax.swing.JMenuItem();
+        menuAccesos = new javax.swing.JMenu();
         MenuItemUsuario = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        menuAyuda = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        menuItemAcercaDe = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,24 +73,24 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
             .addGap(0, 332, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Inicio");
+        menuInicio.setText("Inicio");
 
         menuItemPrincipal.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         menuItemPrincipal.setText("Principal");
-        jMenu1.add(menuItemPrincipal);
+        menuInicio.add(menuItemPrincipal);
 
         menuItemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F4, java.awt.event.InputEvent.ALT_MASK));
-        menuItemSalir.setText("Salir");
+        menuItemSalir.setText("Cerrar Sesion");
         menuItemSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuItemSalirActionPerformed(evt);
             }
         });
-        jMenu1.add(menuItemSalir);
+        menuInicio.add(menuItemSalir);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuInicio);
 
-        jMenu2.setText("Gestionar");
+        menuGestionar.setText("Gestionar");
 
         menuItemAlumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         menuItemAlumno.setText("Alumno");
@@ -98,7 +99,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemAlumnoActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemAlumno);
+        menuGestionar.add(menuItemAlumno);
 
         menuItemApoderado.setText("Apoderado");
         menuItemApoderado.addActionListener(new java.awt.event.ActionListener() {
@@ -106,7 +107,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemApoderadoActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemApoderado);
+        menuGestionar.add(menuItemApoderado);
 
         menuItemCurso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
         menuItemCurso.setText("Curso");
@@ -115,23 +116,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemCursoActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemCurso);
-
-        jMenuItem1.setText("Cursos por Grado");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
-            }
-        });
-        jMenu2.add(jMenuItem1);
-
-        menuItemClase.setText("Clase");
-        menuItemClase.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemClaseActionPerformed(evt);
-            }
-        });
-        jMenu2.add(menuItemClase);
+        menuGestionar.add(menuItemCurso);
 
         menuItemEspecialidad.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
         menuItemEspecialidad.setText("Especialidad");
@@ -140,7 +125,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemEspecialidadActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemEspecialidad);
+        menuGestionar.add(menuItemEspecialidad);
 
         menuItemDocente.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_MASK));
         menuItemDocente.setText("Docente");
@@ -149,7 +134,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemDocenteActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemDocente);
+        menuGestionar.add(menuItemDocente);
 
         menuItemGrado.setText("Grado");
         menuItemGrado.addActionListener(new java.awt.event.ActionListener() {
@@ -157,15 +142,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemGradoActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemGrado);
-
-        menuItemMatricula.setText("Matricula");
-        menuItemMatricula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemMatriculaActionPerformed(evt);
-            }
-        });
-        jMenu2.add(menuItemMatricula);
+        menuGestionar.add(menuItemGrado);
 
         menuItemNivel.setText("Nivel");
         menuItemNivel.addActionListener(new java.awt.event.ActionListener() {
@@ -173,7 +150,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemNivelActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemNivel);
+        menuGestionar.add(menuItemNivel);
 
         menuItemPeriodo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         menuItemPeriodo.setText("Periodo");
@@ -182,7 +159,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemPeriodoActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemPeriodo);
+        menuGestionar.add(menuItemPeriodo);
 
         menuItemSeccion.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         menuItemSeccion.setText("Seccion");
@@ -191,7 +168,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemSeccionActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemSeccion);
+        menuGestionar.add(menuItemSeccion);
 
         menuItemTipoEvaluacion.setText("Tipo Evaluacion");
         menuItemTipoEvaluacion.addActionListener(new java.awt.event.ActionListener() {
@@ -199,7 +176,39 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 menuItemTipoEvaluacionActionPerformed(evt);
             }
         });
-        jMenu2.add(menuItemTipoEvaluacion);
+        menuGestionar.add(menuItemTipoEvaluacion);
+
+        jMenuBar1.add(menuGestionar);
+
+        menuMatricula.setText("Matricula");
+
+        menuItemMatricula.setText("Matricula");
+        menuItemMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMatriculaActionPerformed(evt);
+            }
+        });
+        menuMatricula.add(menuItemMatricula);
+
+        jMenuItem1.setText("Cursos por Grado");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        menuMatricula.add(jMenuItem1);
+
+        menuItemClase.setText("Clase");
+        menuItemClase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemClaseActionPerformed(evt);
+            }
+        });
+        menuMatricula.add(menuItemClase);
+
+        jMenuBar1.add(menuMatricula);
+
+        menuAccesos.setText("Accesos");
 
         MenuItemUsuario.setText("Usuario");
         MenuItemUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -207,11 +216,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 MenuItemUsuarioActionPerformed(evt);
             }
         });
-        jMenu2.add(MenuItemUsuario);
-
-        jMenuBar1.add(jMenu2);
-
-        jMenu3.setText("Accesos");
+        menuAccesos.add(MenuItemUsuario);
 
         jMenuItem13.setText("Perfiles");
         jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
@@ -219,25 +224,35 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
                 jMenuItem13ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem13);
+        menuAccesos.add(jMenuItem13);
 
         jMenuItem14.setText("Usuario");
-        jMenu3.add(jMenuItem14);
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem14ActionPerformed(evt);
+            }
+        });
+        menuAccesos.add(jMenuItem14);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuAccesos);
 
-        jMenu4.setText("Ayuda");
+        menuAyuda.setText("Ayuda");
 
         jMenuItem2.setText("Contenito de Ayuda");
-        jMenu4.add(jMenuItem2);
+        menuAyuda.add(jMenuItem2);
 
         jMenuItem6.setText("Reportar Problemas");
-        jMenu4.add(jMenuItem6);
+        menuAyuda.add(jMenuItem6);
 
-        jMenuItem4.setText("Acerca de SIL SGA");
-        jMenu4.add(jMenuItem4);
+        menuItemAcercaDe.setText("Acerca de SIL SGA");
+        menuItemAcercaDe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemAcercaDeActionPerformed(evt);
+            }
+        });
+        menuAyuda.add(menuItemAcercaDe);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(menuAyuda);
 
         setJMenuBar(jMenuBar1);
 
@@ -364,6 +379,16 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_menuItemMatriculaActionPerformed
 
+    private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem14ActionPerformed
+
+    private void menuItemAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAcercaDeActionPerformed
+        // TODO add your handling code here:
+        acercaDeSIL form = new acercaDeSIL(null,true);
+        form.setVisible(true);
+    }//GEN-LAST:event_menuItemAcercaDeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -401,18 +426,18 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuItemUsuario;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JDesktopPane jdPrincipal;
+    private javax.swing.JMenu menuAccesos;
+    private javax.swing.JMenu menuAyuda;
+    private javax.swing.JMenu menuGestionar;
+    private javax.swing.JMenu menuInicio;
+    private javax.swing.JMenuItem menuItemAcercaDe;
     private javax.swing.JMenuItem menuItemAlumno;
     private javax.swing.JMenuItem menuItemApoderado;
     private javax.swing.JMenuItem menuItemClase;
@@ -427,5 +452,6 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSalir;
     private javax.swing.JMenuItem menuItemSeccion;
     private javax.swing.JMenuItem menuItemTipoEvaluacion;
+    private javax.swing.JMenu menuMatricula;
     // End of variables declaration//GEN-END:variables
 }

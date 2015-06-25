@@ -9,10 +9,12 @@ import edu.sil.sga.dao.AlumnoDAO;
 import edu.sil.sga.dao.NotaDAO;
 import edu.sil.sga.entidades.Alumno;
 import edu.sil.sga.entidades.Clase;
+import edu.sil.sga.entidades.Docente;
 import edu.sil.sga.entidades.Nota;
 import edu.sil.sga.entidades.Periodo;
 import edu.sil.sga.entidades.TipoEvaluacion;
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -26,14 +28,22 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
     /**
      * Creates new form Docente_IngresarNotaClase
      */
+    
     Clase clase = new Clase();
     Periodo periodo = new Periodo();
     TipoEvaluacion tipoEval = new TipoEvaluacion();
     public List<Nota> listaDeNotas;
+    JDesktopPane jdPrincipalDocente;
+    Docente docente;
 
-    public Docente_IngresarNotaClase(Clase objClase, TipoEvaluacion objTipoEval, Periodo objPeriodo) {
+    public Docente_IngresarNotaClase(Docente objdocente, Clase objClase, TipoEvaluacion objTipoEval, Periodo objPeriodo, JDesktopPane jdPrincipalDocente) {
         initComponents();
-
+        
+        setLocation(280, 50);
+        
+        this.docente = objdocente;
+        this.jdPrincipalDocente = jdPrincipalDocente;
+        
         clase = objClase;
         periodo = objPeriodo;
         tipoEval = objTipoEval;
@@ -60,7 +70,8 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
                     objNota.getAlumno().getNombre() + " "
                     + objNota.getAlumno().getApellidopaterno() + ", "
                     + objNota.getAlumno().getApellidomaterno(),
-                    objNota.getNota() + "",});
+                    objNota.getNota() + ""
+                });
             }
             tblAlumnoNota.setModel(modelo1);
         } catch (Exception e) {
@@ -92,8 +103,9 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Ingresar Notas - I.E.P.San Ignacio de Loyola");
 
-        jLabel1.setFont(new java.awt.Font("Arial Black", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Ingresar Notas");
 
         btnGuardar.setText("Guardar");
@@ -105,33 +117,31 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
 
         tblAlumnoNota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2"
             }
         ));
         jScrollPane1.setViewportView(tblAlumnoNota);
 
-        lblCurso.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblCurso.setText("Cu");
+        lblCurso.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lblCurso.setText("curso");
 
-        lblTipoEvaluacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblTipoEvaluacion.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblTipoEvaluacion.setText("tipo eval");
 
-        lblPeriodo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblPeriodo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lblPeriodo.setText("periodo");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Curso:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel3.setText("Tipo de Nota:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel4.setText("Bimestre:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,47 +151,49 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(196, 196, 196)
-                        .addComponent(jLabel1))
+                        .addGap(489, 489, 489)
+                        .addComponent(btnGuardar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel2)
-                        .addGap(10, 10, 10)
-                        .addComponent(lblCurso)
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel3)
-                        .addGap(6, 6, 6)
-                        .addComponent(lblTipoEvaluacion)
-                        .addGap(67, 67, 67)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblPeriodo))
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblCurso)
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblTipoEvaluacion)
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblPeriodo))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 493, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(475, 475, 475)
-                        .addComponent(btnGuardar)))
-                .addContainerGap(70, Short.MAX_VALUE))
+                        .addGap(235, 235, 235)
+                        .addComponent(jLabel1)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(lblCurso)
-                    .addComponent(jLabel3)
-                    .addComponent(lblTipoEvaluacion)
-                    .addComponent(jLabel4)
-                    .addComponent(lblPeriodo))
-                .addGap(26, 26, 26)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblCurso)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblTipoEvaluacion)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel4)
+                        .addComponent(lblPeriodo)))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addGap(36, 36, 36)
                 .addComponent(btnGuardar)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,11 +209,17 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         for (int i = 0; i < listaDeNotas.size(); i++) {
             listaDeNotas.get(i).setNota(Integer.parseInt(model.getValueAt(i, 1).toString()));
             
+            System.out.println("el alumno ---> "+listaDeNotas.get(i).getAlumno().getNombre()+" se asigno -->" + model.getValueAt(i, 1).toString()+" de nota");
+            
         }
 
         if (dao.ActualizarNotas(listaDeNotas)) {
             JOptionPane.showMessageDialog(this, "Se Actualizaron correctamente las notas  =D  ");
             this.dispose();
+            Docente_seleccionarClase frm = new Docente_seleccionarClase(docente, jdPrincipalDocente);
+            jdPrincipalDocente.add(frm);
+            frm.setVisible(true);
+            
         } else {
             JOptionPane.showMessageDialog(this, "Problemas para actualizar las notas =(  ");
         }

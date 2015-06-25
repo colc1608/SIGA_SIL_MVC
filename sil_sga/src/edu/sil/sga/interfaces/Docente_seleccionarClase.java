@@ -14,6 +14,7 @@ import edu.sil.sga.entidades.Periodo;
 import edu.sil.sga.entidades.TipoEvaluacion;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,14 +32,16 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
     public List<Periodo> listaDePeriodos;
     public List<TipoEvaluacion> listaDeTipoEvaluacion;
     Clase objClaseSeleccionada;
+    JDesktopPane jdPrincipalDocente;
 
-    public Docente_seleccionarClase(Docente objDocente) {
-
+    public Docente_seleccionarClase(Docente objDocente, JDesktopPane jdPrincipalDocente) {
+        setLocation(280, 50);
         this.docente = objDocente;
         initComponents();
         CargarPeriodo();
         CargarTipoNota();
         ListarClasesPorDocente();
+        this.jdPrincipalDocente = jdPrincipalDocente;
     }
 
     void CargarPeriodo() {
@@ -357,17 +360,21 @@ public class Docente_seleccionarClase extends javax.swing.JInternalFrame {
 
     private void btnIngresarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarNotaActionPerformed
         // TODO add your handling code here:
-        TipoEvaluacion tipoEval = new TipoEvaluacion();
-        Periodo periodo = new Periodo();
-        
-        tipoEval = listaDeTipoEvaluacion.get(cboTipoNota.getSelectedIndex());
-        periodo = listaDePeriodos.get(cboPeriodo.getSelectedIndex());
-        
-        //
-        Docente_IngresarNotaClase ventana = new Docente_IngresarNotaClase(objClaseSeleccionada, tipoEval, periodo);
-        this.getParent().add(ventana);
-        ventana.setVisible(true);
-        this.dispose();
+        if (txtGrado.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un Grado ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        } else {
+            TipoEvaluacion tipoEval = new TipoEvaluacion();
+            Periodo periodo = new Periodo();
+
+            tipoEval = listaDeTipoEvaluacion.get(cboTipoNota.getSelectedIndex());
+            periodo = listaDePeriodos.get(cboPeriodo.getSelectedIndex());
+
+            //
+            Docente_IngresarNotaClase ventana = new Docente_IngresarNotaClase(docente, objClaseSeleccionada, tipoEval, periodo, jdPrincipalDocente);
+            this.getParent().add(ventana);
+            ventana.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnIngresarNotaActionPerformed
 
 
