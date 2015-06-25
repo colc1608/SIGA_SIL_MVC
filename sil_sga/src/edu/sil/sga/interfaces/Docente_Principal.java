@@ -7,6 +7,8 @@ package edu.sil.sga.interfaces;
 
 import edu.sil.sga.entidades.Docente;
 import edu.sil.sga.entidades.Usuario;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -18,14 +20,14 @@ public class Docente_Principal extends javax.swing.JFrame {
      * Creates new form Docente_Principal
      */
     Docente docente = new Docente();
-    
+
     public Docente_Principal(Docente objDocente) {
         initComponents();
         this.setExtendedState(this.MAXIMIZED_BOTH);
         docente = objDocente;
-        System.out.println("lo que llego ES :"+docente.getId());
-        System.out.println("lo que llego ES :"+docente.getNombre());
-        System.out.println("lo que llego ES :"+docente.getApellidopaterno());
+        txtNombreDocente.setText(docente.getNombre() + " "
+                + docente.getApellidopaterno() + ", "
+                + docente.getApellidomaterno());
     }
 
     /**
@@ -38,26 +40,87 @@ public class Docente_Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jdPrincipalDocente = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
+        txtNombreDocente = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jGestionarNota = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jdPrincipalDocente.setBackground(new java.awt.Color(204, 204, 204));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Bienvenido Sr:");
+
+        txtNombreDocente.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        txtNombreDocente.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreDocente.setText("nombre docente");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Fecha:");
+
         javax.swing.GroupLayout jdPrincipalDocenteLayout = new javax.swing.GroupLayout(jdPrincipalDocente);
         jdPrincipalDocente.setLayout(jdPrincipalDocenteLayout);
         jdPrincipalDocenteLayout.setHorizontalGroup(
             jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
+            .addGroup(jdPrincipalDocenteLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(txtNombreDocente)
+                .addContainerGap(210, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdPrincipalDocenteLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(32, 32, 32)
+                .addComponent(jLabel3)
+                .addGap(78, 78, 78))
         );
         jdPrincipalDocenteLayout.setVerticalGroup(
             jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 484, Short.MAX_VALUE)
+            .addGroup(jdPrincipalDocenteLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNombreDocente))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
+        jdPrincipalDocente.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdPrincipalDocente.setLayer(txtNombreDocente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdPrincipalDocente.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdPrincipalDocente.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu4.setText("Inicio");
+
+        jMenuItem1.setText("Principal");
+        jMenu4.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Cerrar Sesion");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu4.add(jMenuItem2);
+
         jMenuBar2.add(jMenu4);
 
         jMenu5.setText("Datos");
@@ -93,10 +156,17 @@ public class Docente_Principal extends javax.swing.JFrame {
 
     private void jGestionarNotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGestionarNotaActionPerformed
         // TODO add your handling code here:
-        Docente_seleccionarClase frm = new Docente_seleccionarClase(docente);
+        Docente_seleccionarClase frm = new Docente_seleccionarClase(docente, jdPrincipalDocente);
         jdPrincipalDocente.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_jGestionarNotaActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login dialog = new Login(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,17 +199,23 @@ public class Docente_Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Docente_Principal( new Docente() ).setVisible(true);
+                new Docente_Principal(new Docente()).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jGestionarNota;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     public javax.swing.JDesktopPane jdPrincipalDocente;
+    private javax.swing.JLabel txtNombreDocente;
     // End of variables declaration//GEN-END:variables
 }

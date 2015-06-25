@@ -31,6 +31,8 @@ public class Alumno_Principal extends javax.swing.JFrame {
         jdPrincipal = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jEditaDatos = new javax.swing.JMenuItem();
         jConsultaNotas = new javax.swing.JMenu();
@@ -51,6 +53,18 @@ public class Alumno_Principal extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Inicio");
+
+        jMenuItem3.setText("Principal");
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Cerrar Sesion");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Mis Datos");
@@ -119,6 +133,13 @@ public class Alumno_Principal extends javax.swing.JFrame {
         frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login dialog = new Login(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -163,6 +184,8 @@ public class Alumno_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JDesktopPane jdPrincipal;
     // End of variables declaration//GEN-END:variables
 }
