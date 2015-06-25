@@ -21,12 +21,12 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
      * Creates new form Admi_usuarioCRUD
      */
     public List<Usuario> listaUsuario;
+    Usuario obUsuarioSeleccionad;
     public Admi_usuarioCRUD() {
         initComponents();
         ActivaBotones(true, false, false, false);
         ListarUsuario();
         activaCajas(false);
-        txtid.setVisible(false);
     }
     
     void activaCajas(boolean a){
@@ -58,6 +58,13 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
             modelo1.addColumn("Tipo");
             
             for (Usuario objusuario : listaUsuario) {
+                if (objusuario.getTipo().equalsIgnoreCase("0")) {
+                    objusuario.setTipo("Administrador");
+                }else if (objusuario.getTipo().equalsIgnoreCase("1")) {
+                    objusuario.setTipo("Docente");
+                }else{
+                    objusuario.setTipo("Alumno");
+                }
                 modelo1.addRow(new String[]{
                     objusuario.getUsuario()+ "",
                     objusuario.getClave() + "",
@@ -80,6 +87,13 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
             }
             
             for (Usuario objusuario : listaUsuario) {
+                if (objusuario.getTipo().equalsIgnoreCase("0")) {
+                    objusuario.setTipo("Administrador");
+                }else if (objusuario.getTipo().equalsIgnoreCase("1")) {
+                    objusuario.setTipo("Docente");
+                }else{
+                    objusuario.setTipo("Alumno");
+                }
                 modelo1.addRow(new String[]{
                     objusuario.getUsuario() + "",
                     objusuario.getClave() + "",
@@ -114,7 +128,6 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
         txtClave = new javax.swing.JTextField();
         cboTipo = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
-        txtid = new javax.swing.JTextField();
         btnNuevo = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
@@ -192,36 +205,27 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
 
         jLabel4.setText("*Tipo de Usuariol:");
 
-        txtid.setEnabled(false);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboTipo, 0, 100, Short.MAX_VALUE)
-                            .addComponent(txtUsuario)
-                            .addComponent(txtClave))))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cboTipo, 0, 100, Short.MAX_VALUE)
+                    .addComponent(txtUsuario)
+                    .addComponent(txtClave))
                 .addGap(32, 32, 32))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -365,15 +369,14 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int fila = tblUsuario.getSelectedRow();
         if(fila != -1){
-            Usuario obUsuarioSeleccionad = listaUsuario.get(fila);
+            obUsuarioSeleccionad = listaUsuario.get(fila);
             txtUsuario.setText(String.valueOf(obUsuarioSeleccionad.getUsuario()));
             txtClave.setText(String.valueOf(obUsuarioSeleccionad.getClave()));
-            txtid.setText(String.valueOf(obUsuarioSeleccionad.getId()));
-            if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("0")) {
+            if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("Administrador")) {
                 cboTipo.setSelectedIndex(2);
-            }if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("1")) {
+            }if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("Docente")) {
                 cboTipo.setSelectedIndex(1);
-            }if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("2")) {
+            }if (obUsuarioSeleccionad.getTipo().equalsIgnoreCase("Alumno")) {
                 cboTipo.setSelectedIndex(0);
             }  
             btnNuevo.setText("Nuevo");
@@ -385,17 +388,15 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
         
-        String usuario = txtUsuario.getText();
-        String clave = txtClave.getText();
-        int id = Integer.parseInt(txtid.getText());
+
         
-        if (usuario.equalsIgnoreCase("")|| clave.equalsIgnoreCase("")) {
+        if (txtUsuario.getText().equalsIgnoreCase("")|| txtClave.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "debe Ingresar los campos requeridos(*)","ERROR",JOptionPane.ERROR_MESSAGE);
         }else{
             try {
                 Usuario obUsuario = new Usuario();
-                obUsuario.setUsuario(usuario);
-                obUsuario.setClave(clave);
+                obUsuario.setUsuario(txtUsuario.getText());
+                obUsuario.setClave(txtClave.getText());
                 if (cboTipo.getSelectedItem()=="Administrador") {
                     obUsuario.setTipo("0");
                 }if (cboTipo.getSelectedItem()=="Docente") {
@@ -403,7 +404,7 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
                 }if (cboTipo.getSelectedItem()=="Alumno") {
                     obUsuario.setTipo("2");
                 }
-                obUsuario.setId(id);
+                obUsuario.setId(obUsuarioSeleccionad.getId());
                 UsuarioDAO dao = new UsuarioDAO();
                 if (dao.ActualizarUsuario(obUsuario)) {
                     JOptionPane.showMessageDialog(this, "Se Actualizo Correctamente al usuario","Confirmacion",JOptionPane.INFORMATION_MESSAGE);
@@ -437,7 +438,7 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
                 }if (cboTipo.getSelectedItem()=="Alumno") {
                     objUsuario.setTipo("2");
                 }
-                objUsuario.setId(Integer.parseInt(txtid.getText()));
+                objUsuario.setId(obUsuarioSeleccionad.getId());
                 if (dao.EliminarUsuario(objUsuario)) {
                     JOptionPane.showMessageDialog(this, "Se elimino correctamente");
                     ListarUsuario();
@@ -481,6 +482,5 @@ public class Admi_usuarioCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtBusqueda;
     private javax.swing.JTextField txtClave;
     private javax.swing.JTextField txtUsuario;
-    private javax.swing.JTextField txtid;
     // End of variables declaration//GEN-END:variables
 }
