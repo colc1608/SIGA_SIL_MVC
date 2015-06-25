@@ -57,7 +57,8 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             }
             cboNivel.setModel(model);
         } catch (Exception e) {
-            System.out.println("error - cargar - combo - nivel");
+            System.out.println("error - cargar - combo - nivel" + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -81,7 +82,8 @@ public class Admi_buscarGrado extends javax.swing.JDialog {
             }
             tblGrado.setModel(modelo1);
         } catch (Exception e) {
-            System.out.println("Error - cargar - grado - listar");
+            System.out.println("Error - cargar - grado - listar" + e.getMessage());
+            e.printStackTrace();
         }
     }
     
