@@ -41,6 +41,8 @@ public class Alumno_Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jdPrincipal.setBackground(new java.awt.Color(204, 204, 204));
+
         javax.swing.GroupLayout jdPrincipalLayout = new javax.swing.GroupLayout(jdPrincipal);
         jdPrincipal.setLayout(jdPrincipalLayout);
         jdPrincipalLayout.setHorizontalGroup(

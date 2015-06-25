@@ -70,7 +70,8 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
                     objNota.getAlumno().getNombre() + " "
                     + objNota.getAlumno().getApellidopaterno() + ", "
                     + objNota.getAlumno().getApellidomaterno(),
-                    objNota.getNota() + "",});
+                    objNota.getNota() + ""
+                });
             }
             tblAlumnoNota.setModel(modelo1);
         } catch (Exception e) {
@@ -116,13 +117,11 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
 
         tblAlumnoNota.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2"
             }
         ));
         jScrollPane1.setViewportView(tblAlumnoNota);
@@ -209,6 +208,8 @@ public class Docente_IngresarNotaClase extends javax.swing.JInternalFrame {
         
         for (int i = 0; i < listaDeNotas.size(); i++) {
             listaDeNotas.get(i).setNota(Integer.parseInt(model.getValueAt(i, 1).toString()));
+            
+            System.out.println("el alumno ---> "+listaDeNotas.get(i).getAlumno().getNombre()+" se asigno -->" + model.getValueAt(i, 1).toString()+" de nota");
             
         }
 
