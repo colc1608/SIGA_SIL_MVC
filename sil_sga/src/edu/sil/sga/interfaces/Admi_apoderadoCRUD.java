@@ -24,9 +24,10 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
     /**
      * Creates new form Admi_apoderadoCRUD
      */
+    public List<Parentesco> listParentesco;
     public List<Apoderado> listApoderado;
     public List<Alumno> listadoAlumno;
-    Apoderado obApoderadoSeleccionado;
+    Parentesco obParentecoSeleccionado;
 
     public Admi_apoderadoCRUD() {
         initComponents();
@@ -68,21 +69,21 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
 
         void ListadoDeApoderado(){
         try {
-            ApoderadoDAO dao = new ApoderadoDAO();
-            listApoderado = dao.listarApoderado();
+            ParentescoDAO dao = new ParentescoDAO();
+            listParentesco = dao.listarParentesco();
             DefaultTableModel modelo1 = new DefaultTableModel();
             
-            modelo1.addColumn("Nombre");
-            modelo1.addColumn("Apellido Paterno");
-            modelo1.addColumn("Apellido Materno");
-            modelo1.addColumn("DNi");
+            modelo1.addColumn("Nombre Completo");
+            modelo1.addColumn("DNI");
+            modelo1.addColumn("Parentesco");
+            modelo1.addColumn("Alumno");
             
-            for (Apoderado objApoderado : listApoderado) {
+            for (Parentesco obParentesco : listParentesco) {
                 modelo1.addRow(new String[]{
-                    objApoderado.getNombre() + "",
-                    objApoderado.getApellidoPaterno() + "",
-                    objApoderado.getApellidoMaterno() + "",
-                    objApoderado.getDni()+ "",
+                    obParentesco.getApoderado().getNombre() + " " + obParentesco.getApoderado().getApellidoPaterno() + "",
+                    obParentesco.getApoderado().getDni() + "",
+                    obParentesco.getParentesco() + "",
+                    obParentesco.getAlumno().getNombre() + " " + obParentesco.getAlumno().getApellidopaterno() + "",
                 });
             }
             tblListadoApoderad.setModel(modelo1);
@@ -149,6 +150,11 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblListadoApoderad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListadoApoderadMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblListadoApoderad);
 
         jLabel1.setText("Nombre : ");
@@ -160,23 +166,23 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(22, 22, 22)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
+                        .addGap(74, 74, 74)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addGap(83, 83, 83)
                         .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
+                .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52))
         );
@@ -335,42 +341,47 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
         });
 
         btnEliminar.setText("Eliminar ");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(360, 360, 360)
                         .addComponent(btnNuevo)
-                        .addGap(17, 17, 17)
+                        .addGap(26, 26, 26)
                         .addComponent(btnGuardar)
-                        .addGap(19, 19, 19)
+                        .addGap(32, 32, 32)
                         .addComponent(btnActualizar)
-                        .addGap(21, 21, 21)
-                        .addComponent(btnEliminar)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(82, 82, 82))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevo)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnActualizar)
-                    .addComponent(btnEliminar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnEliminar)
+                        .addComponent(btnActualizar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNuevo)
+                        .addComponent(btnGuardar)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -379,6 +390,49 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // TODO add your handling code here:
+        if (txtNombre.getText().equalsIgnoreCase("")|| txtApePa.getText().equalsIgnoreCase("")
+                || txtApeMa.getText().equalsIgnoreCase("")|| txtDNI.getText().equalsIgnoreCase("") || cmbParentesco.getSelectedItem().equals("[Seleccionar]")) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar los campos requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
+        }else{
+            try {
+                Apoderado apo = new Apoderado();
+                ApoderadoDAO adao = new ApoderadoDAO();
+                
+                Parentesco pa = new Parentesco();
+                ParentescoDAO pdao = new ParentescoDAO();
+                
+
+               
+                apo.setNombre(txtNombre.getText());
+                apo.setApellidoPaterno(txtApePa.getText());
+                apo.setApellidoMaterno(txtApeMa.getText());
+                apo.setDni(txtDNI.getText());
+                apo.setTelefono(txtTelefono.getText());
+                apo.setMovil(txtMovil.getText());
+                apo.setFechanacimiento((Date)jsFecha.getValue());
+                apo.setEmail(txtEmail.getText());
+                apo.setId(obParentecoSeleccionado.getApoderado().getId());
+
+                pa.setParentesco(cmbParentesco.getSelectedItem().toString());
+                pa.setId(obParentecoSeleccionado.getId());
+                System.out.println("el id del parentesco es -- " + obParentecoSeleccionado.getId());
+                if (adao.ActualizarApoderado(apo) && pdao.ActualizarParentesco(pa)) {
+                    JOptionPane.showMessageDialog(this, "Se Actualizo Correctamente el Apoderado","CONFIRMACION",JOptionPane.INFORMATION_MESSAGE);
+                    ListadoDeApoderado();
+                    LimpiarCajas();
+                    ActivaBotones(true, false, false, false);
+                    ActivaCajas(false);
+                    btnNuevo.setText("Nuevo");
+                }else{
+                    JOptionPane.showMessageDialog(this, "No Pudimos Actualizar el Apoderado","ERROR",JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                System.out.println("ERROR - INTERFAZ - APODERADO - ACTUALIZAR " + e.getMessage());
+                e.printStackTrace();
+            }
+        }
+       
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -411,7 +465,7 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
         String parentesco = cmbParentesco.getSelectedItem().toString();
         
         if (txtNombre.getText().equalsIgnoreCase("")|| txtApePa.getText().equalsIgnoreCase("")
-                || txtApeMa.getText().equalsIgnoreCase("")|| txtDNI.getText().equalsIgnoreCase("")) {
+                || txtApeMa.getText().equalsIgnoreCase("")|| txtDNI.getText().equalsIgnoreCase("") || cmbParentesco.getSelectedItem().equals("[Seleccionar]")) {
             JOptionPane.showMessageDialog(this, "Debe ingresar los campos requeridos","ERROR",JOptionPane.ERROR_MESSAGE);
         }else{
             try {
@@ -432,7 +486,6 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
                 objApoderado.setFechanacimiento(fec);
                 objApoderado.setEmail(Email);
                 if (dao.RegistarApoderado(objApoderado) && dao2.RegistrarParentesco(objParentesco)) {
-                    System.out.println("se registro correctamente el apoderado y el parentesco");
                     JOptionPane.showMessageDialog(this, "Se registro Correctamente el Apoderado","CONFIRMACION",JOptionPane.INFORMATION_MESSAGE);
                     ListadoDeApoderado();
                     LimpiarCajas();
@@ -506,6 +559,32 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtApeMaKeyTyped
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        /*NO SE PUEDE HACER UN ELIMINAR XQ LA TABLA PARENTESCO NO TIENE ESTADO Y TENDRIA QUE BORRAR ESA TABLA*/
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void tblListadoApoderadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoApoderadMouseClicked
+        // TODO add your handling code here:
+        int fila = tblListadoApoderad.getSelectedRow();
+        if (fila != -1) {
+            obParentecoSeleccionado = listParentesco.get(fila);
+            txtNombre.setText((obParentecoSeleccionado.getApoderado().getNombre()));
+            txtApePa.setText(obParentecoSeleccionado.getApoderado().getApellidoPaterno());
+            txtApeMa.setText(obParentecoSeleccionado.getApoderado().getApellidoMaterno());
+            txtDNI.setText(obParentecoSeleccionado.getApoderado().getDni());
+            txtTelefono.setText(obParentecoSeleccionado.getApoderado().getTelefono());
+            txtMovil.setText(obParentecoSeleccionado.getApoderado().getMovil());
+            txtEmail.setText(obParentecoSeleccionado.getApoderado().getEmail());
+            jsFecha.setValue(obParentecoSeleccionado.getApoderado().getFechanacimiento());
+            cmbParentesco.setSelectedItem(obParentecoSeleccionado.getParentesco().toString());
+            
+            btnNuevo.setText("Nuevo");
+            ActivaBotones(true, false, true, true);
+            ActivaCajas(true);
+        }
+    }//GEN-LAST:event_tblListadoApoderadMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

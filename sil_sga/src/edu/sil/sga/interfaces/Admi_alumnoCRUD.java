@@ -449,6 +449,9 @@ public class Admi_alumnoCRUD extends javax.swing.JInternalFrame {
                     btnNuevo.setText("Nuevo");
                     LimpiarCajas();
                     ActivaCajas(false);
+                    Admi_apoderadoCRUD admi = new Admi_apoderadoCRUD();
+                    this.getParent().add(admi);
+                    admi.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Verifique los datos ingresados e intentelo nuevamente");
                 }
