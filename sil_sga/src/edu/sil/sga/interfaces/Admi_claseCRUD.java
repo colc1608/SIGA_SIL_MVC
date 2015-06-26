@@ -67,16 +67,17 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         listaDeClases = dao.ListarClases();
         DefaultTableModel modelo1 = new DefaultTableModel();
 
-        modelo1.addColumn("Grado");
-        modelo1.addColumn("Curso");
-        modelo1.addColumn("Docente");
+        modelo1.addColumn("Grado Completo ");
+        modelo1.addColumn("Nombre del Curso");
+        //modelo1.addColumn("Docente");
 
         for (Clase clase : listaDeClases) {
             modelo1.addRow(new String[]{
                 clase.getCursoGrado().getGrado().getnumeroGrado() + " "
-                + clase.getCursoGrado().getGrado().getSeccion().getDescripcion() + "",
-                clase.getCursoGrado().getCurso().getNombreLargo() + "",
-                clase.getDocente().getNombre() + " " + clase.getDocente().getApellidopaterno() + ""
+                + clase.getCursoGrado().getGrado().getSeccion().getDescripcion() + ""
+                + clase.getCursoGrado().getGrado().getNivel().getNombreLargo() + "",
+                clase.getCursoGrado().getCurso().getNombreLargo()
+            //clase.getDocente().getNombre() + " " + clase.getDocente().getApellidopaterno() + ""
             });
         }
         tblClase.setModel(modelo1);
@@ -203,7 +204,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnBuscarDocente)
                                     .addComponent(btnBuscarCursoPorGrado, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
                         .addGap(21, 21, 21))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -256,7 +257,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblClase);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 240, 260));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, 260));
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -293,18 +294,17 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(303, 303, 303)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(29, 29, 29)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(43, 43, 43)
+                                .addGap(22, 22, 22)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
                                 .addComponent(btnNuevo)
                                 .addGap(31, 31, 31)
                                 .addComponent(btnGuardar)
@@ -312,7 +312,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                                 .addComponent(btnActualizar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnEliminar)))))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -330,7 +330,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                             .addComponent(btnGuardar)
                             .addComponent(btnActualizar)
                             .addComponent(btnEliminar))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -419,9 +419,16 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             cursoGrado = objClaseSeleccionada.getCursoGrado();
             docente = objClaseSeleccionada.getDocente();
 
-            txtCursoPorGrado.setText(String.valueOf(objClaseSeleccionada.getCursoGrado().getGrado().getnumeroGrado()));
-            txtDocente.setText(String.valueOf(objClaseSeleccionada.getDocente().getNombre() + ", "
-                    + objClaseSeleccionada.getDocente().getApellidopaterno()));
+            txtCursoPorGrado.setText(
+                    "'"+objClaseSeleccionada.getCursoGrado().getGrado().getnumeroGrado()+" "
+                    + objClaseSeleccionada.getCursoGrado().getGrado().getSeccion().getDescripcion()+"' "
+                    +"de "+ objClaseSeleccionada.getCursoGrado().getGrado().getNivel().getNombreLargo()
+                    +" -- "+ objClaseSeleccionada.getCursoGrado().getCurso().getNombreLargo()
+            );
+            txtDocente.setText(objClaseSeleccionada.getDocente().getNombre() + ", "
+                    + objClaseSeleccionada.getDocente().getApellidopaterno()
+                    + objClaseSeleccionada.getDocente().getApellidomaterno()
+            );
 
             txtCantidad.setText(String.valueOf(objClaseSeleccionada.getCantidadAlumnos()));
             txtObservacion.setText(String.valueOf(objClaseSeleccionada.getObservacion()));
@@ -492,7 +499,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                 || txtDocente.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
         } else {
-            
+
             try {
                 ClaseDAO dao = new ClaseDAO();
                 Clase clase = objClaseSeleccionada;

@@ -37,7 +37,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         ListarGrados();
         activaCombos(false);
         setLocation(250, 50);
-        
+
     }
 
     //-------------------------------------------------------------------------
@@ -101,7 +101,7 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
             for (Grado grado : listaGrado) {
                 modelo1.addRow(new String[]{
                     //grado.getId() + "",
-                    grado.getNivel().getNombreLargo()+ "",
+                    grado.getNivel().getNombreLargo() + "",
                     grado.getnumeroGrado() + "",
                     grado.getSeccion().getDescripcion() + ""
 
@@ -153,6 +153,11 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informacion del grado", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 12))); // NOI18N
 
         cboNivel.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboNivel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboNivelMouseClicked(evt);
+            }
+        });
 
         cboGrado.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
 
@@ -280,24 +285,25 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNuevo)
-                        .addGap(17, 17, 17)
-                        .addComponent(btnGuardar)
-                        .addGap(19, 19, 19)
-                        .addComponent(btnActualizar)
-                        .addGap(11, 11, 11)
-                        .addComponent(btnEliminar)))
+                        .addGap(27, 27, 27)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNuevo)
+                                .addGap(17, 17, 17)
+                                .addComponent(btnGuardar)
+                                .addGap(19, 19, 19)
+                                .addComponent(btnActualizar)
+                                .addGap(11, 11, 11)
+                                .addComponent(btnEliminar))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(jLabel1)))
                 .addContainerGap(47, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(253, 253, 253)
-                .addComponent(jLabel1)
-                .addGap(103, 313, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -343,9 +349,9 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         String gra = cboGrado.getSelectedItem().toString();
         String sec = cboSeccion.getSelectedItem().toString();
 
-        if (niv.equalsIgnoreCase("") || 
-                gra.equalsIgnoreCase("") || 
-                sec.equalsIgnoreCase("")) {
+        if (niv.equalsIgnoreCase("")
+                || gra.equalsIgnoreCase("")
+                || sec.equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, "debe ingresar los campos requeridos (*)");
 
         } else {
@@ -455,6 +461,33 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void cboNivelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboNivelMouseClicked
+        // TODO add your handling code here:
+        System.out.println("hice lick =P ");
+        System.out.println("la cantidad de elemento del grado es : " + cboGrado.getItemCount());
+        System.out.println("el texto que tiene es: " + cboNivel.getSelectedItem());
+
+        DefaultComboBoxModel model = new DefaultComboBoxModel();
+
+        if (cboNivel.getSelectedItem().equals("PRIMARIA")) {
+            model.addElement("1");
+            model.addElement("2");
+            model.addElement("3");
+            model.addElement("4");
+            model.addElement("5");
+            model.addElement("6");
+        }else if(cboNivel.getSelectedItem().equals("SECUNDARIA")){
+            model.addElement("1");
+            model.addElement("2");
+            model.addElement("3");
+            model.addElement("4");
+            model.addElement("5");
+        }
+
+        cboGrado.setModel(model);
+
+    }//GEN-LAST:event_cboNivelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Eduardo Lopez
+ * @author Cesar Lopez
  */
 public class Admi_Matricula extends javax.swing.JInternalFrame {
 
@@ -29,22 +29,22 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
     Grado objGrado;
     Alumno objAlumno;
     ArrayList<DetalleMatricula> listaDetalleMatricula = new ArrayList<DetalleMatricula>();
-    public List<Clase> listaDeClases;
-    
+    public List<Clase> listaDeClases = new ArrayList<Clase>();
+
     public Admi_Matricula() {
         setLocation(250, 50);
         initComponents();
     }
-    
+
     void cargarDatosAlumno(Alumno objAlumno) {
-        
+
         this.objAlumno = objAlumno;
         txtAlumno.setText(objAlumno.getApellidopaterno() + " " + objAlumno.getApellidomaterno() + ", " + objAlumno.getNombre());
-        
+
     }
-    
+
     void cargarDatosGrado(Grado objGrado) {
-        
+
         this.objGrado = objGrado;
         txtGrado.setText("Grado: " + objGrado.getnumeroGrado()
                 + " - Seccion: " + objGrado.getSeccion().getDescripcion()
@@ -180,19 +180,18 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,7 +206,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -244,7 +243,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
             //modelo1.addColumn("id");
             modelo1.addColumn("Curso");
             modelo1.addColumn("Docente");
-            
+
             for (Clase clase : listaDeClases) {
                 modelo1.addRow(new String[]{
                     //nivel.getId() + "",
@@ -255,7 +254,7 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
                 });
             }
             tblCursoDocente.setModel(modelo1);
-            
+
         }
     }//GEN-LAST:event_btnBuscarGradoActionPerformed
 
@@ -277,15 +276,15 @@ public class Admi_Matricula extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         //PRIMERO ----> insetar la cabecera de Matriculas
-        if (txtAlumno.getText().equals("") || txtGrado.equals("")) {
-            JOptionPane.showMessageDialog(null, "Debe los campos requeridos con (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
+        if (txtAlumno.getText().equals("") || listaDeClases.isEmpty() ) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar los campos requeridos con (*) ", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             Matricula matricula = new Matricula();
             MatriculaDAO dao = new MatriculaDAO();
-            
+
             matricula.setGrado(objGrado);
             matricula.setAlumno(objAlumno);
-            
+
             if (dao.RegistrarMatricula(matricula, listaDeClases)) {
                 txtAlumno.setText("");
                 txtGrado.setText("");
