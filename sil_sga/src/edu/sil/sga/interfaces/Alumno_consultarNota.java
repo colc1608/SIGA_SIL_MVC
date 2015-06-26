@@ -5,6 +5,12 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.PeriodoDAO;
+import edu.sil.sga.entidades.Periodo;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Cesar Lopez
@@ -14,9 +20,30 @@ public class Alumno_consultarNota extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultarNota
      */
+    
+    List<Periodo> listaDeNiveles;
+    
     public Alumno_consultarNota() {
         initComponents();
+        
     }
+    
+    void CargarPeriodo() {
+        try {
+            DefaultComboBoxModel model = new DefaultComboBoxModel();
+            listaDeNiveles = new PeriodoDAO().ListarPeriodo();
+            for (Periodo periodo : listaDeNiveles) {
+                model.addElement(periodo.getDescripcion());
+            }
+            cboPeriodo.setModel(model);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error de base de datos" + e.getMessage());
+            System.out.println("error --> interfaz --> grado --> cargar Nivel" + e.getMessage());
+        }
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -32,17 +59,9 @@ public class Alumno_consultarNota extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cboPeriodo = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
 
         setTitle("Consultar Nota");
 
@@ -75,37 +94,11 @@ public class Alumno_consultarNota extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel2.setText("Consultar Nota");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I Bimestre", "II Bimestre", "III Bimestre", "IV Bimestre" }));
+        cboPeriodo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "I Bimestre", "II Bimestre", "III Bimestre", "IV Bimestre" }));
 
         jLabel3.setText("28/04/2015");
 
         jLabel4.setText("15:26");
-
-        jMenu1.setText("Inicio");
-        jMenuBar1.add(jMenu1);
-
-        jMenu5.setText("Mis Datos");
-        jMenuBar1.add(jMenu5);
-
-        jMenu2.setText("Consultar");
-
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Notas");
-        jMenu2.add(jMenuItem1);
-
-        jMenuBar1.add(jMenu2);
-
-        jMenu4.setText("Ayuda");
-
-        jMenuItem4.setText("Acerca de ");
-        jMenu4.add(jMenuItem4);
-
-        jMenuItem5.setText("Contenido de Ayuda");
-        jMenu4.add(jMenuItem5);
-
-        jMenuBar1.add(jMenu4);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -120,13 +113,13 @@ public class Alumno_consultarNota extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(28, 28, 28)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cboPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39)
                                 .addComponent(jButton1))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(257, 257, 257)
+                        .addGap(263, 263, 263)
                         .addComponent(jLabel2)
-                        .addGap(159, 159, 159)
+                        .addGap(153, 153, 153)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4)))
@@ -140,14 +133,14 @@ public class Alumno_consultarNota extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
-                .addGap(46, 46, 46)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
 
         pack();
@@ -155,20 +148,12 @@ public class Alumno_consultarNota extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cboPeriodo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
