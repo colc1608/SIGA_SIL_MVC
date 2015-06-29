@@ -54,9 +54,9 @@ order by (n.NOMBRELARGO)]]>
 				<text><![CDATA[San Ignacio de Loyola]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="49af398b-b7e2-43ec-acab-9ceea300b930" style="SubTitle" x="351" y="24" width="174" height="22"/>
+				<reportElement uuid="49af398b-b7e2-43ec-acab-9ceea300b930" style="SubTitle" x="310" y="24" width="253" height="22"/>
 				<textElement/>
-				<text><![CDATA[Lista de Alumnos]]></text>
+				<text><![CDATA[Lista de Alumnos Matriculados]]></text>
 			</staticText>
 		</band>
 	</title>
