@@ -225,6 +225,12 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblGrados);
 
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
+            }
+        });
+
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Nivel", "Grado" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -493,6 +499,11 @@ public class Admi_GradoCRUD extends javax.swing.JInternalFrame {
         cboGrado.setModel(model);
 
     }//GEN-LAST:event_cboNivelMouseClicked
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTextField1KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
