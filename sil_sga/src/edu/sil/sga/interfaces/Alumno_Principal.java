@@ -5,6 +5,10 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.entidades.Alumno;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Paul
@@ -14,9 +18,17 @@ public class Alumno_Principal extends javax.swing.JFrame {
     /**
      * Creates new form Alumno_Principal
      */
-    public Alumno_Principal() {
+    
+    public Alumno alumno = new Alumno();
+    
+    public Alumno_Principal(Alumno objAlumno) {
         initComponents();
+        this.alumno = objAlumno;
+        
         this.setExtendedState(this.MAXIMIZED_BOTH);
+        txtNombreDocente.setText(alumno.getNombre() + " "
+                + alumno.getApellidopaterno() + ", "
+                + alumno.getApellidomaterno());
     }
 
     /**
@@ -29,6 +41,10 @@ public class Alumno_Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jdPrincipal = new javax.swing.JDesktopPane();
+        txtNombreDocente = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -43,16 +59,56 @@ public class Alumno_Principal extends javax.swing.JFrame {
 
         jdPrincipal.setBackground(new java.awt.Color(204, 204, 204));
 
+        txtNombreDocente.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        txtNombreDocente.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombreDocente.setText("nombre docente");
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Bienvenido Alumno:");
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Fecha:");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText(new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
+
         javax.swing.GroupLayout jdPrincipalLayout = new javax.swing.GroupLayout(jdPrincipal);
         jdPrincipal.setLayout(jdPrincipalLayout);
         jdPrincipalLayout.setHorizontalGroup(
             jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jdPrincipalLayout.createSequentialGroup()
+                .addContainerGap(465, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(49, 49, 49)
+                .addComponent(jLabel3)
+                .addGap(61, 61, 61))
+            .addGroup(jdPrincipalLayout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabel1)
+                .addGap(28, 28, 28)
+                .addComponent(txtNombreDocente)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jdPrincipalLayout.setVerticalGroup(
             jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 395, Short.MAX_VALUE)
+            .addGroup(jdPrincipalLayout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(40, 40, 40)
+                .addGroup(jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNombreDocente))
+                .addContainerGap(222, Short.MAX_VALUE))
         );
+        jdPrincipal.setLayer(txtNombreDocente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdPrincipal.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdPrincipal.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jdPrincipal.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         jMenu1.setText("Inicio");
 
@@ -123,7 +179,7 @@ public class Alumno_Principal extends javax.swing.JFrame {
 
     private void jEditaDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEditaDatosActionPerformed
         // TODO add your handling code here:
-        Alumno_editarDatos frm = new Alumno_editarDatos();
+        Alumno_editarDatos frm = new Alumno_editarDatos(alumno);
         jdPrincipal.add(frm);
         frm.setVisible(true);
     }//GEN-LAST:event_jEditaDatosActionPerformed
@@ -173,7 +229,7 @@ public class Alumno_Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Alumno_Principal().setVisible(true);
+                new Alumno_Principal(new Alumno()).setVisible(true);
             }
         });
     }
@@ -181,6 +237,9 @@ public class Alumno_Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jConsultaNotas;
     private javax.swing.JMenuItem jEditaDatos;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -189,5 +248,6 @@ public class Alumno_Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JDesktopPane jdPrincipal;
+    private javax.swing.JLabel txtNombreDocente;
     // End of variables declaration//GEN-END:variables
 }

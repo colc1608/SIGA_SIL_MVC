@@ -31,6 +31,7 @@ public class Admi_apoderadoCRUD extends javax.swing.JInternalFrame {
 
     public Admi_apoderadoCRUD() {
         initComponents();
+        setLocation(200, 40);
         ActivaCajas(false);
         ActivaBotones(true, false, false, false);
         ListadoDeApoderado();

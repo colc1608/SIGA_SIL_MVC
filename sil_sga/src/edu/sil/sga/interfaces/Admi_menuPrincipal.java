@@ -5,6 +5,21 @@
  */
 package edu.sil.sga.interfaces;
 
+import Reportes.ReportesGenerales;
+import edu.sil.sga.dao.Conexion;
+import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
+
 /**
  *
  * @author Cesar Lopez
@@ -30,6 +45,7 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jdPrincipal = new javax.swing.JDesktopPane();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuInicio = new javax.swing.JMenu();
         menuItemPrincipal = new javax.swing.JMenuItem();
@@ -57,21 +73,31 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         menuItemAcercaDe = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jdPrincipal.setBackground(new java.awt.Color(204, 204, 204));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo2.jpg"))); // NOI18N
+
         javax.swing.GroupLayout jdPrincipalLayout = new javax.swing.GroupLayout(jdPrincipal);
         jdPrincipal.setLayout(jdPrincipalLayout);
         jdPrincipalLayout.setHorizontalGroup(
             jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+            .addGroup(jdPrincipalLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 775, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jdPrincipalLayout.setVerticalGroup(
             jdPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 332, Short.MAX_VALUE)
+            .addGroup(jdPrincipalLayout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 391, Short.MAX_VALUE)
+                .addContainerGap())
         );
+        jdPrincipal.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         menuInicio.setText("Inicio");
 
@@ -254,6 +280,26 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuAyuda);
 
+        jMenu1.setText("Reporte");
+
+        jMenuItem3.setText("Alumnos");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem3);
+
+        jMenuItem4.setText("Reportes Generales");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem4);
+
+        jMenuBar1.add(jMenu1);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -330,21 +376,21 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
     private void menuItemPeriodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPeriodoActionPerformed
         // TODO add your handling code here:
-        
+
         Admi_periodoCRUD frm = new Admi_periodoCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-        
+
     }//GEN-LAST:event_menuItemPeriodoActionPerformed
 
     private void menuItemTipoEvaluacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTipoEvaluacionActionPerformed
         // TODO add your handling code here:
-        
+
         Admi_tipoEvaluacionCRUD frm = new Admi_tipoEvaluacionCRUD();
         jdPrincipal.add(frm);
         frm.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_menuItemTipoEvaluacionActionPerformed
 
     private void menuItemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSalirActionPerformed
@@ -388,9 +434,50 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
     private void menuItemAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAcercaDeActionPerformed
         // TODO add your handling code here:
-        acercaDeSIL form = new acercaDeSIL(null,true);
+        acercaDeSIL form = new acercaDeSIL(null, true);
         form.setVisible(true);
     }//GEN-LAST:event_menuItemAcercaDeActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+
+        /*String path = "C:\\Users\\Eduardo Lopez\\Documents\\NetBeansProjects\\sil_sga\\sil_sga\\src\\Reportes";
+        JasperReport jr = null;
+        try {
+            Connection con = Conexion.getConnection();
+            jr = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, con);
+            JasperViewer jv = new JasperViewer(jp);
+            jv.setVisible(true);
+            jv.setTitle(path);
+
+        } catch (Exception ex) {
+            System.out.println("ERROR --> REPORTE -->"+ex.getMessage());
+            ex.printStackTrace();
+        }*/
+        
+         try {
+         Connection con = Conexion.getConnection();
+         JasperReport reporte = JasperCompileManager.compileReport("src/Reportes/ListarAlumnos.jrxml");
+         JasperPrint print = JasperFillManager.fillReport(reporte, null, con);
+         JasperViewer.viewReport(print);
+         } catch (Exception e) {
+         System.out.println("ERROR --> ABRIR --> REPORTE  " + e.getMessage());
+         e.printStackTrace();
+         }
+         
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        
+        
+        
+        ReportesGenerales frm = new ReportesGenerales();
+        jdPrincipal.add(frm);
+        frm.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,11 +516,15 @@ public class Admi_menuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuItemUsuario;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JDesktopPane jdPrincipal;
     private javax.swing.JMenu menuAccesos;

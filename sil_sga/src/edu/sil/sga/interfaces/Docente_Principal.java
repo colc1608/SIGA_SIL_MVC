@@ -6,7 +6,6 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.entidades.Docente;
-import edu.sil.sga.entidades.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -97,7 +96,7 @@ public class Docente_Principal extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jdPrincipalDocenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(txtNombreDocente))
                 .addContainerGap(265, Short.MAX_VALUE))

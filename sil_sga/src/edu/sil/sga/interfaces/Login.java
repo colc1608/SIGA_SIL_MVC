@@ -5,8 +5,10 @@
  */
 package edu.sil.sga.interfaces;
 
+import edu.sil.sga.dao.AlumnoDAO;
 import edu.sil.sga.dao.DocenteDAO;
 import edu.sil.sga.dao.UsuarioDAO;
+import edu.sil.sga.entidades.Alumno;
 import edu.sil.sga.entidades.Docente;
 import edu.sil.sga.entidades.Usuario;
 import javax.swing.JOptionPane;
@@ -134,13 +136,16 @@ public class Login extends javax.swing.JDialog {
                     
                 } else if (objUsuario.getTipo().equalsIgnoreCase("2")) {
                     this.dispose();
+                    Alumno alumno = new Alumno();
+                    alumno = new AlumnoDAO().devolverAlumno(objUsuario);
                     
-                    Alumno_Principal frm = new Alumno_Principal();
+                    Alumno_Principal frm = new Alumno_Principal(alumno);
                     frm.setVisible(true);
                     
                     
                 } else {
                     this.dispose();
+                    
                     Admi_menuPrincipal frm = new Admi_menuPrincipal();
                     frm.setVisible(true);
 

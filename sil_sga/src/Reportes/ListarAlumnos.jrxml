@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d1430b2d-c372-4333-ad5b-f2f8292bab0b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[select a.NOMBRE, a.APELLIDOMATERNO, a.APELLIDOPATERNO, a.DNI, g.NUMEROGRADO, s.DESCRIPCION ,n.NOMBRELARGO 
+from alumno a, matricula m, grado g, NIVELEDUCACION n, seccion s where
+a.ID = m.IDALUMNO and
+m.IDGRADO = g.id and
+g.IDSECCION = s.ID and
+g.IDNIVELEDUCACION = n.ID
+order by (n.NOMBRELARGO)]]>
+	</queryString>
+	<field name="NOMBRE" class="java.lang.String"/>
+	<field name="APELLIDOMATERNO" class="java.lang.String"/>
+	<field name="APELLIDOPATERNO" class="java.lang.String"/>
+	<field name="DNI" class="java.lang.String"/>
+	<field name="NUMEROGRADO" class="java.lang.String"/>
+	<field name="DESCRIPCION" class="java.lang.String"/>
+	<field name="NOMBRELARGO" class="java.lang.String"/>
+	<group name="NOMBRELARGO">
+		<groupExpression><![CDATA[$F{NOMBRELARGO}]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="22517788-be6a-4081-97c0-92610c1bd106" style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#006600"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{NOMBRELARGO}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement uuid="baea3b1e-6803-4723-9b13-f6d0f540a4bb" mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="aca896cd-7309-4551-a229-05bff529d655" style="Title" x="0" y="13" width="310" height="33"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[San Ignacio de Loyola]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="49af398b-b7e2-43ec-acab-9ceea300b930" style="SubTitle" x="351" y="24" width="174" height="22"/>
+				<textElement/>
+				<text><![CDATA[Lista de Alumnos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="13602a52-3f78-45af-a272-d4e40b72dfb7" positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement uuid="b3267b4b-c09b-4f2f-bf17-03cfe1ad9c3c" style="Column header" x="0" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="54a43578-ac21-48e3-a8f2-fe59bbd45076" style="Column header" x="92" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[APELLIDOMATERNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d9ee6067-978d-4378-87b3-3db6571b6814" style="Column header" x="184" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[APELLIDOPATERNO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="24ad2457-6f11-4fd8-b91c-722a8a15aa07" style="Column header" x="276" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[DNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f5c26e01-a6f6-4ed3-9472-c01f6ec58cc6" style="Column header" x="368" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[NUMEROGRADO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="aa996c10-1c33-4e2c-a590-6d0fdab0e115" style="Column header" x="460" y="19" width="92" height="15"/>
+				<textElement/>
+				<text><![CDATA[DESCRIPCION]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement uuid="7bdd086c-af46-4252-a165-8a068ddbe096" positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement uuid="7c5b906d-951f-403c-b3b7-21df1537835d" style="Detail" x="0" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="875e38e7-db04-40c7-9b25-bc25d7bb3123" style="Detail" x="92" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{APELLIDOMATERNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="253c52b0-4e38-4328-aad8-f5b5c37d511e" style="Detail" x="184" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{APELLIDOPATERNO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7e2540bd-7801-4cdc-a6e7-261f61bf1401" style="Detail" x="276" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DNI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ce007147-a590-4ac5-be59-f03cb3d0cc7b" style="Detail" x="368" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NUMEROGRADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6acd06f4-403a-443f-8855-f689b3cebf8a" style="Detail" x="460" y="0" width="92" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{DESCRIPCION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement uuid="2574e892-2534-4513-ba9b-ff2020c48932" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement uuid="a0600153-32c6-472c-826c-5bcd17e361e9" style="Column header" x="433" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="f7f8ce8d-66c0-49f2-ae21-e7948a3eca6f" style="Column header" x="513" y="0" width="40" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="e2f776a9-9114-45ad-a259-318bf375ad01" style="Column header" x="0" y="0" width="197" height="20"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

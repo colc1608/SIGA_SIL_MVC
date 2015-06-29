@@ -37,7 +37,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     //INICIALIZACION
     public Admi_claseCRUD() {
         initComponents();
-        setLocation(250, 100);
+        setLocation(120, 50);
         activaBotones(true, false, false, false);
         ListarClases();
         activaCajas(false);
@@ -85,7 +85,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     }
 
     void activaCajas(boolean a) {
-        txtCantidad.setEnabled(a);
+        
         txtObservacion.setEnabled(a);
         txtCursoPorGrado.setEnabled(a);
 
@@ -100,7 +100,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
         txtDocente.setText("");
         txtObservacion.setText("");
-        txtCantidad.setText("");
     }
 
     public void activaBotones(boolean a, boolean b, boolean c, boolean d) {
@@ -120,8 +119,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        txtCantidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtDocente = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -144,10 +141,9 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("I.E.P. San Ignacio de Loyola - Gestionar Clase");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos de clase"));
-
-        jLabel5.setText("* Cantidad de Alumnos");
 
         jLabel4.setText("* Docente:");
 
@@ -159,14 +155,15 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         txtCursoPorGrado.setEditable(false);
         txtCursoPorGrado.setEnabled(false);
 
-        btnBuscarCursoPorGrado.setText("Buscar");
+        btnBuscarCursoPorGrado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscar.png"))); // NOI18N
+        btnBuscarCursoPorGrado.setToolTipText("Buscar un Curso Por Grado");
         btnBuscarCursoPorGrado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarCursoPorGradoActionPerformed(evt);
             }
         });
 
-        btnBuscarDocente.setText("Buscar");
+        btnBuscarDocente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnBuscar.png"))); // NOI18N
         btnBuscarDocente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarDocenteActionPerformed(evt);
@@ -189,51 +186,45 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
+                .addGap(36, 36, 36)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6))
-                        .addGap(36, 36, 36)
+                            .addComponent(txtCursoPorGrado)
+                            .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDocente)
-                                    .addComponent(txtCursoPorGrado))
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnBuscarDocente)
-                                    .addComponent(btnBuscarCursoPorGrado, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))
-                        .addGap(21, 21, 21))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCantidad)
-                        .addGap(104, 104, 104))))
+                                .addComponent(btnBuscarCursoPorGrado))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBuscarDocente))))
+                    .addComponent(jScrollPane2))
+                .addGap(21, 21, 21))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnBuscarCursoPorGrado)
-                    .addComponent(txtCursoPorGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCursoPorGrado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscarDocente)
-                    .addComponent(jLabel4))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnBuscarDocente, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtDocente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Listar Clases"));
@@ -259,6 +250,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 340, 260));
 
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnNuevo.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +258,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             }
         });
 
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnGuardar.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -273,6 +266,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             }
         });
 
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnActualizar.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,6 +274,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/btnEliminar.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,6 +282,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel1.setText("Gestion de Clase");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -294,43 +290,44 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(330, 330, 330)
+                .addComponent(jLabel1)
+                .addContainerGap(542, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(22, 22, 22)
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(81, 81, 81)
-                                .addComponent(btnNuevo)
-                                .addGap(31, 31, 31)
-                                .addComponent(btnGuardar)
-                                .addGap(27, 27, 27)
-                                .addComponent(btnActualizar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnEliminar)))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                        .addGap(85, 85, 85)
+                        .addComponent(btnNuevo)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGuardar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnActualizar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnNuevo)
-                            .addComponent(btnGuardar)
-                            .addComponent(btnActualizar)
-                            .addComponent(btnEliminar))))
-                .addContainerGap(30, Short.MAX_VALUE))
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -368,8 +365,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         if (txtCursoPorGrado.getText().equalsIgnoreCase("")
-                || txtDocente.getText().equalsIgnoreCase("")
-                || txtCantidad.getText().equalsIgnoreCase("")) {
+                || txtDocente.getText().equalsIgnoreCase("")) {
 
             JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
 
@@ -389,7 +385,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
             clase.setCursoGrado(cursoGrado);
             clase.setDocente(docente);
 
-            clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
             clase.setObservacion(txtObservacion.getText());
 
             if (dao.RegistrarClase(clase)) {
@@ -430,7 +425,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
                     + objClaseSeleccionada.getDocente().getApellidomaterno()
             );
 
-            txtCantidad.setText(String.valueOf(objClaseSeleccionada.getCantidadAlumnos()));
             txtObservacion.setText(String.valueOf(objClaseSeleccionada.getObservacion()));
 
             btnNuevo.setText("Nuevo");
@@ -460,8 +454,7 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
 
         if (txtCursoPorGrado.getText().equalsIgnoreCase("")
-                || txtDocente.getText().equalsIgnoreCase("")
-                || txtCantidad.getText().equalsIgnoreCase("")) {
+                || txtDocente.getText().equalsIgnoreCase("")) {
             JOptionPane.showMessageDialog(this, " Debe ingresar los campos requeridos (*) ");
         } else {
             try {
@@ -470,7 +463,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
                 clase.setCursoGrado(cursoGrado);
                 clase.setDocente(docente);
-                clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
                 clase.setObservacion(txtObservacion.getText());
 
                 if (dao.ActualizarClase(clase)) {
@@ -506,7 +498,6 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
 
                 clase.setCursoGrado(cursoGrado);
                 clase.setDocente(docente);
-                clase.setCantidadAlumnos(Integer.parseInt(txtCantidad.getText()));
                 clase.setObservacion(txtObservacion.getText());
 
                 if (dao.EliminarClase(clase)) {
@@ -539,14 +530,12 @@ public class Admi_claseCRUD extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblClase;
-    private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCursoPorGrado;
     private javax.swing.JTextField txtDocente;
     private javax.swing.JTextArea txtObservacion;
