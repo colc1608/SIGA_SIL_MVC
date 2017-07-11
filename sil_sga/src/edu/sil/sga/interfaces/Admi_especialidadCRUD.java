@@ -6,7 +6,7 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.EspecialidadDAO;
-import edu.sil.sga.entidades.Especialidad;
+import edu.sil.siga.bean.Especialidad;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

@@ -7,9 +7,9 @@ package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.ApoderadoDAO;
 import edu.sil.sga.dao.ParentescoDAO;
-import edu.sil.sga.entidades.Alumno;
-import edu.sil.sga.entidades.Apoderado;
-import edu.sil.sga.entidades.Parentesco;
+import edu.sil.siga.bean.Alumno;
+import edu.sil.siga.bean.Apoderado;
+import edu.sil.siga.bean.Parentesco;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;

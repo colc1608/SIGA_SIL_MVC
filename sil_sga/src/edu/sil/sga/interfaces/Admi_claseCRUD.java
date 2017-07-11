@@ -6,11 +6,11 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.ClaseDAO;
-import edu.sil.sga.entidades.Clase;
-import edu.sil.sga.entidades.Curso;
-import edu.sil.sga.entidades.CursoPorGrado;
-import edu.sil.sga.entidades.Docente;
-import edu.sil.sga.entidades.Grado;
+import edu.sil.siga.bean.Clase;
+import edu.sil.siga.bean.Curso;
+import edu.sil.siga.bean.CursoPorGrado;
+import edu.sil.siga.bean.Docente;
+import edu.sil.siga.bean.Grado;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

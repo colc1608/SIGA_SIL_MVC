@@ -6,7 +6,7 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.CursoDAO;
-import edu.sil.sga.entidades.Curso;
+import edu.sil.siga.bean.Curso;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 

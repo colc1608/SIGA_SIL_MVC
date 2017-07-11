@@ -6,8 +6,8 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.AlumnoDAO;
-import edu.sil.sga.entidades.Alumno;
-import edu.sil.sga.entidades.Grado;
+import edu.sil.siga.bean.Alumno;
+import edu.sil.siga.bean.Grado;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

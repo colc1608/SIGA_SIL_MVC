@@ -7,11 +7,11 @@ package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.ClaseDAO;
 import edu.sil.sga.dao.MatriculaDAO;
-import edu.sil.sga.entidades.Alumno;
-import edu.sil.sga.entidades.Clase;
-import edu.sil.sga.entidades.DetalleMatricula;
-import edu.sil.sga.entidades.Grado;
-import edu.sil.sga.entidades.Matricula;
+import edu.sil.siga.bean.Alumno;
+import edu.sil.siga.bean.Clase;
+import edu.sil.siga.bean.DetalleMatricula;
+import edu.sil.siga.bean.Grado;
+import edu.sil.siga.bean.Matricula;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;

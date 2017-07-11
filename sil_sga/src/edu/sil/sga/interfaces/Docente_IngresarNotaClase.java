@@ -7,12 +7,12 @@ package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.AlumnoDAO;
 import edu.sil.sga.dao.NotaDAO;
-import edu.sil.sga.entidades.Alumno;
-import edu.sil.sga.entidades.Clase;
-import edu.sil.sga.entidades.Docente;
-import edu.sil.sga.entidades.Nota;
-import edu.sil.sga.entidades.Periodo;
-import edu.sil.sga.entidades.TipoEvaluacion;
+import edu.sil.siga.bean.Alumno;
+import edu.sil.siga.bean.Clase;
+import edu.sil.siga.bean.Docente;
+import edu.sil.siga.bean.Nota;
+import edu.sil.siga.bean.Periodo;
+import edu.sil.siga.bean.TipoEvaluacion;
 import java.util.List;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;

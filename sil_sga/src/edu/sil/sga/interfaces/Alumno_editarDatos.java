@@ -5,7 +5,7 @@
  */
 package edu.sil.sga.interfaces;
 
-import edu.sil.sga.entidades.Alumno;
+import edu.sil.siga.bean.Alumno;
 
 /**
  *

@@ -6,7 +6,7 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.UsuarioDAO;
-import edu.sil.sga.entidades.Usuario;
+import edu.sil.siga.bean.Usuario;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

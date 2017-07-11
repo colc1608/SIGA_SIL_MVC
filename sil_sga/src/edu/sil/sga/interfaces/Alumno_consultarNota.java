@@ -6,7 +6,7 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.PeriodoDAO;
-import edu.sil.sga.entidades.Periodo;
+import edu.sil.siga.bean.Periodo;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;

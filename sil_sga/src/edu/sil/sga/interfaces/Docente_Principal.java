@@ -5,7 +5,7 @@
  */
 package edu.sil.sga.interfaces;
 
-import edu.sil.sga.entidades.Docente;
+import edu.sil.siga.bean.Docente;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

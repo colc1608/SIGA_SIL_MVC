@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package edu.sil.siga.dao;
+package edu.sil.sga.dao;
 import edu.sil.siga.bean.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -6,7 +6,7 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.DocenteDAO;
-import edu.sil.sga.entidades.Docente;
+import edu.sil.siga.bean.Docente;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;

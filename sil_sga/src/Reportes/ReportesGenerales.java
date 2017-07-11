@@ -6,9 +6,9 @@
 package Reportes;
 
 import edu.sil.sga.dao.Conexion;
-import edu.sil.sga.entidades.CursoPorGrado;
-import edu.sil.sga.entidades.Docente;
-import edu.sil.sga.entidades.Grado;
+import edu.sil.siga.bean.CursoPorGrado;
+import edu.sil.siga.bean.Docente;
+import edu.sil.siga.bean.Grado;
 import edu.sil.sga.interfaces.Admi_buscarDocente;
 import edu.sil.sga.interfaces.Admi_buscarGrado;
 import edu.sil.sga.interfaces.Admin_buscarCursoPorGrado;

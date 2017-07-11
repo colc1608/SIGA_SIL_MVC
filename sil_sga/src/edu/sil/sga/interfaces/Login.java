@@ -8,9 +8,9 @@ package edu.sil.sga.interfaces;
 import edu.sil.sga.dao.AlumnoDAO;
 import edu.sil.sga.dao.DocenteDAO;
 import edu.sil.sga.dao.UsuarioDAO;
-import edu.sil.sga.entidades.Alumno;
-import edu.sil.sga.entidades.Docente;
-import edu.sil.sga.entidades.Usuario;
+import edu.sil.siga.bean.Alumno;
+import edu.sil.siga.bean.Docente;
+import edu.sil.siga.bean.Usuario;
 import javax.swing.JOptionPane;
 
 /**

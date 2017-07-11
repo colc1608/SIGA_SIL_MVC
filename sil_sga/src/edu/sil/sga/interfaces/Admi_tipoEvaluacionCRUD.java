@@ -6,7 +6,7 @@
 package edu.sil.sga.interfaces;
 
 import edu.sil.sga.dao.TipoEvaluacionDAO;
-import edu.sil.sga.entidades.TipoEvaluacion;
+import edu.sil.siga.bean.TipoEvaluacion;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
