@@ -1,2 +1,4 @@
-# sil_sga
-Gestion de Notas para el colegio SIL
+# SIGA
+Sistema de Informacion para la Gestion Academica
+
+Netbeans
